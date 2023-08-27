@@ -49,9 +49,11 @@
         <a href="{{ relURL "community" }}"{{ if (eq $section "community") }} class="active"{{ end }}>Community</a>
       </li>
     </ul>
+    <hr class="sidebar">
     {{ if (eq .Params.Sidebar "book") }}
-      <hr class="sidebar">
       {{ partial "translations.html" }}
+    {{ else if (and (ne $section "documentation") (ne $section "site")) }}
+      {{ partial "book.html" }}
     {{ end }}
   </nav>
 </aside>
