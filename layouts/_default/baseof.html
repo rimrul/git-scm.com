@@ -104,7 +104,7 @@
 
           <!-- older manual page versions are less interesting -->
           {{ $reduce_weight := (and (isset .Params "docname") (not (isset .Params "latest-changes"))) }}
-          <div id="main"{{ if $reduce_weight }} data-pagefind-weight="0.5"{{ end }} data-pagefind-body>
+          <div id="main"{{ if $reduce_weight }} data-pagefind-weight="0.5"{{ end }} data-pagefind-filter="category:{{ $section }}" data-pagefind-body>
             {{ .Content }}
           </div>
         </div>
@@ -115,7 +115,7 @@
     <div class="inner">
       <div id="content-wrapper">
         {{ partial "sidebar.html" . }}
-        <div id="content" data-pagefind-body>
+        <div id="content" data-pagefind-filter="category:{{ $section }}" data-pagefind-body>
           {{ if isset .Params "video_title" }}
 	    <div id="main">
               <h1>{{ .Params.category }} Episode {{ .Params.episode }}</h1>
