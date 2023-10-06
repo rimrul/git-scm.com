@@ -102,7 +102,9 @@
             {{ partial "ref/versions.html" . }}
           </div>
 
-          <div id="main" data-pagefind-body>
+          <!-- older manual page versions are less interesting -->
+          {{ $reduce_weight := (and (isset .Params "docname") (not (isset .Params "latest-changes"))) }}
+          <div id="main"{{ if $reduce_weight }} data-pagefind-weight="0.5"{{ end }} data-pagefind-body>
             {{ .Content }}
           </div>
         </div>
