@@ -1,0 +1,839 @@
+---
+versions: {}
+pages:
+  git-add:
+    version-map: {}
+    languages:
+      de: 7333d960a04b5956a8b4a93f788dfe90b0db8245
+      es: e79e0811ec4c8b621061a044abe309f4111a54e9
+      fr: 7aac7de198f56b2db1aa63721885cc9ecbd1bd64
+      is: 9f654b0b92614e3857162466c6786229aa13caff
+      ja: bdec37e853738df308b72b243e15ac1a76ca9eef
+      pt_BR: a6d9cb0526a3771de6789517500f90db39759522
+      ro: 8a9b8e5bbf41a51a8bbeb8179dbac91ef4915061
+      zh_HANS-CN: 69fc049504814860d7effe4e536b7bdffdf7a7d2
+  git-citool:
+    version-map: {}
+    languages:
+      de: b95ba25b2393e2dc0ae802c9d976d00a3a2b604a
+      fr: 1f46019d4fb10e0cb68b6713e1464e6d0e1a42e5
+      pt_BR: e8c3fb29587bf4c5a3a174ff397fb891fed6e9b6
+      zh_HANS-CN: d978711686c25d3b23863fcbb32e462d07a4a5d9
+  git-clone:
+    version-map: {}
+    languages:
+      de: fc3d4c43f0df893bbab5eb890e6434c212184aa6
+      es: a62592efd77e0280fb85a2c7b5d319a17804c2f7
+      fr: 9a7534c594113146a8e24072233ba973d4ce9bd9
+      is: c0bd10cedc363b83c67a5befbcdc25c1698dbbd1
+      ja: 31a0be750481b833e684ed5e2e608630e1a0e162
+      pt_BR: 3cb7be2abbbca199d3e656b07edce26bab8e2516
+      ro: e0d286b3542dc2ca303dee3153c9b3251f1b920c
+      zh_HANS-CN: de49c28e9f0a2556e6d9847aa51e8e14f2758a85
+  git-config:
+    version-map: {}
+    languages:
+      de: cfc4dde585cd604b17807e748698ba0e59d518ae
+      fr: 5eb18ea6d7b318c99df9d190f633131beddafd22
+      pt_BR: 1d8b51f6c6e77d99ce145c0860a16692388919dd
+      zh_HANS-CN: c37ac23cf70a27b176b9c1105b8f62912177e409
+  git-credential:
+    version-map: {}
+    languages:
+      de: f4dcdabc677be4ccccfe423c94752ff9c61ca5e6
+      fr: b2a622831191e00fd57580f57764bab1eca85e4a
+      pt_BR: 3500f02f309c791259b097d211ff4e4006690a0a
+      zh_HANS-CN: f2c3313e83be49e20932ddb3af4c49aa467a2b11
+  git-diff:
+    version-map: {}
+    languages:
+      de: 2b5d38791050f6f04dc47bfaa2672c407e4ca5a0
+      fr: b1746a1ef43c0539e711251cb413766622fa88f2
+      pt_BR: 177b2a4518e5e48b8f80530b0bceaee339a157de
+  git-fsck-objects:
+    version-map: {}
+    languages:
+      de: 5e5be53834f3a4d9991102e3c9d5b02bd794e839
+      fr: 0b6a30aafdf0a7fcb050a77deb291e60e5af9bc0
+      pt_BR: 90e09ff211d2a8eb6307ea83b12d26575920400f
+      ru: 757c61ebb7e863bb2e83822c5b3d85cb4d52516a
+      zh_HANS-CN: f726d78f872e42fa56657b14f44df1213e03f787
+  git-init-db:
+    version-map: {}
+    languages:
+      de: 0ba9813f1b6fb3b442cad4e89110d329de8ee7e5
+      fr: 74a1538672cc9ca1a0d0ab52b2edc8d75527ee28
+      ja: 91640ed90c0c9c5c4e16ba86e720996c4f342b6c
+      pt_BR: 80179830d14ece4fce903da4c37a8e92596625f3
+      ru: ee1e1ed94fa1518dda801f2f7cf536236093a014
+      zh_HANS-CN: 5013b0ef05a4d92ee3682a93fce077489c40e10f
+  git-init:
+    version-map: {}
+    languages:
+      de: 873833711dcd4fb1392e085eff41c261081f321a
+      es: 784e35234b8c213414081ef99e2a2b78333be05f
+      fr: d2e3c2d35cc6e0e9ce9902ab48b00c2b4179a6b0
+      is: 2a4aa3aa0bd711227d60fb643a0a358870bf2e16
+      ja: 8fedc2d10fe7953daba294be49ee015634597f0f
+      pt_BR: ae39868c488255cbc6a32e46da80b10d3a6d5563
+      ro: 424e10102aee330adb90ad68646b7c11355859b2
+      zh_HANS-CN: 043c23a948b1e610aa6263a82ba11dac405a580a
+      zh_HANT: ed7307eb73b82f96bc789435beff0ced34edfa9c
+  git-merge-one-file:
+    version-map: {}
+    languages:
+      de: 658f8f845337b9dfebc29c196ba3c9654f9f4bfa
+      fr: 7445ed25634fc95c0b18a8c6ae8a237ab59aaeea
+      pt_BR: 4e71da01306e09f22a0a5f084e40b6e2c40d45a5
+      ru: 5ece33eebde17eac0b12cb47e2583bc9bb8bc2ee
+      zh_HANS-CN: 82550246433d87b119558cc7abc5387560b48e6e
+  git-mv:
+    version-map: {}
+    languages:
+      de: 318a4e849d44b9923f218742311181f3a1966d28
+      fr: 998dd3da0349c84ead45d55add4331e17ba25b95
+      pt_BR: ec92bb577b322f0e5277eb30ce856f23b48da281
+      zh_HANS-CN: 2f8c93d6b12ba7e9154295d476ad005f49e89276
+  git-restore:
+    version-map: {}
+    languages:
+      de: 370c234aede02bdaef6cdce44fcf98ac288afb93
+      fr: 87d549f5ee9fde70b235471f88a24793a8981be5
+      pt_BR: b52472696ce9aed5eb3ac6d1e49537eac53abc74
+      zh_HANS-CN: 0113e67071a522cbf423acf7001668848bc6e5c3
+  git-rev-list:
+    version-map: {}
+    languages:
+      de: 23d28fda43bda6f361975696650e03af50216ad1
+      fr: '028dff57b4eebe1e8cdbab426ab39db5c19f7108'
+      pt_BR: 8a2c7e8a71b06c644e41698f31f95c76de668f83
+  git-stage:
+    version-map: {}
+    languages:
+      de: 29dce2f01792dbc04c711344f978dcc31970f04c
+      fr: b0f721cfc4eb4d521f8e6f17e1a24deec665d710
+      pt_BR: be019c38e7cf6f87032b695aa5ee9a241e255974
+      ru: '07834332fdfa1803cd62ec853771d3949d04287f'
+  git-verify-commit:
+    version-map: {}
+    languages:
+      de: 00f86ccfba98d1fd7dde4fd3a1ee45aa9f60a8dc
+      pt_BR: be19aab924e1c55b5f945b885c8b3eb80d2ee23b
+  git-verify-tag:
+    version-map: {}
+    languages:
+      de: 8694e673bcec7cd79336f9f480a6062c3173f82b
+      pt_BR: 67f6f6419a7a130d3f653c9cff29f3d166d7a632
+  git-write-tree:
+    version-map: {}
+    languages:
+      de: a83dacf8ca344eb4701bb9c34e6bba773760869b
+      pt_BR: 9e2d79941fd25fa112fb049c8a0c9b13887eaf19
+  git:
+    version-map: {}
+    languages:
+      de: b0c162358357aa4168c12e159e07472432697710
+      es: 3b080163d33cc0c2583df57d1cc7fb760769c1da
+      pt_BR: 43242d53e788f7ee2576119f0c9667bde35f28a6
+  gitglossary:
+    version-map: {}
+    languages:
+      de: 1b2b3d2bcb5aab6d4aafd9607cdc9e44c9cea635
+      es: d81e4b957da1dc192f74577454f36c7e6c60fd4b
+      fr: caeda77c83d9604f885ee2cae452770b7fd437dc
+      id: d29759aad76a860b7ff549c1e915c70bfde304e2
+      it: 92879f4ea91773f2e9fa2b2ca5b622552b92ea93
+      ja: 29dfe5bb6a33ee6f4dd95f453b3a5fcc5bd456db
+      ko: 6d4430d4e4b75bb20e4da6753f5d4f61dde195c8
+      pt_BR: 7210f9d15635c8079421bc1084c9d732ab6cb03b
+      ru: c14fd7db942044081d2c1918cd53bf907d17cc38
+      uk: aaf91c0480ca43aed20c9cb7da5594d6be00a393
+      zh_HANS-CN: 83d88475b486cdcd06c3ab181035d7c98c9ef679
+  git-am:
+    version-map: {}
+    languages:
+      fr: 48f99e55f9e1afb2f747e9a6f26f81c27796b622
+      pt_BR: 45c280a3429cf076e25ed0e872cfb8cc2982c79c
+      zh_HANS-CN: aff4c0065e4a03e16ad1d43a67c725e839a1bd61
+  git-annotate:
+    version-map: {}
+    languages:
+      fr: 9dc1b9d6874175cb3dd5893f330f021865d4278d
+      pt_BR: 5fe499e3b670df30e2216c3507ba59fe23b55c58
+      ru: 27d2d31ae3fba5e6e8380492f9c846e8628cb0aa
+      zh_HANS-CN: b4d412e66f530c9ec9f85a9c2c6abc65ac902e84
+  git-apply:
+    version-map: {}
+    languages:
+      fr: 1cf60a88fb525405c00b522d74004773db94140c
+      pt_BR: 607ca57d4e11cf25b74c7817ed1dbf47c63c7607
+      zh_HANS-CN: 1e12f21521c45f93c867a06c74252a9b19641f4d
+  git-archimport:
+    version-map: {}
+    languages:
+      fr: c14b8f34853bf45624eec57038cb061a864a43ec
+      pt_BR: becd840856ef98ee1cb1155292387aafa77b1ec9
+      zh_HANS-CN: 30b46ef18600c8999dee0c025b76732099cc1538
+  git-archive:
+    version-map: {}
+    languages:
+      fr: 5b1bf99e244cc26fac0ee5c56aeed8285c7bb39b
+      pt_BR: fa061f86a94a48d1877dd70561e22636e39a62d6
+  git-bisect:
+    version-map: {}
+    languages:
+      fr: 46e96884e8c14f099596b1ac831f7c5c0672e64a
+      pt_BR: ead020ef1cb092d2d4d596fe64cce64cfa962f5c
+  git-blame:
+    version-map: {}
+    languages:
+      fr: 0d30bf0bcdaf2a2f97d3675576bc10d4f7483822
+      pt_BR: b77d23ad3ba30d768243a2ec3a17d1f7ce4e6186
+      zh_HANS-CN: 20b01c85751df004e72f200907053fe4269d9835
+  git-branch:
+    version-map: {}
+    languages:
+      fr: e8592f13cbc2d1020adfe8818ac04e10f1d5b117
+      pt_BR: 2a4cceeb933a009dcde67cda6757da4cb106daea
+      zh_HANS-CN: 22b92713f8b8785d53f72eada196964fc417c13d
+  git-bugreport:
+    version-map: {}
+    languages:
+      fr: e59823976d3ac51459bdc15c78edac648410676f
+      pt_BR: 85117cebcb2cbadbdc925e53beedd2c314afebe4
+      zh_HANS-CN: 8aaac0eeae68c8363954b39878f2cf5ebb32be72
+  git-bundle:
+    version-map: {}
+    languages:
+      fr: ff3428c93257d1045e3eebb313a5716d4aba843c
+      pt_BR: c2d2a1a89d63418448d3b12e455842ff966644e8
+      zh_HANS-CN: c34c07bb3a220580215bd0f7056cd1b9159737a6
+  git-cat-file:
+    version-map: {}
+    languages:
+      fr: 0ad9f495466670c4c9853681c09bf28de6f0435a
+      pt_BR: 90da27901dcacdb776b19466a16ededcd07b9f9d
+  git-check-attr:
+    version-map: {}
+    languages:
+      fr: c53365cf48f8b68154346406ffd98d37150ce782
+      pt_BR: c9c6f7155f2663951e87c0d72c1f94a71bea33a7
+      zh_HANS-CN: 6b260c3cb23ab5049abcab617f7880eba399dbdb
+  git-check-ignore:
+    version-map: {}
+    languages:
+      fr: fe2c2a36a0ea6d7a9bf6727493881d8706603b40
+      pt_BR: 17768933c0737b4fd9420d73ff8e8b16225ac69e
+  git-check-mailmap:
+    version-map: {}
+    languages:
+      fr: '0842eef3bd61ced33fada40013385c9e2ea6d811'
+      pt_BR: 9dd079847e7bb494fe79874c53d9ccdbf8d54ef4
+      zh_HANS-CN: 9b3d197de49d24559053febe0113afdad44a1532
+  git-check-ref-format:
+    version-map: {}
+    languages:
+      fr: 6747f96ffef07bf9dea7cf01c6ad65d85ae09bd4
+      pt_BR: be229b75e8a692b6e367ead18042cc1710a956a4
+      zh_HANS-CN: b1f15a2cd8b0e386ddfafe6b26ad093b2c80c260
+  git-checkout-index:
+    version-map: {}
+    languages:
+      fr: a5f656be813a3fb07644804df40a07e8c1abb542
+      pt_BR: 721d120be9955cc193ccdf7cb34081b6925c8697
+  git-checkout:
+    version-map: {}
+    languages:
+      fr: 6f853e8792d45587307974c5813f22cfd555d3f6
+      pt_BR: 001e1a38c7517e99be9f40169a4fa5c2f0e7edc7
+      zh_HANS-CN: 91f590c10fea2fada371f78724a7f8645ea36682
+  git-cherry-pick:
+    version-map: {}
+    languages:
+      fr: 00ee8cb429237bade92f07efdcf08653c1be0709
+      pt_BR: 1b913762e2c36eccdcb5bcf4b1f13412408d0c08
+      zh_HANS-CN: 58a7acb9faf9370769b9fd39832c5d4ce9bdf83d
+  git-cherry:
+    version-map: {}
+    languages:
+      fr: 2cd0fbfd973a292a4ffe6b04ca834b8c0ecc2a39
+      pt_BR: 540b94d567a9e938895c630cc99189f5c3311da8
+  git-clean:
+    version-map: {}
+    languages:
+      fr: 504b401ce1879bcc94baf73f5c7ce6decd2179ef
+      pt_BR: 602d0c0ecd4d330dadbf9373e2c4df7113d4b7a4
+      zh_HANS-CN: 37624b40d4a50b08b0324bccd6569896a0fa4e90
+  git-column:
+    version-map: {}
+    languages:
+      fr: 6f7a59b1db1119385790cbaa186ad1cd0fca575d
+      pt_BR: 420f11cd3da42daa42da006d55f335117ac51610
+      zh_HANS-CN: fa8e84e9412244788b44669e7436ac9bad47ae35
+  git-commit-tree:
+    version-map: {}
+    languages:
+      fr: 63e4e09c44af81d912065cc49c405e23ce64fe56
+      pt_BR: 0c8e214409b15a7d3d30baa3356c2dc315d66429
+  git-commit:
+    version-map: {}
+    languages:
+      fr: c4dc69d8efd78b50be5b6f467566424a7021fa36
+      pt_BR: 55151b3bc66a894ad67bed0c0c7cd995e86db9f3
+      zh_HANS-CN: eea57681eadf5038fd511ce4a8db1b8e6be3999a
+  git-count-objects:
+    version-map: {}
+    languages:
+      fr: f86d12a6dfc476cb78db7029c8a4dc9b6409c87f
+      pt_BR: 52dde97da1a687b4d0e74ab76e4142587145b420
+  git-credential-cache--daemon:
+    version-map: {}
+    languages:
+      fr: 158ca3e6003a1b98c230bce1b5c5b06769c2e24a
+      pt_BR: 2d6edf01aeda0a6ceadc88aadbfb4d1c2a0d9d43
+  git-credential-cache:
+    version-map: {}
+    languages:
+      fr: b9d55c91b2fede6c3a6cf323d4d50c34d103db71
+      pt_BR: f586853245e8e115807b485f4285ed35527deaf3
+  git-credential-store:
+    version-map: {}
+    languages:
+      fr: 3cd74afb272f164443fc45e0f586c7618c8aca71
+      pt_BR: ba4be7c511ffa1dba1442ba1bc6fa9a0215067f1
+      zh_HANS-CN: 1ed9bc69588c899f8fe16f115216366140a3c967
+  git-cvsexportcommit:
+    version-map: {}
+    languages:
+      fr: a87ecbc18b0fbab21552ac0e0a8425d29257b94c
+      pt_BR: ace746339e52850cfbcbf000ce8559df67808be0
+  git-cvsimport:
+    version-map: {}
+    languages:
+      fr: 0ca86a1b792f320db36446692caaece30276ce09
+      pt_BR: 25cc90987efe41fd8f581f253f3dcb17c7aa5043
+  git-cvsserver:
+    version-map: {}
+    languages:
+      fr: 643df180b81371d1abdc4194f432ee3046b58398
+      pt_BR: 1ae35a6da08ee3f3fac148ee103b29670ef1a4e5
+  git-daemon:
+    version-map: {}
+    languages:
+      fr: c82534e17dfd09585227d519518ae5111ec93d18
+      pt_BR: 850c3b08e497ea9407386312e73ab35d67410312
+      zh_HANS-CN: e64acc4b7c2314988e6bd37d510b34681b7ed3cc
+  git-describe:
+    version-map: {}
+    languages:
+      fr: a6e7000cfb8664fb2803ccfd1f50e5107729e04b
+      pt_BR: e69ff57020450d5fff58a8aaabd360d63835ba80
+      zh_HANS-CN: a079dcb47842c5da4b1c977d4d1f420df02bb68c
+  git-diff-files:
+    version-map: {}
+    languages:
+      fr: 77dce59acbd3151f84d4d21524a7f9e81351b1c0
+      pt_BR: d4f1438866b191c13c305d64bb7689f5b69ccc52
+      zh_HANS-CN: '0933242649bcb3a59812cb05a2b32c302a0c92b3'
+  git-diff-tree:
+    version-map: {}
+    languages:
+      fr: 57261502716502d5e13ccf63797607046e0fd2d5
+      pt_BR: c944ba37ff5a25f1956f9ba98f43e278a95c8483
+  git-difftool:
+    version-map: {}
+    languages:
+      fr: b7498b90fddb59de0ff81dce8bbf481bf5046bf1
+      pt_BR: 19262005b77008d386fcd28bae5c71b878dd5a8e
+      zh_HANS-CN: d0eb9e4a7d4944e3ef1ff68282f5b0bbf6cbf468
+  git-fast-export:
+    version-map: {}
+    languages:
+      fr: df3710becf04512fcd9b4ce617a5244b57e08b1c
+      pt_BR: 0235345d46ffe378119541fdc4640f56cfc16ee8
+  git-fast-import:
+    version-map: {}
+    languages:
+      fr: 90c865b591d207a9de99d18490465273ad27a3c6
+      pt_BR: 29ce50144caa9ca6956729d22d6157094738db88
+  git-fetch:
+    version-map: {}
+    languages:
+      fr: 68de4698efe357f44fb9cf8542f3154ada6ec72c
+      pt_BR: 24f988016a5c5ffa144146dfdffeb40fe010c726
+      zh_HANS-CN: be5dcb56ce40751fab12bd078c5475814f7d888f
+  git-fmt-merge-msg:
+    version-map: {}
+    languages:
+      fr: 4b2a891f87e9f09cf1d8c2c7d98b3bcb43347578
+      pt_BR: 196461e3276367503ef2a6ab9a7e57a2b320cadd
+      zh_HANS-CN: fd9cf0e2147ef854baf07e0ee2cc20ed4c7755a7
+  git-format-patch:
+    version-map: {}
+    languages:
+      fr: 0cd063908068e11aceda217da99b9bf6506499a0
+      pt_BR: cf21ddc3e5dd57e3615b027e37c87c68924cb15e
+      zh_HANS-CN: 6f5e8c7b99b164416e9a47c80a5a94ba9b4684cb
+  git-fsck:
+    version-map: {}
+    languages:
+      fr: 8875078bf3ff88991aad85a26aca3c1727d745cb
+      pt_BR: a8cccbdda60e20d709db86f941a7ab3394ddea0c
+      zh_HANS-CN: 111e6e44f4c1bc572d3cafe2bea9093037188c22
+  git-gc:
+    version-map: {}
+    languages:
+      fr: 88984114db77683cfe47e1fd3585ae7594aa7694
+      pt_BR: 5f7d146b7c84b78ee0c5308472dd7bb8691b4e04
+      zh_HANS-CN: 7bb55467a1aa1ab87d35d535cd44a8cbccf836cf
+  git-get-tar-commit-id:
+    version-map: {}
+    languages:
+      fr: ebfe8ac5320c42aa56433c6870e22fc9d6c030f7
+      pt_BR: 12a5bc9908cf6355f829a93adfe656dbccd1a308
+      zh_HANS-CN: 948ecfdc88f0f918634f504bd8267afe9b852455
+  git-grep:
+    version-map: {}
+    languages:
+      fr: a663ba396dbe232b22c624bd71ac489a9676c46f
+      pt_BR: c0e62a3c9dab1363a154daca3d348f90971aa45b
+      zh_HANS-CN: '08fdf4d482cd59c5a7ddcff7d47d77f46cebbd66'
+  git-gui:
+    version-map: {}
+    languages:
+      fr: 00e6c7a21bf16985e6ebb50d2dee94a70dc6d091
+      pt_BR: 6b89531c8e011e13e759aabc7e46e9bee00b8d96
+  git-help:
+    version-map: {}
+    languages:
+      fr: d6715063d4e480d1fb04fae14fe5438a80eed57f
+      pt_BR: 9c678bb26e57ba9240ce18d13f7e9f5abf6925f9
+      zh_HANS-CN: 69d06d4c2d38a74e55a9dbff6de0b9cfd2a5669a
+  git-http-backend:
+    version-map: {}
+    languages:
+      fr: 59746a4a2615fcb2bb48c6ba0bf1a247cbfbe44e
+      pt_BR: '038e2c7d8d762a14a53b21097ca046a47aba4aa8'
+      zh_HANS-CN: 9258c7804d8333b28d6d11b424e9194d01f9e585
+  git-http-fetch:
+    version-map: {}
+    languages:
+      fr: 86e9ca64194cc845e3e4a632aae85da42d86d340
+      pt_BR: 811d64b8781e7c0465da581efca801883358520d
+  git-http-push:
+    version-map: {}
+    languages:
+      fr: 55b763897fc983515b17e12c0c20bb57c32d6d61
+      pt_BR: a1c998e2dc18d5899335ef12391c5b37d31fdb0f
+      zh_HANS-CN: 783249e61d2cb90d8a04af4644f086603e98a914
+  git-imap-send:
+    version-map: {}
+    languages:
+      fr: 8cc98776824c170997ac6d66d045ae433446e700
+      pt_BR: 4444cba7c91cb4518c410f04fd435ed3ea330167
+      zh_HANS-CN: 77132eae93718333c99cb8afcf96a44e3234aed5
+  git-index-pack:
+    version-map: {}
+    languages:
+      fr: 05ab576b7a523cde52ccbcbaab9afd0a045bae20
+      pt_BR: 747498bc09b7a138df9921a0a6b954d36b1dac2a
+  git-instaweb:
+    version-map: {}
+    languages:
+      fr: 484e766c9d2ca86facf7036ce39bce3ab58b6702
+      pt_BR: c385860a8ab55e4eaf19998243d5f219400603d5
+      zh_HANS-CN: 7dea375e2ca749f551a7a6ecc7a7c9b748e2625a
+  git-interpret-trailers:
+    version-map: {}
+    languages:
+      fr: 0d5c781bc9f6a854a6bf626d7c220995e5367a73
+      pt_BR: d665341ca314b30a6007c4c7c8cc43ced8053b13
+      zh_HANS-CN: 52daaa4696553845a908d3d460e9a2d40aa5a9a1
+  git-log:
+    version-map: {}
+    languages:
+      fr: 96c88ce82c234b79331280987dca3a1d0ec0eb6d
+      pt_BR: 9ef5d501894d716109acb7ce9a39cfed37ba3a38
+      zh_HANS-CN: 91b39663db223d41973ccbd44f68fe89eaf9733a
+  git-ls-remote:
+    version-map: {}
+    languages:
+      fr: af0e89bfddad747afa8b18d011cb55ee4cdee23a
+      pt_BR: 99218e24b93aa0d5444077708993d6b0475d0908
+      zh_HANS-CN: 80310ff5e2e8fb1ca8a2d2501c7960ee240d4f75
+  git-mailinfo:
+    version-map: {}
+    languages:
+      fr: dcb5dc4abda904aabdea96d34e9f5a5d769b2e28
+      pt_BR: 1e33c809339578b579fe6f349ca8fc6f5e0eeee0
+      zh_HANS-CN: ecc9703645bc9a620a274a25fddb8747d16c929c
+  git-mailsplit:
+    version-map: {}
+    languages:
+      fr: cbc0df14b68cb6c7d6e6c027ba368ce37e7b6cfb
+      pt_BR: 333591b809c35e061d09f86ad4c45339b5d54dee
+      zh_HANS-CN: 5bc426d9ddea650b8ceb894dcc88cea35facb630
+  git-merge-tree:
+    version-map: {}
+    languages:
+      fr: e271d4be4074fd14116ef9c316e7bb3a4a413618
+      pt_BR: 222e9db3da22da96e27a7cdb206840f229480dba
+      zh_HANS-CN: 3bed8580249f9f40eaa710aa128ac684eada0e2d
+  git-merge:
+    version-map: {}
+    languages:
+      fr: 6fbf7ceb6d91351f495d986aed1d65ddbf6daaf2
+      pt_BR: '079d4feeab8015f71dc0365d3f66c27e6a3d67e6'
+      zh_HANS-CN: bae1207c3dc75e5dfd90d9485a29671fe12871d1
+  git-mergetool--lib:
+    version-map: {}
+    languages:
+      fr: 25b57b4623321da206ddb9fca341d9f1ec61a8c3
+      pt_BR: b690ab31b76b33518f98f825f53ab521eb566a72
+      zh_HANS-CN: 154acf6780d73a661af7fd6340a1187f1cebe4e5
+  git-mergetool:
+    version-map: {}
+    languages:
+      fr: 28b232d75c1ebc29df75d47433a838659517f833
+      pt_BR: 06bb141b40aac0da31a8ed8ff7176e2f70ba71ce
+      zh_HANS-CN: a1c94eae3f50caa5783e63e63382e7f5a459ec8f
+  git-mktag:
+    version-map: {}
+    languages:
+      fr: 5eac7a8666c7167b6dba8f4310e405c913bbd7df
+      pt_BR: a40a90bc43d834eee157326ee99861cd42235e04
+      zh_HANS-CN: 59c7c144012d07c7e51be823408e7c76ab59fc6d
+  git-mktree:
+    version-map: {}
+    languages:
+      fr: 9870ba452d9df45d8bacc3fcc85c98f819610d53
+      pt_BR: 81a0d85539b3dcd3eb9b8ccadd1a87fb5b00b1c4
+      zh_HANS-CN: 2a7b78c2b58483088f222c09626bac1a45254763
+  git-name-rev:
+    version-map: {}
+    languages:
+      fr: a49d71675d2bb3e636da0c72b9fcbc83f1e524b0
+      pt_BR: f6a1f3caf2ea63db5dba1c048b77f150b54abaf0
+      zh_HANS-CN: 3437d36dcbad7680560fc5e642812fedbc2ad3bd
+  git-notes:
+    version-map: {}
+    languages:
+      fr: fc048b7ccf8f6bfbaffad1bf4b3c343478071cca
+      pt_BR: 512691b8971f18a776598eb68e7b65123ae05e9d
+      zh_HANS-CN: a637d74f7e477ace6726c8de385e1015ad730e2f
+  git-pack-redundant:
+    version-map: {}
+    languages:
+      fr: d78b0c5c331283d602ec6a8e8704794251fd7b31
+      pt_BR: 8eee1d817b7028598f4a32756ff1a7e74de66a32
+      zh_HANS-CN: 2fe4d3174e7a429e737e4179706270236247d33a
+  git-pack-refs:
+    version-map: {}
+    languages:
+      fr: 80fc3b1001884ccb9f2ecb3ec1716d6836feee51
+      pt_BR: 4d8fbfa8cc0d0af1ffc59a6325d736f16eda1e96
+      zh_HANS-CN: f6178cc24cf55f60f603ebfa43766d91da879a4f
+  git-patch-id:
+    version-map: {}
+    languages:
+      fr: 75a2609e50fa6804186b80cfd39a6e0141325951
+      pt_BR: e76a9be06ca7527458fb0e2905d6cb3be207f747
+      zh_HANS-CN: f43e49f80e47a58f495c6ddbde93cb2f41a48c9a
+  git-pull:
+    version-map: {}
+    languages:
+      fr: 7d866c28ceb16bac1239702e18979f1cc7a4438b
+      pt_BR: 7b07b84bbf460f193002fb7c260130d8ad514812
+      zh_HANS-CN: a2c05d6ea8cafa8e83f07dbb968fba37d6736abd
+  git-push:
+    version-map: {}
+    languages:
+      fr: 9f1861cd56bbf402d1ddf5112112945a530dad9b
+      pt_BR: 170d650a208739e0f91f1afddc68ef19af20c064
+      zh_HANS-CN: b89d60f1269cf3797bdcf4d43a6020048205058c
+  git-remote:
+    version-map: {}
+    languages:
+      fr: 59c8c16864b8d789733b4f4aea7bf2712b148ba7
+      pt_BR: 6df5cc5ac203bfd253f1921aa9c03aea49031c95
+      zh_HANS-CN: 421c0b606da6f2c73af15a10a125001d9fca58ab
+  git-reset:
+    version-map: {}
+    languages:
+      fr: '0830cf745ef96ce81b53a0a9fabd7c6e3ba4bd81'
+      pt_BR: b4a4065b382d03a2a3fc448d9b70f66994da01ec
+      zh_HANS-CN: 200b69b985cb6b4164d365e800d096d7b7fcef76
+  git-rm:
+    version-map: {}
+    languages:
+      fr: f6607adbd9b2e94fc07b5f003af16f086ccb3a4b
+      pt_BR: ab05360ea1ce990058f2ef93cd58bab3a5b34282
+      zh_HANS-CN: e296a35012c36b71f89e17a1d2575e06df8d33e5
+  git-shortlog:
+    version-map: {}
+    languages:
+      fr: ccd4f77ac9a2fd8ff820749da14dec45855d0829
+      pt_BR: e72225efbdbc59d2dfbe4fc24a51e3b97601f0bc
+      zh_HANS-CN: c5a8398e377eee457049d065d7bfb4f8b922a0a7
+  git-show:
+    version-map: {}
+    languages:
+      fr: 54f0dffa0e84fac78c332a25ab3a1e4f5cb52b80
+      pt_BR: aa193684b1bfdff8376a3a3246000bc4fcd93e3c
+  git-stash:
+    version-map: {}
+    languages:
+      fr: 1fa6c9132b4e8bc5c8489066493f2f051badad55
+      pt_BR: 1264f7298084bd69cf61f496bbcb06edf5b5e9df
+      zh_HANS-CN: 734a4597c89bcb6c4bbbd308abb688126f42fa32
+  git-status:
+    version-map: {}
+    languages:
+      fr: '08b36e2f15d410758bdf41b0071d152d024c53c8'
+      pt_BR: 2413ef0b053971f3cf4641137ac4cd6ba2780b00
+      zh_HANS-CN: 3bccdb5b1ae743a047588258b36180b788c1ebd9
+  git-submodule:
+    version-map: {}
+    languages:
+      fr: c51aff443591f90931e02f4e258d6fb69520a190
+      pt_BR: 13ce2d3cffc4b8cc6865704ae10e450288f165d6
+      zh_HANS-CN: 037f0aedacbd26b6301e263f8df7944b6e80234e
+  git-tag:
+    version-map: {}
+    languages:
+      fr: 2d70d5218b4191092246ba216645b5b2ebe03d49
+      pt_BR: 540b1efbeb9304db669c0490c73f2a679fc041ae
+      zh_HANS-CN: 1263c0cc264783156f0fe96865e3860b99557f83
+  git-worktree:
+    version-map: {}
+    languages:
+      fr: '035668a05a1b361c688f5ad1d42d5e91db1f2cf7'
+      pt_BR: 372ff8c6e8633920c79b7d122377c295abfefc0c
+      zh_HANS-CN: d34c179965d620bf412cc32c80d6bafa00a11182
+  git-bisect-lk2009:
+    version-map: {}
+    languages:
+      pt_BR: 888ba9668d18358fcd6a091b835054f3ea6a1294
+      zh_HANS-CN: 648abfd35d330e2c5b31b4f9eea7ce641fb6fddb
+  git-diff-index:
+    version-map: {}
+    languages:
+      pt_BR: '095fb090914bc57e38d4fd97151015f7fd2913fc'
+  git-fetch-pack:
+    version-map: {}
+    languages:
+      pt_BR: f02608faf1e1771eef30827a3f1de283493a0657
+  git-filter-branch:
+    version-map: {}
+    languages:
+      pt_BR: 8393f284540836e865d181e721cfc8fd3f74a85e
+  git-for-each-ref:
+    version-map: {}
+    languages:
+      pt_BR: dc58f3362aaf58d537a813c433f0097783fafc84
+  git-hash-object:
+    version-map: {}
+    languages:
+      pt_BR: 13d3dae0ce30932283fdb547bd19e13d06e06703
+  git-ls-files:
+    version-map: {}
+    languages:
+      pt_BR: 8190e4a02c455768a3d60355e671e86d95ccc8eb
+  git-ls-tree:
+    version-map: {}
+    languages:
+      pt_BR: 6da3f7b4e1a526dbf14d105ed36c7f5d01614969
+  git-merge-base:
+    version-map: {}
+    languages:
+      pt_BR: 4fc67dd6a48459644ad8e036a6ae0c34f7b8918f
+  git-merge-file:
+    version-map: {}
+    languages:
+      pt_BR: 6cb1dba834865b5b7cd1c55c27b43503955dc4e3
+  git-merge-index:
+    version-map: {}
+    languages:
+      pt_BR: b1db96dfc18b033b2deb5cd580a647657796fd3f
+  git-p4:
+    version-map: {}
+    languages:
+      pt_BR: 50e08b729f8dd6d6cc1ceca3ada38cd0901c4a23
+  git-pack-objects:
+    version-map: {}
+    languages:
+      pt_BR: 765ac5a9e0c7c044bb29d5aa130b5037795c676b
+      zh_HANS-CN: 547dbac67968dc39809b054c20804261a776aa9c
+  git-parse-remote:
+    version-map: {}
+    languages:
+      pt_BR: 9af1a6e931b07b815ba6ead1d96f1a875d0804c8
+      ru: 2df8d9f84e1aec088eadfbf572a4be1aff433d0f
+  git-prune-packed:
+    version-map: {}
+    languages:
+      pt_BR: d68e297520afc3328685a31e8061267f14e59276
+      zh_HANS-CN: 6154455de7bcda64ba7ad03fb753c485a159e12a
+  git-prune:
+    version-map: {}
+    languages:
+      pt_BR: 391d3e328314aa76744a6142b9a62e046cc1276a
+      zh_HANS-CN: 1c84e1fc95d6464d5bcb27a55d82d6fd6a6ba433
+  git-quiltimport:
+    version-map: {}
+    languages:
+      pt_BR: daae44ecefd34c04991dd92b92c1906790d3df01
+      zh_HANS-CN: 92c34605480635542f37b57693110266a91961c8
+  git-range-diff:
+    version-map: {}
+    languages:
+      pt_BR: 75651fc5c1ca0aafa199868c1b0f4bebf231bb3a
+      zh_HANS-CN: ca77bc267dc220105c7f406af69f3e68ee8bcb18
+  git-read-tree:
+    version-map: {}
+    languages:
+      pt_BR: 306506339e82e0954137a2fa178e1a1b96d9ad58
+  git-rebase:
+    version-map: {}
+    languages:
+      pt_BR: d3d1e98a86ebda4c7250fe03df363f7297044d09
+  git-receive-pack:
+    version-map: {}
+    languages:
+      pt_BR: c630b3e11cea5b2ef97dffeff0fd7ece72073a85
+  git-reflog:
+    version-map: {}
+    languages:
+      pt_BR: 472120dca96a892c68f4b55d44cf4dd43c2e623d
+  git-remote-ext:
+    version-map: {}
+    languages:
+      pt_BR: c02a4064083f19ef3dd121f6e12ad3091e938e0a
+  git-remote-fd:
+    version-map: {}
+    languages:
+      pt_BR: 8ca97999b2af7fd65632f25eafafb641a429b483
+  git-repack:
+    version-map: {}
+    languages:
+      pt_BR: ea4371d2d6ec9fb9957e5385cf7adaa48d354c28
+  git-replace:
+    version-map: {}
+    languages:
+      pt_BR: 66901fbc54e02f4185b4e620e75ca3ff3c562b59
+  git-request-pull:
+    version-map: {}
+    languages:
+      pt_BR: a174e3f161a75872757f5efc2cd78ae6117fe6dc
+  git-rerere:
+    version-map: {}
+    languages:
+      pt_BR: a0d962bc55a1362c53a35c079a2e49b7a0c57f70
+  git-rev-parse:
+    version-map: {}
+    languages:
+      pt_BR: 10a2a73f252ba71976aa39b23e4b07193393f20c
+  git-revert:
+    version-map: {}
+    languages:
+      pt_BR: 2521dac80c315f78bf44337ae0d26ec5a5e54cac
+  git-send-email:
+    version-map: {}
+    languages:
+      pt_BR: ad276d3751903749324bfc890beae1ffee3ff7c7
+  git-send-pack:
+    version-map: {}
+    languages:
+      pt_BR: c6034b8aad7d9f48234a2fbb8bb58fd9f5c9f1d1
+  git-sh-i18n--envsubst:
+    version-map: {}
+    languages:
+      pt_BR: d56d54ef440757ccaa93229792d13d21ac0ec0ce
+  git-sh-i18n:
+    version-map: {}
+    languages:
+      pt_BR: 000d9ce8dd0b6ea43b47e22ffd648dff5aa1805f
+  git-sh-setup:
+    version-map: {}
+    languages:
+      pt_BR: 23ab234c2cd0ee00ad291bc11995968ac7e3466c
+  git-shell:
+    version-map: {}
+    languages:
+      pt_BR: a1fba53624c15184f2d5c85c995df36983b2e9ec
+  git-show-branch:
+    version-map: {}
+    languages:
+      pt_BR: df1456aa8683e71b694c7c1eb6a7c53e0f9cd5de
+  git-show-index:
+    version-map: {}
+    languages:
+      pt_BR: 0a4a576a93a0e9bc0c137826e9f157e8cb8ff395
+  git-show-ref:
+    version-map: {}
+    languages:
+      pt_BR: 0f941f8fb67dc30899fc481e4dea98bdcc87f9b9
+  git-stripspace:
+    version-map: {}
+    languages:
+      pt_BR: 43b8ae284c4a16b3e223820cb4d952ca80ff9415
+  git-svn:
+    version-map: {}
+    languages:
+      pt_BR: '009c357650512d7a175c9958d3debe1ccb2f4f40'
+  git-switch:
+    version-map: {}
+    languages:
+      pt_BR: 4311be47e036369049e312e2d192767931e3bd4a
+  git-symbolic-ref:
+    version-map: {}
+    languages:
+      pt_BR: '09c63075f088d8b2cf9e0231e7acdb7fb852fc89'
+  git-unpack-file:
+    version-map: {}
+    languages:
+      pt_BR: 87d3e90fb9d250d15edd0ad903494636e7a05ac2
+  git-unpack-objects:
+    version-map: {}
+    languages:
+      pt_BR: d300d422b0c0157928ce1fb5577f392cf816632e
+  git-update-index:
+    version-map: {}
+    languages:
+      pt_BR: ddb1f3f068f6c55ee739862f44d92b700bbc26df
+  git-update-ref:
+    version-map: {}
+    languages:
+      pt_BR: 358b169fc35286feda0750289a3adaa644c02e5e
+  git-update-server-info:
+    version-map: {}
+    languages:
+      pt_BR: 0a359082c07115fab754b671a80a9f6b4ea8a2b6
+  git-upload-archive:
+    version-map: {}
+    languages:
+      pt_BR: 23f56e831fc10aa5020040fdeb705b8f1a5db117
+  git-upload-pack:
+    version-map: {}
+    languages:
+      pt_BR: 9129825f15b3637bcd58e0fc05d55f589ef140e3
+  git-var:
+    version-map: {}
+    languages:
+      pt_BR: e8898135de8fd2471c3382c9e4d4bbf01395dd75
+  git-verify-pack:
+    version-map: {}
+    languages:
+      pt_BR: 38c53d99039187227b14386d9ede8918b16bc815
+  git-web--browse:
+    version-map: {}
+    languages:
+      pt_BR: ee7ae0e1b9245acb4bb68989663cf647034222c9
+  git-whatchanged:
+    version-map: {}
+    languages:
+      pt_BR: 522bbaffb34496fa15883e34880ce471feeaca5b
+l10n:
+  commit_sha: 88487c17add680ae847f09e19c23e8e3057e111c
+  tree_sha: fb2e317ab82efd576fa20a4ad81c710367e306c2
+  committed: 2023-08-21 17:55:20.000000000 +00:00
