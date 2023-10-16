@@ -1,0 +1,185 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: Τα θεμελιώδη στοιχεία του Git
+    number: 2
+  section:
+    title: Αναιρώντας κάτι
+    number: 4
+    cs_number: '2.4'
+    previous: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Χρησιμοποιώντας-το-ιστορικό-υποβολών
+    next: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Δουλεύοντας-με-απομακρυσμένα-αποθετήρια
+title: Git - Αναιρώντας κάτι
+
+---
+<h2 id="r_undoing">Αναιρώντας κάτι</h2>
+<div class="paragraph">
+<p>Μπορούμε να αναιρέσουμε κάποια αλλαγή οποιαδήποτε στιγμή.
+Σε αυτό το κεφάλαιο, θα αναλύσουμε κάποια βασικά εργαλεία για να αναιρέσουμε αλλαγές που έχουμε ήδη κάνει.
+Θα χρειαστεί να είμαστε προσεκτικοί γιατί δεν θα μπορούμε πάντα να αναιρέσουμε κάποιες από αυτές τις αναιρέσεις.
+Θα δούμε κάποιες από τις ελάχιστες περιπτώσεις στο Git όπου μπορεί να χάσουμε μέρος της δουλειάς σας αν χρησιμοποιήσουμε με λάθος τρόπο τις εντολές.</p>
+</div>
+<div class="paragraph">
+<p>Μια συχνή αναίρεση που χρησιμοποιείται είναι η περίπτωση κατά την οποία υποβάλλουμε κάτι πολύ νωρίς, αλλά ξεχάσαμε να προσθέσουμε κάποια αρχεία ή κάναμε κάποιο σφάλμα στο μήνυμα υποβολής.
+Αν θέλουμε να ξανακάνουμε τη συγκεκριμένη υποβολή, να προσθέσουμε τις αλλαγές που ξεχάσαμε, να τις βάλουμε στο στάδιο καταχώρισης και να τις ξαναϋποβάλλουμε, θα πρέπει να χρησιμοποιήσουμε την επιλογή <code>--amend</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git commit --amend</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή αυτή παίρνει την περιοχή καταχώρησης και τη χρησιμοποιεί για την υποβολή.
+Αν δεν έχουμε κάνει περαιτέρω αλλαγές από την τελευταία μας υποβολή (για παράδειγμα, αν εκτελέσουμε την εντολή αμέσως μετά από μια υποβολή), τότε το στιγμιότυπο του αποθετηρίου θα είναι ακριβώς το ίδιο και το μόνο που θα αλλάξουμε είναι το μήνυμα υποβολής.</p>
+</div>
+<div class="paragraph">
+<p>Όταν εκτελέσουμε την εντολή, θα σας εμφανιστεί το μήνυμα από την προηγούμενή σας υποβολή.
+Το μήνυμα αυτό μπορούμε να το επεξεργαστούμε, αλλά η τελευταία υποβολή θα αντικατασταθεί.</p>
+</div>
+<div class="paragraph">
+<p>Για παράδειγμα, αν κάνουμε μια υποβολή και μετά διαπιστώσουμε ότι ξεχάσαμε να καταχωρήσουμε τις αλλαγές ενός αρχείου που θέλαμε να συμπεριλάβουμε στην υποβολή αυτή, τότε μπορούμε να:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git commit -m 'initial commit'
+$ git add forgotten_file
+$ git commit --amend</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Έτσι καταλήγουμε με μια και μοναδική υποβολή. Η δεύτερη υποβολή αντικαθιστά τα αποτελέσματα της πρώτης.</p>
+</div>
+<div class="sect3">
+<h3 id="r_unstaging">Αφαίρεση αρχείου από το στάδιο καταχώρισης</h3>
+<div class="paragraph">
+<p>Στις επόμενες δύο ενότητες θα δούμε πώς μπορούμε να διαχειριστούμε τις αλλαγές στην περιοχή καταχώρησης και στον κατάλογο εργασίας.
+Κάτι που θα σας φανεί πολύ χρήσιμο είναι ότι η εντολή που μας προσδιορίζει την κατάσταση αυτών των περιοχών, μας υπενθυμίζει και πώς να αναιρέσουμε τις αλλαγές σε αυτές.
+Για παράδειγμα, έστω ότι έχουμε κάνει αλλαγές σε δύο αρχεία και θέλουμε να τα υποβάλλουμε ως ξεχωριστές αλλαγές, αλλά τα καταχωρήσαμε και τα δύο κατά λάθος με την εντολή <code>git add *</code>.
+Πώς μπορούμε να αναιρέσουμε την καταχώρηση του ενός από τα δύο;
+Η εντολή <code>git status</code> μας υπενθυμίζει:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git add *
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    renamed:    README.md -&gt; README
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Όπως βλέπουμε, το κείμενο της εντολής μας συμβουλεύει να χρησιμοποιήσουμε την εντολή <code>git reset HEAD &lt;file&gt;...</code> ώστε να αναιρέσουμε μια καταχώρηση.
+Ας χρησιμοποιήσουμε λοιπόν τη συμβουλή αυτή για το αρχείο <code>CONTRIBUTING.md</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git reset HEAD CONTRIBUTING.md
+Unstaged changes after reset:
+M	CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    renamed:    README.md -&gt; README
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή φαίνεται λίγο περίεργη, αλλά δουλεύει.
+Το αρχείο <code>CONTRIBUTING.md</code> είναι τροποποιημένο, αλλά δεν βρίσκεται στην περιοχή καταχώρησης.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Ενώ η εντολή <code>git reset</code> <em>μπορεί</em> να είναι επικίνδυνη αν την καλέσουμε με την επιλογή <code>--hard</code>, στην προηγούμενη περίπτωση το αρχείο στον κατάλογο εργασίας σας δεν τροποποιείται από την εντολή.
+Η εκτέλεση της εντολής <code>git reset</code> χωρίς επιπλέον επιλογές δεν είναι επικίνδυνη, τροποποιεί μόνο την περιοχή καταχώρησης.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Προς το παρόν, το μόνο που χρειάζεται να γνωρίζουμε για την εντολή <code>git reset</code> είναι η παραπάνω χρήση της.
+Θα μπούμε σε περισσότερες λεπτομέρειες για την εντολή αυτή καθώς και για πιο ενδιαφέροντα πράγματα που μπορούμε να κάνουμε με αυτήν στο κεφάλαιο <a href="ch00/r_git_reset">Απομυθοποίηση της <code>reset</code></a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="_αναιρώντας_τροποποιήσεις_ενός_αρχείου">Αναιρώντας τροποποιήσεις ενός αρχείου</h3>
+<div class="paragraph">
+<p>Τι μπορούμε να κάνουμε όμως αν διαπιστώσουμε ότι δεν θέλουμε να κρατήσουμε τις αλλαγές που κάναμε στο αρχείο <code>CONTRIBUTING.md</code>;
+Πώς μπορούμε να τις αναιρέσουμε εύκολα και να φέρουμε το αρχείο στη μορφή που είχε στην τελευταία του υποβολή (ή όπως βρισκόταν αρχικά στον κατάλογο εργασίας σας);
+Η εντολή <code>git status</code> μας βοηθάει εδώ και πάλι.
+Στο αποτέλεσμα του προηγούμενου παραδείγματος, η περιογή με τα μη καταχωρημένα αρχεία ήταν κάπως έτσι:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή μας ενημερώνει αναλυτικά πώς να απορρίψουμε τις αλλαγές που έχουμε κάνει.
+Ας ακολουθήσουμε τι λέει:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git checkout -- CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    renamed:    README.md -&gt; README</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Μπορούμε να δούμε πλέον ότι οι αλλαγές σας έχουν απορριφθεί.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Είναι σημαντικό να καταλάβουμε ότι η εντολή <code>git checkout -- [file]</code> είναι αρκετά επικίνδυνη.
+Όλες οι αλλαγές που έχουμε κάνει σε αυτό το αρχείο έχουν πλέον χαθεί καθώς έχουμε αντιγράψει ένα αρχείο πάνω από αυτό.
+Δεν πρέπει να χρησιμοποιούμε αυτήν την εντολή παρά μόνο αν είμαστε σίγουροι ότι δεν θέλουμε να κρατήσουμε τις αλλαγές σας.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Αν θέλουμε να κρατήσουμε τις αλλαγές που κάναμε στο αρχείο, αλλά παρόλα αυτά χρειαζόμαστε να το κάνουμε στην άκρη, θα πρέπει να εξετάσουμε τη φύλαξη των αλλαγών (stashing) και τη διακλάδωση (branching) στο κεφάλαιο <a href="ch00/ch03-git-branching">[ch03-git-branching]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Ο,τιδήποτε έχει υποβληθεί στο Git μπορεί να ανακτηθεί.
+Μπορούμε να ανακτήσουμε ακόμα και υποβολές σε κλάδους που έχουν διαγραφεί ή υποβολές που επανεγγράφηκαν, με την εντολή <code>git commit --amend</code> (βλ. <a href="ch00/r_data_recovery">Ανάκτηση δεδομένων</a> για περισσότερα σχετικά με την ανάκτηση δεδομένων).
+Ωστόσο, αν κάτι δεν είναι υποβεβλημένο και το χάσουμε, είναι πολύ πιθανό να μην μπορέσουμε να το ανακτήσουμε.</p>
+</div>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>

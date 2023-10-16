@@ -1,0 +1,455 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: Τα θεμελιώδη στοιχεία του Git
+    number: 2
+  section:
+    title: Χρησιμοποιώντας το ιστορικό υποβολών
+    number: 3
+    cs_number: '2.3'
+    previous: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Καταγραφή-αλλαγών-στο-αποθετήριο
+    next: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Αναιρώντας-κάτι
+title: Git - Χρησιμοποιώντας το ιστορικό υποβολών
+
+---
+<h2 id="r_viewing_history">Χρησιμοποιώντας το ιστορικό υποβολών</h2>
+<div class="paragraph">
+<p>Αφού έχουμε δημιουργήσει αρκετές υποβολές, ή έχουμε κλωνοποιήσει ένα αποθετήριο με υπάρχον ιστορικό υποβολών, θα χρειαστεί πιθανότατα να κοιτάξουμε στο παρελθόν για να δούμε τι έχει γίνει.
+Το πιο βασικό και ισχυρό εργαλείο για να το κάνουμε αυτό είναι η εντολη <code>git log</code>.</p>
+</div>
+<div class="paragraph">
+<p>Τα παρακάτω παραδείγματα χρησιμοποιούν ένα πολύ απλό έργο που το ονομάζουμε <code>simplegit</code>.
+Για να αποκτήσουμε το έργο, μπορούμε να εκτελέσουμε:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">git clone https://github.com/schacon/simplegit-progit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Έπειτα, εκτελώντας την εντολή <code>git log</code> σε αυτό το έργο, θα λάβουμε ένα αποτέλεσμα που θα μοιάζει κάπως έτσι:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 16:40:33 2008 -0700
+
+    removed unnecessary test
+
+commit a11bef06a3f659402fe7563abf99ad00de2209e6
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 10:31:28 2008 -0700
+
+    first commit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εκ προεπιλογής, η εντολή <code>git log</code> καταγράφει όλες τις υποβολές που έχουν γίνει στο αποθετήριο σε αντίθετη χρονολογική σειρά (οι πιο πρόσφατες υποβολές εμφανίζονται πρώτες).
+Όπως μπορούμε να δούμε, η εντολή καταγράφει κάθε υποβολή μαζί με το άθροισμα ελέγχου SHA-1, το όνομα και την ηλεκτρονική διεύθυνση του δημιουργού, την ημερομηνία εγραφής, καθώς και το μήνυμα της υποβολής.</p>
+</div>
+<div class="paragraph">
+<p>Έχουμε μια πληθώρα επιλογών για τη συγκεκριμένη εντολή ώστε να βρούμε ακριβώς αυτό που ψάχνουμε.
+Θα δούμε κάποιες από τις πιο δημοφιλείς.</p>
+</div>
+<div class="paragraph">
+<p>Μια από τις πιο χρήσιμες επιλογές είναι η <code>-p</code>, η οποία δείχνει τη διαφορά που εισήχθη σε κάθε υποβολή.
+Μπορούμε επίσης να χρησιμοποιήσουμε την <code>-2</code>, η οποία θα περιορίσει το αποτέλεσμα στις δύο μόνο τελευταίες εγγραφές (υποβολές):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log -p -2
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+diff --git a/Rakefile b/Rakefile
+index a874b73..8f94139 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -5,7 +5,7 @@ require 'rake/gempackagetask'
+ spec = Gem::Specification.new do |s|
+     s.platform  =   Gem::Platform::RUBY
+     s.name      =   "simplegit"
+-    s.version   =   "0.1.0"
++    s.version   =   "0.1.1"
+     s.author    =   "Scott Chacon"
+     s.email     =   "schacon@gee-mail.com"
+     s.summary   =   "A simple gem for using Git in Ruby code."
+
+commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 16:40:33 2008 -0700
+
+    removed unnecessary test
+
+diff --git a/lib/simplegit.rb b/lib/simplegit.rb
+index a0a60ae..47c6340 100644
+--- a/lib/simplegit.rb
++++ b/lib/simplegit.rb
+@@ -18,8 +18,3 @@ class SimpleGit
+     end
+
+ end
+-
+-if $0 == __FILE__
+-  git = SimpleGit.new
+-  puts git.show
+-end
+\ No newline at end of file</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η επιλογή αυτή εμφανίζει τις ίδιες πληροφορίες, αλλά κάθε υποβολή ακολουθείται και από τις διαφορές που εισήγαγε.
+Αυτή μπορεί να είναι πολύ χρήσιμη για περίπτωση που θέλουμε να επανεξετάσουμε κάποιον κώδικα ή για να μπορέσουμε να καταλάβουμε γρήγορα τι έγινε σε μια ακολουθία υποβολών που εισήγαγε ένας συνεργάτης μας.
+Μπορούμε επίσης να χρησιμοποιήσουμε επιλογές ανακεφαλαίωσης με την <code>git log</code>.
+Για παράδειμα, αν θέλουμε να δούμε κάποια συντομευμένα στατιστικά για την κάθε υποβολή, μπορούμε να χρησιμοποιήσουμε την επιλογή <code>--stat</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log --stat
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
+
+ Rakefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 16:40:33 2008 -0700
+
+    removed unnecessary test
+
+ lib/simplegit.rb | 5 -----
+ 1 file changed, 5 deletions(-)
+
+commit a11bef06a3f659402fe7563abf99ad00de2209e6
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date:   Sat Mar 15 10:31:28 2008 -0700
+
+    first commit
+
+ README           |  6 ++++++
+ Rakefile         | 23 +++++++++++++++++++++++
+ lib/simplegit.rb | 25 +++++++++++++++++++++++++
+ 3 files changed, 54 insertions(+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Όπως μπορούμε να δούμε, η επιλογή <code>--stat</code> μας εκτυπώνει κάτω από κάθε υποβολή, μια λίστα με τα τροποποιημένα αρχεία, πόσα αρχεία άλλαξαν, καθώς και πόσες γραμμές προστέθηκαν ή αφαιρέθηκαν σε αυτά τα αρχεία.
+Επίσης, μας εκτυπώνει και μια περίληψη αυτών των πληροφοριών στο τέλος.</p>
+</div>
+<div class="paragraph">
+<p>Μια ακόμα χρήσιμη επιλογή είναι η <code>--pretty</code>.
+Η επιλογή αυτή αλλάζει το αποτέλεσμα της εντολής δίνοντάς του διαφορετική μορφή.
+Υπάρχουν μερικές προυπάρχουσες τιμές για να χρησιμοποιήσουμε για αυτήν την επιλογή.
+Η τιμή <code>oneline</code> εκτυπώνει κάθε υποβολή σε μία γραμμή, κάτι το οποίο μπορεί να μας φανεί χρήσιμο αν ψάχνουμε σε πολλές υποβολές.
+Επιπλέον, οι τιμές <code>short</code>, <code>full</code>, και <code>fuller</code> εμφανίζουν το ίδιο αποτέλεσμα σε παρόμοια μορφή αλλά με λιγότερες ή περισσότερες πληροφορίες αντίστοιχα:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log --pretty=oneline
+ca82a6dff817ec66f44342007202690a93763949 changed the version number
+085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7 removed unnecessary test
+a11bef06a3f659402fe7563abf99ad00de2209e6 first commit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η πιο ενδιαφέρουσα επιλογή είναι η <code>format</code>, η οποία μας επιτρέπει να προσδιορίσουμε εμείς τη μορφή που θα έχει το αποτέλεσμα.
+Αυτό είναι εξαιρετικά χρήσιμο σε περιπτώσεις που θέλουμε το αποτέλεσμα να μπορεί να είναι αναγνώσιμο από κάποιο αυτοματοποιημένο σύστημα. Γνωρίζουμε ότι η μορφή του αποτελέσματος δεν θα αλλάξει καθώς το έχουμε προσδιορίσει ρητά:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log --pretty=format:"%h - %an, %ar : %s"
+ca82a6d - Scott Chacon, 6 years ago : changed the version number
+085bb3b - Scott Chacon, 6 years ago : removed unnecessary test
+a11bef0 - Scott Chacon, 6 years ago : first commit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ο πίνακας <a href="ch00/rpretty_format">Χρήσιμες επιλογές για την <code>git log --pretty=format</code></a> παραθέτει μερικές από τις πιο χρήσιμες επιλογές μορφοποίησης.</p>
+</div>
+<table id="rpretty_format" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Χρήσιμες επιλογές για την <code>git log --pretty=format</code>
+</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Επιλογή</th>
+<th class="tableblock halign-left valign-top">Περιγραφή εξόδου</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%H</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Αριθμός SHA-1 υποβολής</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%h</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Συντμημένος αριθμός SHA-1 υποβολής</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%T</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Αριθμός SHA-1 δέντρου</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Συντμημένος αριθμός SHA-1 δέντρου</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%P</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Αριθμοί SHA-1 γονέων</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%p</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Συντμημένοι αριθμός SHA-1 γονέων</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%an</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Όνομα συγγραφέα</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%ae</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">E-mail συγγραφέα</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%ad</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ημερομηνία συγγραφέα (σε μορφή που ορίζεται από την επιλογή <code>--date=</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%ar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ημερομηνία συγγραφέα, σχετική</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%cn</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Όνομα υποβάλλοντος</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%ce</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">E-mail υποβάλλοντος</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%cd</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ημερομηνία υποβολής</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%cr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ημερομηνία υποβολής, σχετική</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>%s</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Θέμα</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Σε αυτό το σημείο, θα αναρωτιόταν κανείς ποια η διαφορά μεταξύ του <em>author</em> (δημιουργού, συγγραφέα) και του <em>committer</em> (αυτός που έκανε την υποβολή).
+Ο δημιουργός είναι το πρόσωπο που έγραψε αρχικά τη δουλειά, ενώ o <em>committer</em> είναι αυτός που την υπέβαλε τελευταίος.
+Συνεπώς, αν στείλουμε ένα επίθεμα για ένα έργο και ένα άλλο πρόσωπο το υποβάλλει, θα πρέπει και οι δύο να πιστωθούμε τη δουλειά: εμείς ως ο δημιουργός και το άλλο πρόσωπο ως αυτός που την υπέβαλλε.
+Θα καλύψουμε τη διαφορά αυτή σε λίγο, στο κεφάλαιο <a href="ch00/ch05-distributed-git">[ch05-distributed-git]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Οι επιλογές <code>oneline</code> και <code>format</code> είναι ιδιαίτερα χρήσιμες με μια άλλη επιλογή (πάντα για την εντολή <code>log</code>) που ονομάζεται <code>--graph</code>.
+Η επιλογή αυτή προσθέτει ένα μικρό παραστατικό γράφημα με χαρακτήρες ASCII που δείχνει το ιστορικό των κλάδων και των συγχωνεύσεων:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log --pretty=format:"%h %s" --graph
+* 2d3acf9 ignore errors from SIGCHLD on trap
+*  5e3ee11 Merge branch 'master' of git://github.com/dustin/grit
+|\
+| * 420eac9 Added a method for getting the current branch.
+* | 30e367c timeout code and tests
+* | 5a09431 add timeout protection to grit
+* | e1193f8 support for heads with slashes in them
+|/
+* d6016bc require time for xmlschema
+*  11d191e Merge branch 'defunkt' into local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτή η μορφή του αποτελέσματος θα γίνει πιο ενδιαφέρουσα αργότερα, στο επόμενο κεφάλαιο, όταν θα καλύψουμε τους κλάδους και τις συγχωνεύσεις.</p>
+</div>
+<div class="paragraph">
+<p>Όλες αυτές είναι μερικές απλές επιλογές ώστε να διαμορφώσουμε το αποτέλεσμα της εντολής <code>git log</code>, υπάρχουν και πολλές άλλες.
+Ο πίνακας <a href="ch00/rlog_options">Συνήθεςι επιλογές για την <code>git log</code></a> καταγράφει όλες τις επιλογές που καλύψαμε μέχρι στιγμής, καθώς και κάποιες άλλες επιλογές διαμόρφωσης που μπορεί να μας φανούν χρήσιμες μαζί με μια περιγραφή της λειτουργίας τους.</p>
+</div>
+<table id="rlog_options" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Συνήθεςι επιλογές για την <code>git log</code>
+</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Επιλογή</th>
+<th class="tableblock halign-left valign-top">Περιγραφή</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-p</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε το επίθεμα (patch) που εισήχθε σε κάθε υποβολή.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--stat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε στατιστικά σχετικά με τα αρχεία που τροποποιήθηκαν σε κάνε υποβολή.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--shortstat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε μόνον την τελευταία γραμμή από την επιλογή --stat, που δείχνει μόνο τον συνολικό αριθμό αρχείων που τροποποιήθηκαν και αριθμών που προστέθηκαν, αφαιρέθηκαν.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--name-only</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε τη λίστα των αρχείων που τροποποιήθηκαν (μετά τις πληροφορίες για την υποβολή).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--name-status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε επιπλέον τη λίστα των αρχείων που επηρεάστηκαν με προσθήκη/τροποποίηση/διαγραφή πληροφοριών.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--abbrev-commit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε μόνο τους πρώτους χαρακτήρες από τους 40 του αθροίσματος ελέγχου SHA-1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--relative-date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε τη σχετική ημερομηνία σε σχετική μορφή (π.χ., “2 weeks ago”) αντί για την πλήρη.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--graph</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε ένα γράφημα ASCII του κλάδου και του ιστορικού συγχώνευσης δίπλα στην έξοδο του μητρώου.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--pretty</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε τις υποβολές σε εναλλακτική μορφή· οι επιλογές είναι: <code>oneline</code>, <code>short</code>, <code>full</code>, <code>fuller</code> και <code>format</code> (στην οποία ορίζουμε τη δική μας μορφή).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h3 id="_περιορίζοντας_το_αποτέλεσμα_της_log">Περιορίζοντας το αποτέλεσμα της <code>log</code>
+</h3>
+<div class="paragraph">
+<p>Επιπλέον, η εντολή <code>git log</code> χρησιμοποιείται με πολλές επιλογές για περιορισμό των αποτελεσμάτων της. Οι επιλογές αυτές θα μας αφήσουν να δούμε μόνο ένα υποσύνολο των συνολικών υποβολών.
+Έχουμε ήδη δει μια τέτοια επιλογή, την <code>-2</code>, η οποία θα μας εμφανίσει τις δύο τελευταίες υποβολές μόνο.
+Στην πραγματικότητα, μπορούμε να χρησιμοποιήσουμε <code>-&lt;n&gt;</code>, όπου <code>n</code> είναι ένας ακέραιος που αντιστοιχεί στις τελευταίες <code>n</code> υποβολές.
+Στην πραγματικότητα, βέβαια, είναι σχετικά απίθανο να χρησιμοποιούμε αυτήν την επιλογή συχνά, καθώς το Git εκ προεπιλογής παροχετεύει την έξοδο σε έναν σελιδοποιητή οπότε βλέπουμε μόνο μια σελίδα με τα στοιχεία του μητρώου κάθε φορά.</p>
+</div>
+<div class="paragraph">
+<p>Ωστόσο, θα μας φανούν πολύ χρήσιμες οι επιλογές που περιορίζουν τον αριθμό των αποτελεσμάτων με χρονικά κριτήρια.
+Για παράδειγμα, η εντολή αυτή θα μας δώσει μια λίστα με τις υποβολές που έγιναν τις τελευταίες δύο εβδομάδες:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log --since=2.weeks</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή αυτή χρησιμοποιείται με πολλές διαφορετικές μορφές. Μπορούμε να προσδιορίσουμε για παράδειγμα μια συγκεκριμένη μέρα, <code>"2008-01-15"</code>, ή μια σχετική μέρα όπως <code>"2 years 1 day 3 minutes ago"</code>.</p>
+</div>
+<div class="paragraph">
+<p>Μπορούμε επίσης να φιλτράρουμε τη λίστα με τις υποβολές με βάση κάποια κριτήρια.
+Η επιλογή <code>--author</code> μάς επιτρέπει να φιλτράρουμε με βάση έναν συγκεκριμένο δημιουργό. Η επιλογή <code>--grep</code> μας επιτρέπει να ψάξουμε για λέξεις-κλειδιά στα μηνύματα των υποβολών.
+(Ας σημειωθεί ότι αν θέλουμε να χρησιμοποιήσουμε και τις δύο παραπάνω επιλογές ταυτόχρονα, θα πρέπει να προσθέσουμε την επιλογή --all-match`)</p>
+</div>
+<div class="paragraph">
+<p>Ένα ακόμα πολύ χρήσιμο φίλτρο είναι η επιλογή <code>-S</code> η οποία παίρνει μια συμβολοσειρά και μας δείχνει μόνο τις υποβολές που εισήγαγαν κάποια αλλαγή στον κώδικα η οποία προσέθεσε ή αφαίρεσε αυτήν τη συμβολοσειρά.
+Για παράδειγμα, αν θέλουμε να βρούμε την τελευταία υποβολή που προσέθεσε ή αφαίρεσε μια αναφορά σε μια συγκεκριμένη συνάρτηση, θα γράφαμε:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log -S όνομα_συνάρτησης</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η τελευταία χρήσιμη επιλογή που μπορούμε να χρησιμοποιήσουμε μαζί με την <code>git log</code> είναι να φιλτράρουμε τα αποτελέσματα με βάση τον κατάλογό τους.
+Αν προσδιορίσουμε έναν κατάλογο ή ένα όνομα αρχείου, μπορούμε να περιορίσουμε το αποτέλεσμα της εντολής ώστε να μας εμφανίσει μόνο τις υποβολές που επέφεραν αλλαγές σε αυτά τα αρχεία.
+Συνήθως, αυτή είναι και η τελευταία επιλογή και σε γενικές γραμμές χρησιμοποιούμε μια διπλή παύλα προηγουμένως (<code>--</code>) ώστε να ξεχωρίσουμε τις διαδρομές των αρχείων από τις επιλογές.</p>
+</div>
+<div class="paragraph">
+<p>Στον πίνακα <a href="ch00/rlimit_options">Επιλογές περιορισμού της εξόδου της <code>git log</code></a> καταγράφουμε κάποιες από τις επιλογές αυτές ώστε να έχουμε μια αναφορά.</p>
+</div>
+<table id="rlimit_options" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Επιλογές περιορισμού της εξόδου της <code>git log</code>
+</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Επιλογή</th>
+<th class="tableblock halign-left valign-top">Περιγραφή</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-(n)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε μόνον τις τελευταίες n υποβολές.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--since</code>, <code>--after</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Περιόρισε τις υποβολές σε αυτές που έγιναν μετά από συγκεκριμένη ημερομηνία.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--until</code>, <code>--before</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Περιόρισε τις υποβολές σε αυτές που έγιναν πριν από συγκεκριμένη ημερομηνία.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--author</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε μόνο τις υποβολές στις οποίες το πεδιο author συμφωνεί με συγκεκριμένη συμβολοσειρά.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--committer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε μόνο τις υποβολές στις οποίες το πεδιο committer συμφωνεί με συγκεκριμένη συμβολοσειρά.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--grep</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε μόνο τις υποβολές στις οποίες το μήνυμα υποβολής περιέχει συγκεκριμένη συμβολοσειρά.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-S</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Δείξε μόνο τις υποβολές στις οποίες προστέθηκε ή αφαιρέθηκε κώδικας με ταιριάζει με συγκεκριμένη συμβολοσειρά.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Για παράδειγμα, αν θέλουμε να δούμε ποιες υποβολές τροποποίησαν αρχεία τεστ στο ιστορικό του πηγαίου κώδικα του Git από τον Junio Hamano και δεν αποτελούσαν συγχωνεύσεις, στον Οκτώβριο του 2008, μπορούμε να εκτελέσουμε κάτι τέτοιο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log --pretty="%h - %s" --author=gitster --since="2008-10-01" \
+   --before="2008-11-01" --no-merges -- t/
+5610e3b - Fix testcase failure when extended attributes are in use
+acd3b9e - Enhance hold_lock_file_for_{update,append}() API
+f563754 - demonstrate breakage of detached checkout with symbolic link HEAD
+d1a43f2 - reset --hard/read-tree --reset -u: remove unmerged new paths
+51a94af - Fix "checkout --track -b newbranch" on detached HEAD
+b0ad11e - pull: allow "git pull origin $something:$current_branch" into an unborn branch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Από τις περίπου 40.000 υποβολές στο ιστορικό του πηγαίου κώδικα του Git, η εντολή αυτή θα μας δείξει μόνο έξι που ταιριάζουν με τα παραπάνω κριτήρια.</p>
+</div>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>

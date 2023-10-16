@@ -1,0 +1,690 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: Τα θεμελιώδη στοιχεία του Git
+    number: 2
+  section:
+    title: Καταγραφή αλλαγών στο αποθετήριο
+    number: 2
+    cs_number: '2.2'
+    previous: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Αποκτώντας-ένα-αποθετήριο-Git
+    next: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Χρησιμοποιώντας-το-ιστορικό-υποβολών
+title: Git - Καταγραφή αλλαγών στο αποθετήριο
+
+---
+<h2 id="_καταγραφή_αλλαγών_στο_αποθετήριο">Καταγραφή αλλαγών στο αποθετήριο</h2>
+<div class="paragraph">
+<p>Έχουμε λοιπόν ένα ολοκαίνουριο αποθετήριο Git και μια ενημερωμένη έκδοση των αρχείων του έργου.
+Η διαδικασία που θα ακολουθήσουμε είναι να κάνουμε μερικές αλλαγές στο έργο και να υποβάλλουμε ένα στιγμιότυπο από αυτές τις αλλαγές στο αποθετήριο κάθε φορά που θέλουμε να καταγράψουμε την εκάστοτε κατάσταση του έργου μας.</p>
+</div>
+<div class="paragraph">
+<p>Οποιοδήποτε αρχείο στον κατάλογο που δουλεύουμε μπορεί να βρίσκεται σε δύο καταστάσεις: παρακολουθούμενο ή μη-παρακολουθούμενο.
+Τα παρακολουθούμενα αρχεία είναι αυτά που βρίσκονταν στο τελευταίο στιγμιότυπο και μπορούν να είναι τροποποιημένα, ατροποποίητα ή καταχωρημένα.
+Τα μη-παρακολουθούμενα αρχεία από την άλλη μπορούν να είναι ο,τιδήποτε άλλο. Τα αρχεία αυτά μπορούν να είναι οποιοδήποτε αρχεία στον κατάλογο εργασίας μας τα οποία δεν βρίσκονταν στο τελευταίο στιγμιότυπο και ούτε έχουν καταχωρηθεί ακόμα.
+Για παράδειγμα, όταν κλωνοποιούμε για πρώτη φορά ένα αποθετήριο, όλα τα αρχεία θα είναι παρακολουθούμενα και ατροποποίητα καθώς μόλις τα ενημερώσαμε και δεν τα έχουμε επεξεργαστεί ακόμα.</p>
+</div>
+<div class="paragraph">
+<p>Καθώς επεξεργαζόμαστε τα αρχεία, το Git θα τα αναγνωρίζει ως τροποποιημένα καθώς έχουν αλλάξει από την τελευταία φορά που υποβάλλαμε κάποια αρχεία.
+Τα επόμενα στάδια είναι η καταχώρηση των τροποποιημένων αρχείων και η υποβολή τους, η διαδικασία αυτή θα επαναλαμβάνεται συνέχεια.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="{{< relurl "book/en/v2/images/lifecycle.png" >}}" alt="Ο κύκλος ζωής της κατάστασης των αρχείων μας.">
+</div>
+<div class="title">Figure 8. Ο κύκλος ζωής της κατάστασης των αρχείων μας.</div>
+</div>
+<div class="sect3">
+<h3 id="r_checking_status">Έλεγχος της κατάστασης των αρχείων μας</h3>
+<div class="paragraph">
+<p>Το βασικό εργαλείο που μπορούμε να χρησιμοποιήσουμε ώστε να δούμε την τρέχουσα κατάσταση των αρχείων είναι η εντολή <code>git status</code>.
+Αν εκτελέσουμε την αυτήν την εντολή αμέσως αφού κλωνοποιήσουμε ένα αποθετήριο, θα δούμε στη γραμμή εντολών το παρακάτω μήνυμα:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status
+On branch master
+nothing to commit, working directory clean</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Το μήνυμα αυτό σημαίνει ότι έχουμε ένα καθαρό κατάλογο εργασίας. Με άλλα λόγια, δεν υπάρχουν τροποποιημένα ή παρακολουθούμενα αρχεία.
+Επίσης δεν υπάρχουν ούτε μη-παρακολουθούμενα αρχεία αλλιώς το Git θα τα είχε καταγράψει στο παραπάνω μήνυμα.
+Επίσης, η εντολή αυτή μας ενημερώνει σε ποιον κλάδο βρισκόμαστε καθώς και ότι δεν έχει αποκλίνει από τον αντίστοιχο κλάδο του διακομιστή.
+Προς το παρόν χρησιμοποιούμε τον κύριο κλάδο, <code>master</code>, ο οποίος είναι και ο προεπιλεγμένος.
+Θα αναφερθούμε πιο αναλυτικά στους κλάδους στο κεφάλαιο <a href="ch00/ch03-git-branching">[ch03-git-branching]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Έστω ότι έχουμε προσθέσει ένα νέο αρχείο στο έργο μας, ένα απλό αρχείο README.
+Αν το αρχείο αυτό δεν προυπήρχε και εκτελέσουμε την εντολή <code>git status</code>, θα δούμε το μη-παρακολουθούμενο αρχείο μας ως εξής:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ echo 'My Project' &gt; README
+$ git status
+On branch master
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+    README
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Βλέπουμε λοιπόν ότι το αρχείο README είναι μη-παρακολουθούμενο καθώς βρίσκεται κάτω από την κατηγορία <code>Untracked files</code>.
+Ένα μη-παρακολουθούμενο αρχείο ουσιαστικά σημαίνει ότι το Git βλέπει ένα αρχείο το οποίο δεν υπήρχε στο προηγούμενο στιγμιότυπο (την τελευταία φορά που υποβάλλαμε αρχεία). Το Git δεν θα συμπεριλάβει το αρχείο αυτό στα επόμενα στιγμιότυπα που θα υποβάλλουμε αν δεν το ζητήσουμε ρητά.
+Αυτό γίνεται ώστε να μην συμπεριλάβουμε κατά λάθος στο έργο μας αρχεία τα οποία δεν θέλαμε, για παράδειγμα δυαδικά αρχεία.
+Στην περίπτωσή μας, θέλουμε να συμπεριλάβουμε το αρχείο README στο έργο μας οπότε πάμε να ενημερώσουμε το Git ώστε να το παρακολουθεί.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="r_tracking_files">Παρακολούθηση νέων αρχείων</h3>
+<div class="paragraph">
+<p>Για να παρακολουθεί το Git ένα καινούριο αρχείο, χρησιμοποιούμε την εντολή <code>git add</code>.
+Ξεκινάμε την παρακολούθηση του αρχείου REAMDE με την εντολή:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git add README</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αν τώρα εκτελέσουμε την εντολή για να δούμε την τρέχουσα κατάσταση του αποθετηρίου, θα δούμε ότι το αρχείο README πλέον παρακολουθείται και έχει τοποθετηθεί στο στάδιο καταχώρισης ώστε να είναι έτοιμο να υποβληθεί:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    new file:   README</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Το αρχείο πλέον βρίσκεται κάτω από την κατηγορία <code>Changes to be committed</code> που σημαίνει ότι έχει τοποθετηθεί στο στάδιο καταχώρισης.
+Αν σε αυτό το σημείο κάνουμε υποβολή των αρχείων μας, η έκδοση του αρχείου README που θα αποθηκευτεί στο στιγμιότυπ θα είναι αυτή που υπήρχε όταν εκτελέσαμε την εντολή <code>git add</code>.
+Προηγουμένως κάναμε κάτι αντίστοιχο, εκτελέσαμε την εντολή <code>git init</code> ακολουθούμενη από <code>git add (files)</code>. Με τον τρόπο αυτό ξεκινήσαμε την παρακολούθηση των αρχείων του καταλόγου.
+Η εντολή <code>git add</code> μπορεί να ακολουθείται είτε από ένα αρχείο είτε από έναν κατάλογο. Αν ακολουθείται από κατάλογο τότε η εντολή θα καταχωρήσει όλα τα αρχεία του συγκεκριμένου καταλόγου αναδρομικά.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="_καταχώρηση_τροποποιημένων_αρχείων">Καταχώρηση τροποποιημένων αρχείων</h3>
+<div class="paragraph">
+<p>Πάμε λοιπόν να τροποποιήσουμε ένα αρχείο το οποίο παρακολουθείται ήδη.
+Έστω ότι τροποποιούμε ένα ήδη παρακολουθούμενο αρχείο, το <code>CONTRIBUTING.md</code>, και εκτελούμε την εντολή <code>git status</code> ξανά:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    new file:   README
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Το αρχείο <code>CONTRIBUTING.md</code> βρίσκεται κάτω από την κατηγορία <code>Changed but not staged for commit</code>, που σημαίνει ότι ένα ήδη παρακολουθούμενο αρχείο έχει τροποποιηθεί στον κατάλογο εργασίας, αλλά δεν έχει καταχωρηθεί ακόμα.
+Για να το καταχωρήσουμε θα πρέπει να εκτελέσουμε την εντολή <code>git add</code>.
+Η εντολή <code>git add</code> έχει πολλές λειτουργίες: τη χρησιμοποιούμε για να ξεκινήσουμε την παρακολούθηση καινούριων αρχείων, για να καταχωρήσουμε αρχεία αλλά και για άλλες λειτουργίες όπως το να σημειώσουμε αρχεία που προέρχονται από συγκρούσεις συγχώνευσης (merge conflicts) ως επιλυμένα.
+Μπορούμε να σκεφτούμε την εντολή ως “πρόσθεσε αυτό το περιεχόμενο σε ό,τι υποβάλλεις την επόμενη φορά” αντί για “πρόσθεσε αυτό το αρχείο στο έργο”.
+Πάμε λοιπόν να εκτελέσουμε την εντολή <code>git add</code> για να καταχωρήσουμε το αρχείο <code>CONTRIBUTING.md</code> και έπειτα να δούμε την τρέχουσα κατάσταση του αποθετηρίου:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git add CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    new file:   README
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Και τα δύο αρχεία πλέον είναι καταχωρημένα και θα συμπεριληφθούν στην επόμενη υποβολή στιγμιοτύπου.
+Στο σημείο αυτό, ας υποθέσουμε ότι θυμόμαστε μια μικρή αλλαγή που θέλουμε να κάνουμε στο αρχείο <code>CONTRIBUTING.md</code> πριν το υποβάλλουμε.
+Αφού κάνουμε την αλλαγή που θέλουμε, είμαστε έτοιμοι για την υποβολή.
+Παρόλα αυτά ας εκτελέσουμε <code>git status</code> άλλη μια φορά:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ vim CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    new file:   README
+    modified:   CONTRIBUTING.md
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Περίεργο ε;
+Το αρχείο <code>CONTRIBUTING.md</code> αναφέρεται πλέον ως καταχωρημένο αλλά και ως μη καταχωρημένο.
+Πώς είναι αυτό δυνατόν?
+Αυτό που συμβαίνει είναι ότι το Git καταχωρεί ένα αρχείο ακριβώς όπως είναι τη στιγμή που εκτελούμε την εντολή <code>git add</code>.
+Αν υποβάλλουμε το στιγμιότυπο τώρα, η έκδοση του αρχείου <code>CONTRIBUTING.md</code> που υπήρχε όταν εκτελέσαμε την εντολή <code>git add</code> είναι αυτή που θα συμπεριληφθεί στην υποβολή (και όχι η τωρινή έκδοση του αρχείου).
+Γενικά, αν τροποποιήσουμε ένα αρχείο αφότου έχει εκτελεστεί η εντολή <code>git add</code>, θα πρέπει να την εκτελέσουμε ξανά ώστε να καταχωρήσουμε την τελευταία έκδοση του αρχείου:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git add CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    new file:   README
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h3 id="_σύντομη_κατάσταση">Σύντομη κατάσταση</h3>
+<div class="paragraph">
+<p>Ενώ η εντολή <code>git status</code> μας δίνει αρκετά περιεκτική πληροφορία, είναι επίσης και πολύ μακροσκελής.
+Στο Git μπορούμε να δούμε και μια πιο σύντομη περιγραφή της κατάστασης του αποθετηρίου.
+Αν εκτελέσουμε <code>git status -s</code> ή <code>git status --short</code> θα έχουμε ένα πιο απλοποιημένο αποτέλεσμα.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status -s
+ M README
+MM Rakefile
+A  lib/git.rb
+M  lib/simplegit.rb
+?? LICENSE.txt</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Τα καινούργια αρχεία που δεν παρακολουθούνται ακόμα συμβολίζονται με <code>??</code>, τα καινούρια αρχεία που έχουν καταχωρηθεί με <code>A</code>, τα τροποποιημένα αρχεία με <code>M</code> κ.ο.κ.
+Το αποτέλεσμα της εντολής περιλαμβάνει δύο σύμβολα για το κάθε αρχείο. Το αριστερό σύμβολο υποδηλώνει ότι το αρχείο έχει καταχωρηθεί και το δεξί ότι έχει τροποποιηθεί.
+Για παράδειγμα, το αρχείο <code>README</code> είναι τροποιποιημένο στο κατάλογο εργασίας, αλλά δεν έχει καταχωρηθεί ακόμα. Το αρχείο <code>lib/simplegit.rb</code> είναι τροποποιημένο και καταχωρημένο.
+Το αρχείο <code>Rakefile</code> από την άλλη έχει τροποποιηθεί, καταχωρηθεί, και τροποποιηθεί ξανά που σημαίνει ότι υπάρχουν κάποιες αλλαγές που έχουν καταχωρηθεί και κάποιες που δεν έχουν.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="r_ignoring">Αγνοώντας αρχεία</h3>
+<div class="paragraph">
+<p>Είναι συχνό φαινόμενο να υπάρχει μια κατηγορία αρχείων που δεν θέλουμε να καταχωρηθούν αυτόματα από το Git, αλλά ούτε και να τα βλέπουμε ως μη-παρακολουθούμενα.
+Συνήθως αυτά είναι αρχεία που δημιουργούνται αυτόματα όπως αρχεία καταγραφής ή αρχεία που δημιουργούνται από τον μεταγλωττιστή.
+Σε αυτές τις περιπτώσεις μπορούμε να βρούμε το μοτίβο των ονομάτων των αρχείων που δεν χρειαζόμαστε και να τα καταχωρήσουμε στο αρχείο <code>.gitignore</code>.
+Ας δούμε ένα παράδειγμα αρχείου <code>.gitignore</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ cat .gitignore
+*.[oa]
+*~</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η πρώτη γραμμή ενημερώνει το Git ώστε να αγνοεί όλα τα αρχεία που τελειώνουν σε <code>.o</code> ή <code>.a</code>.
+Η δεύτερη γραμμή ενημερώνει το Git ώστε να αγνοεί όλα τα αρχεία που τελειώνουν με τον χαρακτήρα της ισπανικής περισπωμένης (<code>~</code>), το οποίο χρησιμοποιείται από πολλούς επεξεργαστές κειμένου, όπως ο Emacs, για να δηλώσει τα προσωρινά αρχεία.
+Μπορούμε επίσης να συμπεριλάβουμε καταλόγους που περιλαμβάνουν αρχεία καταγραφής, προσωρινούς καταλόγους κ.ο.κ.
+Γενικά είναι καλή ιδέα να ρυθμίσουμε το αρχείο <code>.gitignore</code> νωρίς ώστε να μην υποβάλλουμε κατά λάθος αρχεία που δεν θέλουμε να βρίσκονται στο αποθετήριο.</p>
+</div>
+<div class="paragraph">
+<p>Οι κανόνες για τα μοτίβα που μπορούμε να δηλώσουμε στο αρχείο <code>.gitignore</code> είναι οι εξής:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Οι κενές γραμμές ή οι γραμμές που ξεκινούν με <code>#</code> θα αγνοηθούν.</p>
+</li>
+<li>
+<p>Μπορούμε να χρησιμοποιήσουμε τα κλασικά μοτίβα για ονόματα αρχείων (glob patterns).</p>
+</li>
+<li>
+<p>Μπορούμε να ξεκινήσουμε τα μοτίβα μας με μια κάθετο (<code>/</code>) ώστε να αποφύγουμε την αναδρομικότητα</p>
+</li>
+<li>
+<p>Μπορούμε να τελειώσουμε τα μοτίβα μας με μια κάθετο (<code>/</code>) ώστε να ορίσουμε έναν κατάλογο.</p>
+</li>
+<li>
+<p>Μπορούμε να αντιστρέψουμε ένα μοτίβο χρησιμοποιώντας ένα θαυμαστικό (<code>!</code>) στην αρχή του.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Τα μοτίβα αυτά είναι σαν απλοποιημένες κανονικές εκφράσεις (regular expressions) που χρησιμοποιούν τα λειτουργικά συστήματα.
+Ένας αστερίσκος (<code>*</code>) αντιστοιχεί σε 0 ή περισσότερους χαρακτήρες. Το <code>[abc]</code> αντιστοιχεί σε οποιονδήποτε χαρακτήρα βρίσκεται μέσα στις αγκύλες. Το σύμβολο του αγγλικού ερωτηματικού (<code>?</code>) αντιστοιχεί σε έναν και μόνο χαρακτήρα. Αν οι αγκύλες περιέχουν 2 χαρακτήρες που μεταξύ τους χωρίζονται με παύλα (<code>[0-9]</code>) τότε αυτή η έκφραση αντιστοιχεί σε όλους τους χαρακτήρες που υπάρχουν μεταξύ των 2 χαρακτήρων (στην περίπτωσή μας, όλοι οι αριθμοί από το 0 μέχρι το 9).
+Μπορούμε επίσης να χρησιμοποιήσουμε 2 αστερίσκους για να αντιστοιχίσουμε εμφωλευμένους καταλόγους: η έκφραση <code>a/**/z</code> αντιστοιχεί στους καταλόγους <code>a/z</code>, <code>a/b/z</code>, <code>a/b/c/z</code> κ.ο.κ.</p>
+</div>
+<div class="paragraph">
+<p>Ας δούμε άλλο ένα παράδειγμα ενός αρχείου .gitignore:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># αρχεία .a
+*.a
+
+# αλλά να παρακολουθείς το lib.a, παρά το ότι αγνοούμε τα αρχεία .a
+!lib.a
+
+# αγνόησε μόνο το αρχείο TODO στον τρέχοντα κατάλογο όχι subdir/TODO
+/TODO
+
+# αγνόησε όλα τα αρχεία στον κατάλογο build/
+build/
+
+# αγνόησε το doc/notes.txt, αλλά όχι το doc/server/arch.txt
+doc/*.txt
+
+# αγνόησε όλα τα .pdf files στον φάκελο doc/
+doc/**/*.pdf</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Αν θέλουμε κάποια παραδείγματα για να ξεκινήσουμε, το GitHub διατηρεί μια λίστα με παραδείγματαα αρχείων <code>.gitignore</code> για πολλές γλώσσες προγραμματισμού στη διεύθυνση <a href="https://github.com/github/gitignore" class="bare">https://github.com/github/gitignore</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h3 id="r_git_diff_staged">Προβολή των καταχωρημένων και μη-καταχωρημένων αλλαγών</h3>
+<div class="paragraph">
+<p>Αν η εντολή <code>git status</code> είναι πολύ αόριστη για εμάς και θέλουμε να δούμε ακριβώς τι έχουμε αλλάξει (και όχι μόνο ποια αρχεία έχουν αλλάξει), μπορούμε να χρησιμοποιήσουμε την εντολή <code>git diff</code>.
+Θα καλύψουμε την εντολή αυτή πιο αναλυτικά αργότερα, αλλά θα τη χρησιμοποιούμε συχνά για να απαντήσουμε σε 2 ερωτήσεις: Τι έχουμε αλλάξει και δεν έχουμε καταχωρήσει ακόμα;
+Και επίσης, τι έχουμε καταχωρήσει που είναι έτοιμο για να υποβληθεί;
+Ενώ η εντολή <code>git status</code> απαντά σε αυτές τις ερωτήσεις πολύ γενικά, απαριθμώντας τα ονόματα των αρχείων, η εντολή <code>git diff</code> θα μας δείξει ακριβώς ποιες γραμμές προστέθηκαν ή αφαιρέθηκαν.</p>
+</div>
+<div class="paragraph">
+<p>Έστω λοιπόν ότι επεξεργαζόμαστε και καταχωρούμε το αρχείο <code>README</code> και μετά επεξεργαζόμαστε το αρχείο <code>CONTRIBUTING.md</code> χωρίς να το καταχωρήσουμε.
+Αν τώρα εκτελέσουμε την εντολή <code>git status</code>, θα δούμε κάτι τέτοιο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    new file:   README
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Για να δούμε τι έχουμε αλλάξει, αλλά δεν έχουμε καταχωρήσει ακόμα, πληκτρολογούμε <code>git diff</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 8ebb991..643e24f 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -65,7 +65,8 @@ branch directly, things can get messy.
+ Please include a nice description of your changes when you submit your PR;
+ if we have to read the whole diff to figure out why you're contributing
+ in the first place, you're less likely to get feedback and have your change
+-merged in.
++merged in. Also, split your changes into comprehensive chunks if your patch is
++longer than a dozen lines.
+
+ If you are starting to work on a particular area, feel free to submit a PR
+ that highlights your work in progress (and note in the PR title that it's</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή αυτή συγκρίνει τον κατάλογο εργασίας μας με ό,τι υπάρχει στην περιοχή καταχώρησης.
+Το αποτέλεσμά της λοιπόν θα περιλαμβάνει τις αλλαγές που έχουμε κάνει, αλλά δεν έχουμε καταχωρήσει ακόμα.</p>
+</div>
+<div class="paragraph">
+<p>Αν θέλουμε να δούμε τι έχουμε καταχωρήσει μέχρι τώρα, που θα είναι και μέρος της επόμενης υποβολής, μπορούμε να χρησιμοποιήσουμε την εντολή <code>git diff --staged</code>.
+Η εντολή αυτή συγκρίνει τις καταχωρημένες αλλαγές με την τελευταία υποβολή:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff --staged
+diff --git a/README b/README
+new file mode 100644
+index 0000000..03902a1
+--- /dev/null
++++ b/README
+@@ -0,0 +1 @@
++My Project</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Είναι σημαντικό να σημειώσουμε ότι η εντολή <code>git diff</code> από μόνη της δεν μας εμφανίζει τις αλλαγές που έγιναν από την τελευταία υποβολή, παρά μόνο τις αλλαγές που δεν έχουν ακόμα καταχωρηθεί.
+Το γεγονός αυτό μπορεί να προκαλεί σύγχυση καθώς για παράδειγμα αν έχουμε καταχωρήσει όλες μας τις αλλαγές, η εντολή <code>git diff</code> δεν θα μας επιστρέψει κάποιο αποτέλεσμα.</p>
+</div>
+<div class="paragraph">
+<p>Για να καταλάβουμε καλύτερα τη χρήση της εντολής αυτής, ας δούμε άλλο ένα παράδειγμα. Έστω ότι έχουμε ένα αρχείο <code>CONTRIBUTING.md</code> που έχουμε ήδη καταχωρήσει, και έπειτα το έχουμε τροποποιήσει. Μπορούμε να χρησιμοποιήσουμε την εντολή <code>git diff</code> για να δούμε ποιες ακριβώς αλλαγές του αρχείου έχουν καταχωρηθεί και ποιες όχι.
+Αν λοιπόν το περιβάλλον εργασίας μας είναι κάπως έτσι:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git add CONTRIBUTING.md
+$ echo '# test line' &gt;&gt; CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    modified:   CONTRIBUTING.md
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Μπορούμε να χρησιμοποιήσουμε την εντολή <code>git diff</code> για να δούμε τι δεν έχει καταχωρηθεί ακόμα</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 643e24f..87f08c8 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -119,3 +119,4 @@ at the
+ ## Starter Projects
+
+ See our [projects list](https://github.com/libgit2/libgit2/blob/development/PROJECTS.md).
++# test line</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>καθώς και την εντολή <code>git diff --cached</code> για να δούμε τι έχει καταχωρηθεί μέχρι τώρα (τα <code>--staged</code> και <code>--cached</code> είναι συνώνυμα):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff --cached
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 8ebb991..643e24f 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -65,7 +65,8 @@ branch directly, things can get messy.
+ Please include a nice description of your changes when you submit your PR;
+ if we have to read the whole diff to figure out why you're contributing
+ in the first place, you're less likely to get feedback and have your change
+-merged in.
++merged in. Also, split your changes into comprehensive chunks if your patch is
++longer than a dozen lines.
+
+ If you are starting to work on a particular area, feel free to submit a PR
+ that highlights your work in progress (and note in the PR title that it's</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Χρήση της <code>git diff</code> μέσω άλλου προγράμματος
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Θα συνεχίσουμε να χρησιμοποιούμε την εντολή <code>git diff</code> με διάφορους τρόπους στο βιβλίο.
+Αν όμως προτιμάμε να βλέπουμε τις διαφορές μεταξύ των αρχείων με κάποιο γραφικό εργαλείο (και όχι μέσα από τη γραμμή εντολών), υπάρχει και άλλος τρόπος.
+Αν εκτελέσουμε την εντολή <code>git difftool</code> αντί για <code>git diff</code> μπορούμε να δούμε τις διαφορές των αρχείων με προγράμματα όπως τα Araxis, emerge, vimdiff και άλλα.
+Ας δοκιμάσουμε να εκτελέσουμε την εντολή <code>git difftool --tool-help</code> για να δούμε τι προγράμματα είναι διαθέσιμα για το σύστημά μας.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h3 id="r_committing_changes">Υποβολή των αλλαγών</h3>
+<div class="paragraph">
+<p>Τώρα που η περιοχή καταχώρησης περιέχει τις αλλαγές που θέλουμε, είμαστε έτοιμοι να τις υποβάλλουμε.
+Θυμόμαστε ότι όλα τα μη καταχωρημένα αρχεία, δηλαδή όσα αρχεία έχουμε δημιουργήσει ή τροποποιήσει και για τα οποία δεν εκτελέσαμε την εντολή <code>git add</code>, δεν θα συμπεριληφθούν σε αυτήν την υποβολή.
+Αντί γι' αυτό, θα παραμείνουν ως τροποποιημένα αρχεία στον δίσκο μας.
+Στην περίπτωσή μας, έστω ότι έχουμε εκτελέσει την εντολή <code>git status</code> και βλέπουμε ότι όλες οι αλλαγές που θέλουμε είναι καταχωρημένες. Είμαστε έτοιμοι πλέον να υποβάλλουμε τις αλλαγές μας.
+Ο πιο απλός τρόπος για να υποβάλλουμε αλλαγές είναι να πληκτρολογήσουμε <code>git commit</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git commit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Με αυτήν την εντολή θα εκκινήσουμε τον προεπιλεγμένο επεξεργαστή κειμένου.
+Αυτός είναι καθορισμένος από τη μεταβλητή περιβάλλοντος (environment variable) της γραμμής εντολών, <code>$EDITOR</code>, και συνήθως είναι ο vim ή ο emacs. Παρόλα αυτά μπορούμε να χρησιμοποιήσουμε την εντολή <code>git config --global core.editor</code> ώστε να χρησιμοποιήσουμε τον επεξεργαστή κειμένου της αρεσκείας μας, όπως είδαμε στο κεφάλαιο <a href="ch00/ch01-introduction">Ξεκινώντας με το Git</a>.</p>
+</div>
+<div class="paragraph">
+<p>Ο επεξεργαστής κειμένου θα μας εμφανίσει το παρακάτω κείμενο (στο παράδειγμά μας χρησιμοποιούμε το Vim):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#	new file:   README
+#	modified:   CONTRIBUTING.md
+#
+~
+~
+~
+".git/COMMIT_EDITMSG" 9L, 283C</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Βλέπουμε ότι το προεπιλεγμένο μήνυμα υποβολής περιέχει το τελευταίο αποτέλεσμα της εντολής <code>git status</code> μέσα σε σχόλια (οι γραμμές που ξεκινούν με τη δίεση, <code>#</code>, αποτελούν σχόλια) και μια κενή γραμμή στην αρχή.
+Μπορούμε να αφαιρέσουμε τα σχόλια αυτά και να γράψουμε το δικό μας μήνυμα υποβολής ή να τα αφήσουμε ως έχουν ώστε να μας βοηθήσουν αργότερα να θυμηθούμε ποια αρχεία υποβάλλουμε.
+(Για να έχουμε μια ακόμα πιο ρητή υπενθύμιση των αλλαγών που έχουμε κάνει, μπορούμε να χρησιμοποιήσουμε την επιλογή <code>-v</code> στην εντολή <code>git commit</code>. Με τον τρόπο αυτό, θα εισάγουμε τις αλλαγές μας στον επεξεργαστή κειμένου ώστε να δούμε ακριβώς ποιες αλλαγές θα υποβάλλουμε.)
+Αφού κλείσουμε τον επεξεργαστή κειμένου, το Git θα δημιουργήσει την υποβολή μας με το παραπάνω μήνυμα (τα σχόλια θα αφαιρεθούν).</p>
+</div>
+<div class="paragraph">
+<p>Εναλλακτικά, μπορούμε να γράψουμε το μήνυμα υποβολής μας μαζί με την εντολή <code>commit</code>, χρησιμοποιώντας την επιλογή -m ως εξής:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git commit -m "Story 182: Fix benchmarks for speed"
+[master 463dc4f] Story 182: Fix benchmarks for speed
+ 2 files changed, 2 insertions(+)
+ create mode 100644 README</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Μόλις κάναμε την πρώτη μας υποβολή!
+Βλέπουμε ότι η υποβολή αυτή μας έχει δώσει κάποιες πληροφορίες: τον κλάδο στον οποίο υποβάλλαμε τις αλλαγές μας (<code>master</code> στην περίπτωσή μας), το SHA-1 άθροισμα ελέγχου (SHA-1 checksum) της υποβολής (<code>463dc4f</code>), πόσα αρχεία αλλάξαμε, καθώς και στατιστικά για το πόσες γραμμές προσθέσαμε και αφαιρέσαμε στην υποβολή αυτή.</p>
+</div>
+<div class="paragraph">
+<p>Υπενθυμίζουμε ότι η υποβολή αλλαγών καταγράφει το στιγμιότυπο το οποίο είχαμε εκείνη τη στιγμή στην περιοχή καταχώρησης.
+Ο,τιδήποτε δεν είχαμε καταχωρήσει θα παραμένει εκεί τροποποιημένο, μπορούμε να το υποβάλλουμε αργότερα.
+Κάθε φορά που πραγματοποιούμε μια υποβολή, καταγράφουμε ένα στιγμιότυπο του έργου μας, το οποίο μπορούμε να χρησιμοποιήσουμε ώστε να επανέλθουμε σε αυτό ή να το συγκρίνουμε με το έργο μας αργότερα.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="_παραλείποντας_την_περιοχή_καταχώρησης">Παραλείποντας την περιοχή καταχώρησης</h3>
+<div class="paragraph">
+<p>
+Παρόλο που η περιοχή καταχώρησης είναι πολύ χρήσιμη για να διαμορφώνουμε τις υποβολές μας ακριβώς όπως θέλουμε, κάποιες φορές είναι πιο περίπλοκη από όσο χρειαζόμαστε για την εργασία μας.
+Αν θέλουμε να παραλείψουμε την περιοχή καταχώρησης, το Git παρέχει μια απλή συντόμευση.
+Προσθέτοντας την επιλογή <code>-a</code> στην εντολή <code>git commit</code> κάνει το Git να καταχωρεί αυτόματα κάθε αρχείο το οποίο παρακολουθείται ήδη πριν κάνουμε την υποβολή. Με αυτόν τον τρόπο μπορούμε να παραλείψουμε την εντολή <code>git add</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+$ git commit -a -m 'added new benchmarks'
+[master 83e38c7] added new benchmarks
+ 1 file changed, 5 insertions(+), 0 deletions(-)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Παρατηρούμε ότι στην περίπτωση αυτή, δεν έχουμε να εκτελέσουμε την εντολή <code>git add</code> στο αρχείο <code>CONTRIBUTING.md</code> πριν κάνουμε την υποβολή μας.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="r_removing_files">Αφαιρώντας αρχεία</h3>
+<div class="paragraph">
+<p>
+Για να αφαιρέσουμε ένα αρχείο από το Git, θα πρέπει να το αφαιρέσουμε από τη λίστα με τα παρακολουθούμενα αρχεία (ή πιο σωστά, να το αφαιρέσουμε από την περιοχή καταχώρησης) και έπειτα να το υποβάλλουμε.
+Αυτό το πραγματοποιούμε με την εντολή <code>git rm</code>, η οποία επίσης θα αφαιρέσει το αρχείο από τον κατάλογο εργασίας μας έτσι ώστε να μην το έχουμε ως μη-παρακολουθούμενο αρχείο.</p>
+</div>
+<div class="paragraph">
+<p>Αν απλά αφαιρέσουμε το αρχείο από τον κατάλογο εργασίας μας, θα εμφανίζεται κάτω από την κατηγορία <code>Changed but not updated</code> (που ουσιαστικά σημαίνει <em>μη καταχωρημένο</em>) του αποτελέσματος της εντολής <code>git status</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ rm PROJECTS.md
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add/rm &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+        deleted:    PROJECTS.md
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Έπειτα η εντολή <code>git rm</code> θα καταχωρήσει την αφαίρεση του αρχείου:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git rm PROJECTS.md
+rm 'PROJECTS.md'
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    deleted:    PROJECTS.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Στην επόμενη υποβολή μας, το αρχείο θα έχει αφαιρεθεί και δεν παρακολουθείται πια.
+Αν είχαμε τροποποιήσει το αρχείο και είχαμε ήδη προσθέσει στην περιοχή καταχώρησης, θα πρέπει να εξαναγκάσουμε την αφαίρεσή του με την επιλογή <code>-f</code>.
+Αυτό είναι μια λειτουργία για λόγους ασφάλειας του Git ώστε να αποτρέψει τυχαία αφαίρεση δεδομένων που δεν έχουν ακόμα καταγραφεί σε κάποιο στιγμιότυπο και δεν μπορούν να ανακτηθούν από το Git.</p>
+</div>
+<div class="paragraph">
+<p>Ένα ακόμα χρήσιμο πράγμα που μπορεί να θέλουμε είναι να κρατήσουμε το αρχείο στον κατάλογο εργασίας μας, αλλά να το αφαιρέσουμε από την περιοχή καταχώρησης.
+Με άλλα λόγια, μπορεί να θέλουμε να κρατήσουμε το αρχείο στον σκληρό μας δίσκο, αλλά να μην παρακολουθείται από το Git πλέον.
+Αυτό μπορεί να αποδειχτεί πολύ χρήσιμο αν ξεχάσαμε να προσθέσουμε κάτι στο αρχείο <code>.gitignore</code> και να καταχωρήσαμε κάτι κατά λάθος, όπως για παράδειγμα μεταγλωττισμένα αρχεία.
+Για να το κάνουμε αυτό, χρησιμοποιούμε την επιλογή <code>--cached</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git rm --cached README</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Μπορούμε να χρησιμοποιείσουμε την παραπάνω εντολή με αρχεία, καταλόγους και μοτίβα αρχείων.
+Αυτό σημαίνει ότι μπορούμε να εκτελέσουμε εντολές όπως</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git rm log/\*.log</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ας σημειωθεί την ανάποδη κάθετο (<code>\</code>) μπροστά από τον αστερίσκο, <code>*</code>.
+Αυτή είναι απαραίτητη επειδή το Git χρησιμοποιεί τον δικό του τρόπο ώστε να επεκτείνει το όνομα των αρχείων, επιπροσθέτως του τρόπου που χρησιμοποιεί η γραμμή εντολών μας.
+Η παραπάνω εντολή αφαιρεί όλα τα αρχεία που έχουν την κατάληξη <code>.log</code> στον κατάλογο <code>log/</code>.
+Επίσης, θα μπορούσαμε να κάνουμε κάτι τέτοιο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git rm \*~</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή αυτή αφαιρεί όλα τα αρχεία που τελειώνουν με τον χαρακτήρα <code>~</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="r_git_mv">Μετακινώντας αρχεία</h3>
+<div class="paragraph">
+<p>
+Σε αντίθεση με άλλα συστήματα ελέγχου έκδοσης, το Git δεν παρακολουθεί τις μετακινήσεις αρχείων από μόνο του.
+Αν μετονομάσουμε ένα αρχείο στο Git, δεν θα αποθηκευτεί καμιά πληροφορία που να ενημερώνει το Git ότι μετονομάσαμε το αρχείο.
+Παρόλα αυτά, το Git είναι αρκετά έξυπνο ώστε να καταλάβει κάτι τέτοιο —θα ασχοληθούμε λίγο αργότερα με το πώς παρακολουθείται η μετακίνηση αρχείων.</p>
+</div>
+<div class="paragraph">
+<p>Έτσι, είναι λίγο περίπλοκο το γεγονός ότι το Git έχει την εντολή <code>mv</code>.
+Αν θέλουμε να μετονομάσουμε ένα αρχείο στο Git, μπορούμε να το κάνουμε κάπως έτσι</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git mv file_from file_to</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>το οποίο θα λειτουργήσει τέλεια.
+Στην πραγματικότητα, αν εκτελέσουμε κάτι τέτοιο και έπειτα κοιτάξουμε στην κατάσταση του αποθετηρίου, θα δούμε ότι το Git το υπολογίζει ως μετονομασμένο αρχείο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git mv README.md README
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+    renamed:    README.md -&gt; README</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή αυτή όμως, είναι ισοδύναμη με το να εκτελέσουμε κάτι τέτοιο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ mv README.md README
+$ git rm README.md
+$ git add README</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Το Git μπορεί να καταλάβει ότι έμμεσα πρόκειται για μετονομασία. Συνεπώς, δεν έχει σημασία αν μετονομάσουμε ένα αρχείο με αυτόν τον τρόπο ή με την εντολή <code>mv</code>.
+Η μόνη πραγματική αλλαγή είναι ότι η εντολή <code>mv</code> είναι μία εντολή αντί για τρεις —το χρησιμοποιούμε για ευκολία.
+Σε κάθε περίπτωση, μπορούμε να χρησιμοποιήσουμε όποιο εργαλείο θέλουμε για να μετονομάσουμε ένα αρχείο, και να λύσουμε το πρόβλημα του add/rm αργότερα, πριν την υποβολή.</p>
+</div>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>

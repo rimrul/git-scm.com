@@ -1,0 +1,115 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: Το Git στον διακομιστή
+    number: 4
+  section:
+    title: Έξυπνο HTTP
+    number: 6
+    cs_number: '4.6'
+    previous: book/gr/v2/Το-Git-στον-διακομιστή-Δαίμονες-του-Git
+    next: book/gr/v2/Το-Git-στον-διακομιστή-GitWeb
+title: Git - Έξυπνο HTTP
+
+---
+<h2 id="_έξυπνο_http_2">Έξυπνο HTTP</h2>
+<div class="paragraph">
+<p>
+Έχουμε πλέον ταυτοποιημένη πρόσβαση μέσω SSH και μη-ταυτοποιημένη πρόσβαση μέσω του <code>git://</code>, αλλά υπάρχει και ένα πρωτόκολλο που μπορεί να τα κάνει και τα δύο ταυτόχρονα.
+Η εγκατάσταση του έξυπνου HTTP βασικά απλά ενεργοποιεί ένα script CGI, που παρέχεται με τον Git και ονομάζεται <code>git-http-backend</code>, στον διακομιστή. (((εντολές git, http-backend)
+Αυτό το CGI θα διαβάσει τη διαδρομή και τις κεφαλίδες που θα σταλούν με <code>git fetch</code>'ή <code>git push</code> σε μια διεύθυνση URL HTTP και θα καθορίσει εάν ο πελάτης μπορεί να επικοινωνήσει μέσω HTTP (κάτι που ισχύει για κάθε πελάτη από την έκδοση 1.6.6 και μετά).
+Αν το CGI διαπιστώσει ότι ο πελάτης είναι “έξυπνος”, θα επικοινωνήσει “έξυπνα” μαζί του, αλλιώς θα επανέλθει στη χαζή συμπεριφορά (συνεπώς έχει προς-τα-πίσω συμβατότητα για ανάγνωσεις με τους παλαιότερους πελάτες).</p>
+</div>
+<div class="paragraph">
+<p>Ας δούμε μία πολύ βασική ρύθμιση.
+Θα υποθέσουμε ότι ο διακομιστής CGI είναι Apache.
+Αν δεν έχουμε Apache, μπορούμε να το κάνουμε σε ένα κουτί Linux με κάτι σαν αυτό: </p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ sudo apt-get install apache2 apache2-utils
+$ a2enmod cgi alias env</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτό επιτρέπει επίσης τις λειτουργικές μονάδες (modules) <code>mod_cgi</code>, <code>mod_alias</code> και <code>mod_env</code>, που είναι απαραίτητες για να λειτουργήσει σωστά το παρακάτω.</p>
+</div>
+<div class="paragraph">
+<p>Στη συνέχεια πρέπει να προσθέσουμε κάποια πράγματα στις ρυθμίσεις του Apache για να εκτελέσουμε το <code>git-http-backend</code> ως τον χειριστή για ο,τιδήποτε μπαίνει στη διαδρομή <code>/git</code> του διακομιστή web μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">SetEnv GIT_PROJECT_ROOT /opt/git
+SetEnv GIT_HTTP_EXPORT_ALL
+ScriptAlias /git/ /usr/lib/git-core/git-http-backend/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν παραλείψουμε τη μεταβλητή περιβάλλοντος (environment variable) <code>GIT_HTTP_EXPORT_ALL</code>, τότε το Git θα προσφέρει μόνο σε μη-ταυτοποιημένους πελάτες τα αποθετήρια που περιέχουν το αρχείο` <code>git-daemon-export-ok</code>, ακριβώς όπως ο δαίμονας Git.</p>
+</div>
+<div class="paragraph">
+<p>Στη συνέχεια θα πρέπει να πούμε στο Apache να επιτρέψει αιτήματα σε αυτήν τη διαδρομή με κάτι σαν αυτό:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">&lt;Directory "/usr/lib/git-core*"&gt;
+   Options ExecCGI Indexes
+   Order allow,deny
+   Allow from all
+   Require all granted
+&lt;/Directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Τέλος, θα θελήσουμε να κάνουμε τις εγγραφές να πιστοποιούνται με κάποιον τρόπο, πιθανώς με ένα μπλοκ Auth όπως αυτό:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">&lt;LocationMatch "^/git/.*/git-receive-pack$"&gt;
+    AuthType Basic
+    AuthName "Git Access"
+    AuthUserFile /opt/git/.htpasswd
+    Require valid-user
+&lt;/LocationMatch&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτό θα απαιτήσει τη δημιουργία ενός αρχείου <code>.htaccess</code> που θα περιέχει τους κωδικούς πρόσβασης όλων των έγκυρων χρηστών.
+Ακολουθεί ένα παράδειγμα προσθήκης ενός χρήστη <code>schacon</code> στο αρχείο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ htdigest -c /opt/git/.htpasswd "Git Access" schacon</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Υπάρχουν πάρα πολλοί τρόποι με τους οποίους μπορούμε να ζητήσουμε από τον Apache να ταυτοποιεί χρήστες, θα πρέπει να επιλέξουμε έναν και να τον υλοποιήσουμε.
+Αυτό είναι απλά το απλούστερο παράδειγμα που μπορέσαμε να βρούμε.
+Είναι σχεδόν βέβαιο ότι θα θέλήσουμε να το εγκαταστήσουμε πάνω από SSL, ώστε όλα αυτά τα δεδομένα να είναι κρυπτογραφημένα.</p>
+</div>
+<div class="paragraph">
+<p>Δεν θέλουμε να μπούμε σε μεγάλο βάθος στις ειδικότερες ρυθμίσεις του Apache, καθώς ενδεχομένως θα μπορούσαμε να χρησιμοποιούμε διαφορετικό διακομιστή ή να έχουμε διαφορετικές ανάγκες ταυτοποίησης.
+Η βασική ιδέα είναι ότι το Git έρχεται με ένα CGI που ονομάζεται <code>git-http-backend</code> που όταν καλείται θα κάνει όλες τις διαπραγματεύσεις για αποστολή και λήψη δεδομένων μέσω HTTP.
+Δεν υλοποιεί το ίδιο τον έλεγχο ταυτότητα, αλλά αυτό μπορεί εύκολα να ελεγχθεί στο επίπεδο του διακομιστή web που τον καλεί.
+Μπορούμε να κάνουμε τα παραπάνω με σχεδόν οποιοδήποτε διακομιστή web με δυνατότητα CGI, οπότε μπορούμε να χρησιμοποιήσουμε αυτόν που γνωρίζουμε καλύτερα.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Περισσότερες πληροφορίες σχετικά με τη ρύθμιση της ταυτοποίησης στον Apache, υπάρχουν στην τεκμηρίωση του Apache στην <a href="http://httpd.apache.org/docs/current/howto/auth.html" class="bare">http://httpd.apache.org/docs/current/howto/auth.html</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>
