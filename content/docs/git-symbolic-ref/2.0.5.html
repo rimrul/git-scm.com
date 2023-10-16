@@ -1,0 +1,424 @@
+---
+category: manual
+section: documentation
+subsection: manual
+title: Git - git-symbolic-ref Documentation
+docname: git-symbolic-ref
+version: 2.0.5
+aliases:
+- "/docs/git-symbolic-ref/2.0.5"
+- "/docs/git-symbolic-ref/2.0.5.html"
+- "/docs/git-symbolic-ref/2.1.4"
+- "/docs/git-symbolic-ref/2.1.4.html"
+- "/docs/git-symbolic-ref/2.2.3"
+- "/docs/git-symbolic-ref/2.2.3.html"
+- "/docs/git-symbolic-ref/2.3.10"
+- "/docs/git-symbolic-ref/2.3.10.html"
+- "/docs/git-symbolic-ref/2.4.12"
+- "/docs/git-symbolic-ref/2.4.12.html"
+- "/docs/git-symbolic-ref/2.5.6"
+- "/docs/git-symbolic-ref/2.5.6.html"
+- "/docs/git-symbolic-ref/2.6.7"
+- "/docs/git-symbolic-ref/2.6.7.html"
+- "/docs/git-symbolic-ref/2.7.6"
+- "/docs/git-symbolic-ref/2.7.6.html"
+- "/docs/git-symbolic-ref/2.8.6"
+- "/docs/git-symbolic-ref/2.8.6.html"
+- "/docs/git-symbolic-ref/2.9.5"
+- "/docs/git-symbolic-ref/2.9.5.html"
+- "/docs/git-symbolic-ref/2.10.5"
+- "/docs/git-symbolic-ref/2.10.5.html"
+- "/docs/git-symbolic-ref/2.11.4"
+- "/docs/git-symbolic-ref/2.11.4.html"
+- "/docs/git-symbolic-ref/2.12.5"
+- "/docs/git-symbolic-ref/2.12.5.html"
+- "/docs/git-symbolic-ref/2.13.7"
+- "/docs/git-symbolic-ref/2.13.7.html"
+- "/docs/git-symbolic-ref/2.14.6"
+- "/docs/git-symbolic-ref/2.14.6.html"
+- "/docs/git-symbolic-ref/2.15.4"
+- "/docs/git-symbolic-ref/2.15.4.html"
+- "/docs/git-symbolic-ref/2.16.6"
+- "/docs/git-symbolic-ref/2.16.6.html"
+- "/docs/git-symbolic-ref/2.17.0"
+- "/docs/git-symbolic-ref/2.17.0.html"
+- "/docs/git-symbolic-ref/2.17.1"
+- "/docs/git-symbolic-ref/2.17.1.html"
+- "/docs/git-symbolic-ref/2.17.2"
+- "/docs/git-symbolic-ref/2.17.2.html"
+- "/docs/git-symbolic-ref/2.17.3"
+- "/docs/git-symbolic-ref/2.17.3.html"
+- "/docs/git-symbolic-ref/2.17.4"
+- "/docs/git-symbolic-ref/2.17.4.html"
+- "/docs/git-symbolic-ref/2.17.5"
+- "/docs/git-symbolic-ref/2.17.5.html"
+- "/docs/git-symbolic-ref/2.17.6"
+- "/docs/git-symbolic-ref/2.17.6.html"
+- "/docs/git-symbolic-ref/2.18.0"
+- "/docs/git-symbolic-ref/2.18.0.html"
+- "/docs/git-symbolic-ref/2.18.1"
+- "/docs/git-symbolic-ref/2.18.1.html"
+- "/docs/git-symbolic-ref/2.18.2"
+- "/docs/git-symbolic-ref/2.18.2.html"
+- "/docs/git-symbolic-ref/2.18.3"
+- "/docs/git-symbolic-ref/2.18.3.html"
+- "/docs/git-symbolic-ref/2.18.4"
+- "/docs/git-symbolic-ref/2.18.4.html"
+- "/docs/git-symbolic-ref/2.18.5"
+- "/docs/git-symbolic-ref/2.18.5.html"
+- "/docs/git-symbolic-ref/2.19.0"
+- "/docs/git-symbolic-ref/2.19.0.html"
+- "/docs/git-symbolic-ref/2.19.1"
+- "/docs/git-symbolic-ref/2.19.1.html"
+- "/docs/git-symbolic-ref/2.19.2"
+- "/docs/git-symbolic-ref/2.19.2.html"
+- "/docs/git-symbolic-ref/2.19.3"
+- "/docs/git-symbolic-ref/2.19.3.html"
+- "/docs/git-symbolic-ref/2.19.4"
+- "/docs/git-symbolic-ref/2.19.4.html"
+- "/docs/git-symbolic-ref/2.19.5"
+- "/docs/git-symbolic-ref/2.19.5.html"
+- "/docs/git-symbolic-ref/2.19.6"
+- "/docs/git-symbolic-ref/2.19.6.html"
+- "/docs/git-symbolic-ref/2.20.0"
+- "/docs/git-symbolic-ref/2.20.0.html"
+- "/docs/git-symbolic-ref/2.20.1"
+- "/docs/git-symbolic-ref/2.20.1.html"
+- "/docs/git-symbolic-ref/2.20.2"
+- "/docs/git-symbolic-ref/2.20.2.html"
+- "/docs/git-symbolic-ref/2.20.3"
+- "/docs/git-symbolic-ref/2.20.3.html"
+- "/docs/git-symbolic-ref/2.20.4"
+- "/docs/git-symbolic-ref/2.20.4.html"
+- "/docs/git-symbolic-ref/2.20.5"
+- "/docs/git-symbolic-ref/2.20.5.html"
+- "/docs/git-symbolic-ref/2.21.0"
+- "/docs/git-symbolic-ref/2.21.0.html"
+- "/docs/git-symbolic-ref/2.21.1"
+- "/docs/git-symbolic-ref/2.21.1.html"
+- "/docs/git-symbolic-ref/2.21.2"
+- "/docs/git-symbolic-ref/2.21.2.html"
+- "/docs/git-symbolic-ref/2.21.3"
+- "/docs/git-symbolic-ref/2.21.3.html"
+- "/docs/git-symbolic-ref/2.21.4"
+- "/docs/git-symbolic-ref/2.21.4.html"
+- "/docs/git-symbolic-ref/2.22.0"
+- "/docs/git-symbolic-ref/2.22.0.html"
+- "/docs/git-symbolic-ref/2.22.1"
+- "/docs/git-symbolic-ref/2.22.1.html"
+- "/docs/git-symbolic-ref/2.22.2"
+- "/docs/git-symbolic-ref/2.22.2.html"
+- "/docs/git-symbolic-ref/2.22.3"
+- "/docs/git-symbolic-ref/2.22.3.html"
+- "/docs/git-symbolic-ref/2.22.4"
+- "/docs/git-symbolic-ref/2.22.4.html"
+- "/docs/git-symbolic-ref/2.22.5"
+- "/docs/git-symbolic-ref/2.22.5.html"
+- "/docs/git-symbolic-ref/2.23.0"
+- "/docs/git-symbolic-ref/2.23.0.html"
+- "/docs/git-symbolic-ref/2.23.1"
+- "/docs/git-symbolic-ref/2.23.1.html"
+- "/docs/git-symbolic-ref/2.23.2"
+- "/docs/git-symbolic-ref/2.23.2.html"
+- "/docs/git-symbolic-ref/2.23.3"
+- "/docs/git-symbolic-ref/2.23.3.html"
+- "/docs/git-symbolic-ref/2.23.4"
+- "/docs/git-symbolic-ref/2.23.4.html"
+- "/docs/git-symbolic-ref/2.24.0"
+- "/docs/git-symbolic-ref/2.24.0.html"
+- "/docs/git-symbolic-ref/2.24.1"
+- "/docs/git-symbolic-ref/2.24.1.html"
+- "/docs/git-symbolic-ref/2.24.2"
+- "/docs/git-symbolic-ref/2.24.2.html"
+- "/docs/git-symbolic-ref/2.24.3"
+- "/docs/git-symbolic-ref/2.24.3.html"
+- "/docs/git-symbolic-ref/2.24.4"
+- "/docs/git-symbolic-ref/2.24.4.html"
+- "/docs/git-symbolic-ref/2.25.0"
+- "/docs/git-symbolic-ref/2.25.0.html"
+- "/docs/git-symbolic-ref/2.25.1"
+- "/docs/git-symbolic-ref/2.25.1.html"
+- "/docs/git-symbolic-ref/2.25.2"
+- "/docs/git-symbolic-ref/2.25.2.html"
+- "/docs/git-symbolic-ref/2.25.3"
+- "/docs/git-symbolic-ref/2.25.3.html"
+- "/docs/git-symbolic-ref/2.25.4"
+- "/docs/git-symbolic-ref/2.25.4.html"
+- "/docs/git-symbolic-ref/2.25.5"
+- "/docs/git-symbolic-ref/2.25.5.html"
+- "/docs/git-symbolic-ref/2.26.0"
+- "/docs/git-symbolic-ref/2.26.0.html"
+- "/docs/git-symbolic-ref/2.26.1"
+- "/docs/git-symbolic-ref/2.26.1.html"
+- "/docs/git-symbolic-ref/2.26.2"
+- "/docs/git-symbolic-ref/2.26.2.html"
+- "/docs/git-symbolic-ref/2.26.3"
+- "/docs/git-symbolic-ref/2.26.3.html"
+- "/docs/git-symbolic-ref/2.27.0"
+- "/docs/git-symbolic-ref/2.27.0.html"
+- "/docs/git-symbolic-ref/2.27.1"
+- "/docs/git-symbolic-ref/2.27.1.html"
+- "/docs/git-symbolic-ref/2.28.0"
+- "/docs/git-symbolic-ref/2.28.0.html"
+- "/docs/git-symbolic-ref/2.28.1"
+- "/docs/git-symbolic-ref/2.28.1.html"
+- "/docs/git-symbolic-ref/2.29.0"
+- "/docs/git-symbolic-ref/2.29.0.html"
+- "/docs/git-symbolic-ref/2.29.1"
+- "/docs/git-symbolic-ref/2.29.1.html"
+- "/docs/git-symbolic-ref/2.29.2"
+- "/docs/git-symbolic-ref/2.29.2.html"
+- "/docs/git-symbolic-ref/2.29.3"
+- "/docs/git-symbolic-ref/2.29.3.html"
+- "/docs/git-symbolic-ref/2.30.0"
+- "/docs/git-symbolic-ref/2.30.0.html"
+- "/docs/git-symbolic-ref/2.30.1"
+- "/docs/git-symbolic-ref/2.30.1.html"
+- "/docs/git-symbolic-ref/2.30.2"
+- "/docs/git-symbolic-ref/2.30.2.html"
+- "/docs/git-symbolic-ref/2.30.3"
+- "/docs/git-symbolic-ref/2.30.3.html"
+- "/docs/git-symbolic-ref/2.30.4"
+- "/docs/git-symbolic-ref/2.30.4.html"
+- "/docs/git-symbolic-ref/2.30.5"
+- "/docs/git-symbolic-ref/2.30.5.html"
+- "/docs/git-symbolic-ref/2.30.6"
+- "/docs/git-symbolic-ref/2.30.6.html"
+- "/docs/git-symbolic-ref/2.30.7"
+- "/docs/git-symbolic-ref/2.30.7.html"
+- "/docs/git-symbolic-ref/2.30.8"
+- "/docs/git-symbolic-ref/2.30.8.html"
+- "/docs/git-symbolic-ref/2.30.9"
+- "/docs/git-symbolic-ref/2.30.9.html"
+- "/docs/git-symbolic-ref/2.31.0"
+- "/docs/git-symbolic-ref/2.31.0.html"
+- "/docs/git-symbolic-ref/2.31.1"
+- "/docs/git-symbolic-ref/2.31.1.html"
+- "/docs/git-symbolic-ref/2.31.2"
+- "/docs/git-symbolic-ref/2.31.2.html"
+- "/docs/git-symbolic-ref/2.31.3"
+- "/docs/git-symbolic-ref/2.31.3.html"
+- "/docs/git-symbolic-ref/2.31.4"
+- "/docs/git-symbolic-ref/2.31.4.html"
+- "/docs/git-symbolic-ref/2.31.5"
+- "/docs/git-symbolic-ref/2.31.5.html"
+- "/docs/git-symbolic-ref/2.31.6"
+- "/docs/git-symbolic-ref/2.31.6.html"
+- "/docs/git-symbolic-ref/2.31.7"
+- "/docs/git-symbolic-ref/2.31.7.html"
+- "/docs/git-symbolic-ref/2.31.8"
+- "/docs/git-symbolic-ref/2.31.8.html"
+- "/docs/git-symbolic-ref/2.32.0"
+- "/docs/git-symbolic-ref/2.32.0.html"
+- "/docs/git-symbolic-ref/2.32.1"
+- "/docs/git-symbolic-ref/2.32.1.html"
+- "/docs/git-symbolic-ref/2.32.2"
+- "/docs/git-symbolic-ref/2.32.2.html"
+- "/docs/git-symbolic-ref/2.32.3"
+- "/docs/git-symbolic-ref/2.32.3.html"
+- "/docs/git-symbolic-ref/2.32.4"
+- "/docs/git-symbolic-ref/2.32.4.html"
+- "/docs/git-symbolic-ref/2.32.5"
+- "/docs/git-symbolic-ref/2.32.5.html"
+- "/docs/git-symbolic-ref/2.32.6"
+- "/docs/git-symbolic-ref/2.32.6.html"
+- "/docs/git-symbolic-ref/2.32.7"
+- "/docs/git-symbolic-ref/2.32.7.html"
+- "/docs/git-symbolic-ref/2.33.0"
+- "/docs/git-symbolic-ref/2.33.0.html"
+- "/docs/git-symbolic-ref/2.33.1"
+- "/docs/git-symbolic-ref/2.33.1.html"
+- "/docs/git-symbolic-ref/2.33.2"
+- "/docs/git-symbolic-ref/2.33.2.html"
+- "/docs/git-symbolic-ref/2.33.3"
+- "/docs/git-symbolic-ref/2.33.3.html"
+- "/docs/git-symbolic-ref/2.33.4"
+- "/docs/git-symbolic-ref/2.33.4.html"
+- "/docs/git-symbolic-ref/2.33.5"
+- "/docs/git-symbolic-ref/2.33.5.html"
+- "/docs/git-symbolic-ref/2.33.6"
+- "/docs/git-symbolic-ref/2.33.6.html"
+- "/docs/git-symbolic-ref/2.33.7"
+- "/docs/git-symbolic-ref/2.33.7.html"
+- "/docs/git-symbolic-ref/2.33.8"
+- "/docs/git-symbolic-ref/2.33.8.html"
+- "/docs/git-symbolic-ref/2.34.0"
+- "/docs/git-symbolic-ref/2.34.0.html"
+- "/docs/git-symbolic-ref/2.34.1"
+- "/docs/git-symbolic-ref/2.34.1.html"
+- "/docs/git-symbolic-ref/2.34.2"
+- "/docs/git-symbolic-ref/2.34.2.html"
+- "/docs/git-symbolic-ref/2.34.3"
+- "/docs/git-symbolic-ref/2.34.3.html"
+- "/docs/git-symbolic-ref/2.34.4"
+- "/docs/git-symbolic-ref/2.34.4.html"
+- "/docs/git-symbolic-ref/2.34.5"
+- "/docs/git-symbolic-ref/2.34.5.html"
+- "/docs/git-symbolic-ref/2.34.6"
+- "/docs/git-symbolic-ref/2.34.6.html"
+- "/docs/git-symbolic-ref/2.34.7"
+- "/docs/git-symbolic-ref/2.34.7.html"
+- "/docs/git-symbolic-ref/2.34.8"
+- "/docs/git-symbolic-ref/2.34.8.html"
+- "/docs/git-symbolic-ref/2.35.0"
+- "/docs/git-symbolic-ref/2.35.0.html"
+- "/docs/git-symbolic-ref/2.35.1"
+- "/docs/git-symbolic-ref/2.35.1.html"
+- "/docs/git-symbolic-ref/2.35.2"
+- "/docs/git-symbolic-ref/2.35.2.html"
+- "/docs/git-symbolic-ref/2.35.3"
+- "/docs/git-symbolic-ref/2.35.3.html"
+- "/docs/git-symbolic-ref/2.35.4"
+- "/docs/git-symbolic-ref/2.35.4.html"
+- "/docs/git-symbolic-ref/2.35.5"
+- "/docs/git-symbolic-ref/2.35.5.html"
+- "/docs/git-symbolic-ref/2.35.6"
+- "/docs/git-symbolic-ref/2.35.6.html"
+- "/docs/git-symbolic-ref/2.35.7"
+- "/docs/git-symbolic-ref/2.35.7.html"
+- "/docs/git-symbolic-ref/2.35.8"
+- "/docs/git-symbolic-ref/2.35.8.html"
+- "/docs/git-symbolic-ref/2.36.0"
+- "/docs/git-symbolic-ref/2.36.0.html"
+- "/docs/git-symbolic-ref/2.36.1"
+- "/docs/git-symbolic-ref/2.36.1.html"
+- "/docs/git-symbolic-ref/2.36.2"
+- "/docs/git-symbolic-ref/2.36.2.html"
+- "/docs/git-symbolic-ref/2.36.3"
+- "/docs/git-symbolic-ref/2.36.3.html"
+- "/docs/git-symbolic-ref/2.36.4"
+- "/docs/git-symbolic-ref/2.36.4.html"
+- "/docs/git-symbolic-ref/2.36.5"
+- "/docs/git-symbolic-ref/2.36.5.html"
+- "/docs/git-symbolic-ref/2.36.6"
+- "/docs/git-symbolic-ref/2.36.6.html"
+- "/docs/git-symbolic-ref/2.37.0"
+- "/docs/git-symbolic-ref/2.37.0.html"
+- "/docs/git-symbolic-ref/2.37.1"
+- "/docs/git-symbolic-ref/2.37.1.html"
+- "/docs/git-symbolic-ref/2.37.2"
+- "/docs/git-symbolic-ref/2.37.2.html"
+- "/docs/git-symbolic-ref/2.37.3"
+- "/docs/git-symbolic-ref/2.37.3.html"
+- "/docs/git-symbolic-ref/2.37.4"
+- "/docs/git-symbolic-ref/2.37.4.html"
+- "/docs/git-symbolic-ref/2.37.5"
+- "/docs/git-symbolic-ref/2.37.5.html"
+- "/docs/git-symbolic-ref/2.37.6"
+- "/docs/git-symbolic-ref/2.37.6.html"
+- "/docs/git-symbolic-ref/2.37.7"
+- "/docs/git-symbolic-ref/2.37.7.html"
+- "/docs/git-symbolic-ref/2.38.0"
+- "/docs/git-symbolic-ref/2.38.0.html"
+- "/docs/git-symbolic-ref/2.38.1"
+- "/docs/git-symbolic-ref/2.38.1.html"
+- "/docs/git-symbolic-ref/2.38.2"
+- "/docs/git-symbolic-ref/2.38.2.html"
+- "/docs/git-symbolic-ref/2.38.3"
+- "/docs/git-symbolic-ref/2.38.3.html"
+- "/docs/git-symbolic-ref/2.38.4"
+- "/docs/git-symbolic-ref/2.38.4.html"
+- "/docs/git-symbolic-ref/2.38.5"
+- "/docs/git-symbolic-ref/2.38.5.html"
+
+---
+<div class="sect1">
+<h2 id="_name"><a class="anchor" href="#_name"></a>NAME</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>git-symbolic-ref - Read, modify and delete symbolic refs</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis"><a class="anchor" href="#_synopsis"></a>SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="verseblock">
+<pre class="content"><em>git symbolic-ref</em> [-m &lt;reason&gt;] &lt;name&gt; &lt;ref&gt;
+<em>git symbolic-ref</em> [-q] [--short] &lt;name&gt;
+<em>git symbolic-ref</em> --delete [-q] &lt;name&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description"><a class="anchor" href="#_description"></a>DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Given one argument, reads which branch head the given symbolic
+ref refers to and outputs its path, relative to the <code>.git/</code>
+directory.  Typically you would give <code>HEAD</code> as the &lt;name&gt;
+argument to see which branch your working tree is on.</p>
+</div>
+<div class="paragraph">
+<p>Given two arguments, creates or updates a symbolic ref &lt;name&gt; to
+point at the given branch &lt;ref&gt;.</p>
+</div>
+<div class="paragraph">
+<p>Given <code>--delete</code> and an additional argument, deletes the given
+symbolic ref.</p>
+</div>
+<div class="paragraph">
+<p>A symbolic ref is a regular file that stores a string that
+begins with <code>ref: refs/</code>.  For example, your <code>.git/HEAD</code> is
+a regular file whose contents is <code>ref: refs/heads/master</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options"><a class="anchor" href="#_options"></a>OPTIONS</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1" id="Documentation/git-symbolic-ref.txt--d"> <a class="anchor" href="#Documentation/git-symbolic-ref.txt--d"></a>-d </dt>
+<dt class="hdlist1" id="Documentation/git-symbolic-ref.txt---delete"> <a class="anchor" href="#Documentation/git-symbolic-ref.txt---delete"></a>--delete </dt>
+<dd>
+<p>Delete the symbolic ref &lt;name&gt;.</p>
+</dd>
+<dt class="hdlist1" id="Documentation/git-symbolic-ref.txt--q"> <a class="anchor" href="#Documentation/git-symbolic-ref.txt--q"></a>-q </dt>
+<dt class="hdlist1" id="Documentation/git-symbolic-ref.txt---quiet"> <a class="anchor" href="#Documentation/git-symbolic-ref.txt---quiet"></a>--quiet </dt>
+<dd>
+<p>Do not issue an error message if the &lt;name&gt; is not a
+symbolic ref but a detached HEAD; instead exit with
+non-zero status silently.</p>
+</dd>
+<dt class="hdlist1" id="Documentation/git-symbolic-ref.txt---short"> <a class="anchor" href="#Documentation/git-symbolic-ref.txt---short"></a>--short </dt>
+<dd>
+<p>When showing the value of &lt;name&gt; as a symbolic ref, try to shorten the
+value, e.g. from <code>refs/heads/master</code> to <code>master</code>.</p>
+</dd>
+<dt class="hdlist1" id="Documentation/git-symbolic-ref.txt--m"> <a class="anchor" href="#Documentation/git-symbolic-ref.txt--m"></a>-m </dt>
+<dd>
+<p>Update the reflog for &lt;name&gt; with &lt;reason&gt;.  This is valid only
+when creating or updating a symbolic ref.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notes"><a class="anchor" href="#_notes"></a>NOTES</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the past, <code>.git/HEAD</code> was a symbolic link pointing at
+<code>refs/heads/master</code>.  When we wanted to switch to another branch,
+we did <code>ln -sf refs/heads/newbranch .git/HEAD</code>, and when we wanted
+to find out which branch we are on, we did <code>readlink .git/HEAD</code>.
+But symbolic links are not entirely portable, so they are now
+deprecated and symbolic refs (as described above) are used by
+default.</p>
+</div>
+<div class="paragraph">
+<p><em>git symbolic-ref</em> will exit with status 0 if the contents of the
+symbolic ref were printed correctly, with status 1 if the requested
+name is not a symbolic ref, or 128 if another error occurs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git"><a class="anchor" href="#_git"></a>GIT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Part of the <a href='{{< relurl "docs/git" >}}'>git[1]</a> suite</p>
+</div>
+</div>
+</div>
