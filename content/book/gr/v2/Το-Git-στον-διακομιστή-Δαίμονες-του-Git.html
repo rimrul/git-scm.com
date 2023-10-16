@@ -1,0 +1,99 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: Το Git στον διακομιστή
+    number: 4
+  section:
+    title: Δαίμονες του Git
+    number: 5
+    cs_number: '4.5'
+    previous: book/gr/v2/Το-Git-στον-διακομιστή-Στήσιμο-του-διακομιστή
+    next: book/gr/v2/Το-Git-στον-διακομιστή-Έξυπνο-HTTP
+title: Git - Δαίμονες του Git
+
+---
+<h2 id="_δαίμονες_του_git">Δαίμονες του Git</h2>
+<div class="paragraph">
+<p>
+
+Στη συνέχεια θα εγκαταστήσουμε έναν δαίμονα που θα εξυπηρετεί αποθετήρια μέσω του πρωτοκόλλου “Git”.
+Αυτή είναι μια συνήθης επιλογή για γρήγορη, χωρίς ταυτοποίηση πρόσβαση στα δεδομένα μας στο Git.
+Καλό είναι να θυμόμαστε πως δεδομένου ότι πρόκειται για μια υπηρεσία χωρίς ταυτοποίηση, ο,τιδήποτε παρέχεται πάνω από αυτό το πρωτόκολλο είναι δημόσιο μέσα στο δίκτυό του.</p>
+</div>
+<div class="paragraph">
+<p>Εάν τρέχουμε τον δαίμονα σε έναν διακομιστή εκτός τείχους προστασίας, θα πρέπει να χρησιμοποιείται μόνο για έργα που είναι ορατά σε όλον τον κόσμο.
+Αν ο διακομιστής στον οποίο τον τρέχουμε είναι εντός τείχους προστασίας, μπορούμε να το χρησιμοποιήσουμε για έργα στα οποία ένας μεγάλος αριθμός ανθρώπων ή υπολογιστών (συνεχής ολοκλήρωση ή δημιουργία διακομιστών) έχουν πρόσβαση μόνο για ανάγνωση, όταν δεν θέλουμε να προσθέσουμε κλειδί SSH για τον καθένα.</p>
+</div>
+<div class="paragraph">
+<p>Σε κάθε περίπτωση, το πρωτόκολλο Git είναι σχετικά εύκολο στη ρύθμιση.
+Βασικά, θα πρέπει να εκτελέσουμε αυτήν την εντολή με “δαιμονικό” τρόπο: </p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">git daemon --reuseaddr --base-path=/opt/git/ /opt/git/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ο διακόπτης <code>--reuseaddr</code> επιτρέπει στον διακομιστή να επανεκκινήσει χωρίς να αναμένει αποσύνδεση των παλαιών συνδέσεων, ο διακόπτης <code>--base-path</code> επιτρέπει την κλωνοποίηση έργων χωρίς να καθορίζουν ολόκληρη τη διαδρομή και η διαδρομή στο τέλος λέει στον δαίμονα Git πού να να αναζητήσει αποθετήρια προς εξαγωγή.
+Εάν τρέχουμε ένα τείχος προστασίας, θα χρειαστεί επίσης να ανοίξουμε μία τρύπα σε αυτό στη θύρα 9418 στο κουτί που τον εγκαθιστάται.</p>
+</div>
+<div class="paragraph">
+<p>Μπορούμε να “διαμονίσουμε” αυτήν τη διαδικασία με διάφορους τρόπους, ανάλογα με το λειτουργικό σύστημα που εκτελούμε.
+Σε ένα μηχάνημα Ubuntu μπορούμε να χρησιμοποιήσουμε ένα script εκκίνησης.
+Έτσι, στο ακόλουθο αρχείο</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">/etc/event.d/local-git-daemon</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>βάζουμε αυτό το script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">start on startup
+stop on shutdown
+exec /usr/bin/git daemon \
+    --user=git --group=git \
+    --reuseaddr \
+    --base-path=/opt/git/ \
+    /opt/git/
+respawn</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Για λόγους ασφάλειας, συνιστάσται θερμά να εκτελείται αυτός ο δαίμονας ως χρήστης με δικαιίωμα μόνο-για-ανάγνωση στα αποθετήρια —μπορούμε εύκολα να το κάνουμε αυτό δημιουργώντας ένα νέο χρήστη <code>git-ro</code> και τρέχοντας τον δαίμονα ως αυτός ο χρήστης.
+Για λόγους απλότητας, θα το τρέξουμε απλά ως ο ίδιος χρήστης git που τρέχει και το git-shell.</p>
+</div>
+<div class="paragraph">
+<p>Όταν επανεκκινήσουμε το μηχάνημά μας, ο δαίμονας Git θα ξεκινήσει κι αυτός αυτόματα και θα ξαναξεκινήσει αν κρασάρει.
+Για να τον τρέξουμε χωρίς να χρειάζεται να κάνουμε επανεκκίνηση, μπορούμε να εκτελέσουμε:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">initctl start local-git-daemon</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Σε άλλα συστήματα, ίσως θελήσουμε να χρησιμοποιήσουμε το <code>xinetd</code>, ένα script στο σύστημά μας <code>sysvinit</code> ή κάτι άλλο —εφόσον μπορούμε να δαιμονίσουμε αυτήν την εντολή και να την παρακολουθούμε.</p>
+</div>
+<div class="paragraph">
+<p>Στη συνέχεια, πρέπει να ενημερώσουμε το Git σχετικά με το ποια αποθετήρια επιτρέπουν την πρόσβαση σε διακομιστές Git χωρίς έλεγχο ταυτότητας.
+Μπορούμε να το κάνουμε σε κάθε αποθετήριο δημιουργώντας ένα αρχείο που ονομάζεται <code>git-daemon-export-ok</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ cd /path/to/project.git
+$ touch git-daemon-export-ok</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η παρουσία αυτού του αρχείου λέει στο Git ότι είναι εντάξει να εξυπηρετήσει αυτό το έργο χωρίς έλεγχο ταυτότητας.</p>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>

@@ -1,0 +1,1030 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: Εργαλεία του Git
+    number: 7
+  section:
+    title: Λειτουργικές υπομονάδες
+    number: 11
+    cs_number: '7.11'
+    previous: book/gr/v2/Εργαλεία-του-Git-Αποσφαλμάτωση-με-το-Git
+    next: book/gr/v2/Εργαλεία-του-Git-Δεμάτιασμα-δεδομένων
+title: Git - Λειτουργικές υπομονάδες
+
+---
+<h2 id="r_git_submodules">Λειτουργικές υπομονάδες</h2>
+<div class="paragraph">
+<p>Συχνά συμβαίνει ότι καθώς εργαζόμαστε σε ένα έργο, θέλουμε να χρησιμοποιήσουμε ένα άλλο έργο μέσα από αυτό.
+Ίσως πρόκειται για μια βιβλιοθήκη που έχει αναπτυχθεί από τρίτους ή ότι αναπτύσσουμε ξεχωριστά και χρησιμοποιούμε πολλά γονικά έργα-γονείς.
+Ένα κοινό ζήτημα προκύπτει σε αυτά τα σενάρια: θέλουμε αφενός τα δύο έργα να αντιμετωπίζονται ως ξεχωριστά αφετέρου να μπορούμε να χρησιμοποιούμε το ένα μέσα από το άλλο.</p>
+</div>
+<div class="paragraph">
+<p>Ακολουθεί ένα παράδειγμα.
+Ας υποθέσουμε ότι αναπτύσσουμε έναν ιστότοπο και δημιουργούμε τροφοδοσίες Atom.
+Αντί να γράφουμε τον δικό μας κώδικα δημιουργίας Atom, αποφασίζουμε να χρησιμοποιήσουμε μια βιβλιοθήκη.
+Είναι πιθανό να χρειάζεται είτε να συμπεριλάβουμε αυτόν τον κώδικα από μια κοινόχρηστη βιβλιοθήκη όπως μια εγκατάσταση CPAN ή πετράδι Ruby είτε να αντιγράψουμε τον πηγαίο κώδικα στο δικό μας δέντρο έργου.
+Το πρόβλημα με τη συμπερίληψη της βιβλιοθήκης είναι ότι είναι δύσκολο να προσαρμόσουμε τη βιβλιοθήκη με οποιονδήποτε τρόπο και συχνά πιο δύσκολο να την αναπτύξουμε, επειδή πρέπει να βεβαιωθούμε ότι κάθε πελάτης διαθέτει αυτήν τη βιβλιοθήκη.
+Το πρόβλημα με την ενσωμάτωση του κώδικα στο δικό μας έργο είναι ότι τυχόν εξατομικευμένες αλλαγές που κάνουμε είναι δύσκολο να συγχωνευθούν, όταν υπάρχουν διαθέσιμες αλλαγές στο upstream.</p>
+</div>
+<div class="paragraph">
+<p>Το Git αντιμετωπίζει αυτό το πρόβλημα χρησιμοποιώντας (λειτουργικές) υπομονάδες (submodules).
+Οι υπομονάδες μας επιτρέπουν να διατηρούμε ένα αποθετήριο Git ως υποκατάλογο ενός άλλου αποθετηρίου Git.
+Αυτό μας επιτρέπει να κλωνοποιήσουμε ένα άλλο αποθετήριο στο έργο μας και να κρατήσουμε τις υποβολές μας  ξεχωριστά.</p>
+</div>
+<div class="sect3">
+<h3 id="r_starting_submodules">Λειτουργικές υπομονάδες: τα βασικά</h3>
+<div class="paragraph">
+<p>Θα δούμε βήμα-βήμα την ανάπτυξη ενός απλού έργου που έχει διασπαστεί σε ένα κύριο έργο και σε μερικά υπο-έργα.</p>
+</div>
+<div class="paragraph">
+<p>Ας αρχίσουμε προσθέτοντας ένα υπάρχον αποθετήριο Git ως λειτουργική υπομονάδα του αποθετηρίου στο οποίο εργαζόμαστε.
+Για να προσθέσουμε μία νέα υπομονάδα χρησιμοποιούμε την εντολή <code>git submodule add</code> με την απόλυτη ή σχετική διεύθυνση URL του έργου που θέλουμε να αρχίσουμε να παρακολουθούμε.
+Σε αυτό το παράδειγμα, θα προσθέσουμε μια βιβλιοθήκη που ονομάζεται “DbConnector”.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule add https://github.com/chaconinc/DbConnector
+Cloning into 'DbConnector'...
+remote: Counting objects: 11, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 11 (delta 0), reused 11 (delta 0)
+Unpacking objects: 100% (11/11), done.
+Checking connectivity... done.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εκ προεπιλογής, οι υπομονάδες θα προσθέσουν το υποέργο σε έναν κατάλογο που ονομάζεται το ίδιο με τον αποθετήριο, στην περίπτωση αυτή “DbConnector”.
+Μπορούμε να προσθέσουμε μια διαφορετική διαδρομή στο τέλος της εντολής, εάν θέλουμε να πάει αλλού.</p>
+</div>
+<div class="paragraph">
+<p>Εάν εκτελέσουμε την <code>git status</code> σε αυτό το σημείο, θα παρατηρήσουμε μερικά πράγματα.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+	new file:   .gitmodules
+	new file:   DbConnector</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Πρώτα θα πρέπει να παρατηρήσουμε το νέο αρχείο .gitmodules.
+Αυτό είναι ένα αρχείο διαμόρφωσης που αποθηκεύει την αντιστοίχιση μεταξύ της διεύθυνσης URL του έργου και του τοπικού υποκαταλόγου στον οποίο το έχουμε έλξει:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ cat .gitmodules
+[submodule "DbConnector"]
+	path = DbConnector
+	url = https://github.com/chaconinc/DbConnector</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν έχουμε πολλές υπομονάδες, θα έχουμε πολλαπλές καταχωρήσεις σε αυτό το αρχείο.
+Είναι σημαντικό να σημειωθεί ότι η έκδοση και αυτού του αρχείου ελέγχεται όπως και τα άλλα αρχεία ή το αρχείο .gitignore.
+Ωθείται και έλκεται όπως και το υπόλοιπο του έργο μας.
+Αυτός είναι ο τρόπος με τον οποίο αυτοί που κλωνοποιούν αυτό το έργο γνωρίζουν από πού να πάρουν τα έργα υπομονάδων.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Δεδομένου ότι η διεύθυνση URL στο αρχείο .gitmodules είναι αυτή που θα προσπαθήσουν πρώτα να κλωνοποιήσουν/ανακτήσουν οι άλλοι χρήστες, πρέπει να βεβαιωθούμε ότι χρησιμοποιούμε μια διεύθυνση URL στην οποιία έχουν  πρόσβαση, εάν είναι δυνατόν.
+Για παράδειγμα, αν ωθούμε σε διαφορετική διεύθυνση URL από αυτήν από την οποία έλκουν οι άλλοι, καλό είναι να χρησιμοποιούμε αυτήν στην οποία έχουν πρόσβαση άλλοι.
+Μπορούμε να αντικαταστήσουμε αυτήν την τιμή τοπικά με την <code>git config submodule.DbConnector.url PRIVATE_URL</code> για δική μας χρήση.
+Όταν είναι εφικτό, μια σχετική διεύθυνση URL μπορεί να είναι επίσης χρήσιμη.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Η άλλη λίστα στην έξοδο της <code>git status</code> είναι η καταχώρηση του καταλόγου του έργου.
+Εάν εκτελέσουμε την <code>git diff</code> σε αυτήν, βλέπουμε κάτι ενδιαφέρον:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff --cached DbConnector
+diff --git a/DbConnector b/DbConnector
+new file mode 160000
+index 0000000..c3f01dc
+--- /dev/null
++++ b/DbConnector
+@@ -0,0 +1 @@
++Subproject commit c3f01dc8862123d317dd46284b05b6892c7b29bc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αν και <code>DbConnector</code> είναι ένας υποκατάλογος στον κατάλογο εργασίας μας, το Git τον βλέπει ως υπομονάδα και δεν παρακολουθεί τα περιεχόμενά του όταν δεν βρισκόμαστε σε αυτόν τον κατάλογο.
+Αντίθετα το Git τον βλέπει ως μια συγκεκριμένη υποβολή από αυτό το αποθετήριο.</p>
+</div>
+<div class="paragraph">
+<p>Αν θέλουμε λίγο καλύτερη έξοδο diff, μπορούμε να περάσουμε την επιλογή <code>--submodule</code> στην <code>git diff</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff --cached --submodule
+diff --git a/.gitmodules b/.gitmodules
+new file mode 100644
+index 0000000..71fc376
+--- /dev/null
++++ b/.gitmodules
+@@ -0,0 +1,3 @@
++[submodule "DbConnector"]
++       path = DbConnector
++       url = https://github.com/chaconinc/DbConnector
+Submodule DbConnector 0000000...c3f01dc (new submodule)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Όταν υποβάλλουμε, βλέπουμε κάτι τέτοιο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git commit -am 'added DbConnector module'
+[master fb9093c] added DbConnector module
+ 2 files changed, 4 insertions(+)
+ create mode 100644 .gitmodules
+ create mode 160000 DbConnector</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Παρατηρούμε τη λειτουργία <code>160000</code> για την καταχώρηση <code>DbConnector</code>.
+Αυτή είναι μια ειδική λειτουργία στο Git που ουσιαστικά σημαίνει ότι καταγράφουμε μια υποβολή ως καταχώρηση καταλόγου και όχι ως υποκατάλογο ή αρχείο.</p>
+</div>
+</div>
+<div class="sect3">
+<h3 id="r_cloning_submodules">Κλωνοποίηση έργου με υπομονάδες</h3>
+<div class="paragraph">
+<p>Εδώ θα κλωνοποιήσουμε ένα έργο με που περιέχει μία υπομονάδα.
+Όταν κλωνοποιούμε ένα τέτοιο έργο, εκ προεπιλογής εμφανίζονται οι κατάλογοι που περιέχουν υπομονάδες, αλλά κανένα από τα αρχεία μέσα σε αυτούς ακόμα:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git clone https://github.com/chaconinc/MainProject
+Cloning into 'MainProject'...
+remote: Counting objects: 14, done.
+remote: Compressing objects: 100% (13/13), done.
+remote: Total 14 (delta 1), reused 13 (delta 0)
+Unpacking objects: 100% (14/14), done.
+Checking connectivity... done.
+$ cd MainProject
+$ ls -la
+total 16
+drwxr-xr-x   9 schacon  staff  306 Sep 17 15:21 .
+drwxr-xr-x   7 schacon  staff  238 Sep 17 15:21 ..
+drwxr-xr-x  13 schacon  staff  442 Sep 17 15:21 .git
+-rw-r--r--   1 schacon  staff   92 Sep 17 15:21 .gitmodules
+drwxr-xr-x   2 schacon  staff   68 Sep 17 15:21 DbConnector
+-rw-r--r--   1 schacon  staff  756 Sep 17 15:21 Makefile
+drwxr-xr-x   3 schacon  staff  102 Sep 17 15:21 includes
+drwxr-xr-x   4 schacon  staff  136 Sep 17 15:21 scripts
+drwxr-xr-x   4 schacon  staff  136 Sep 17 15:21 src
+$ cd DbConnector/
+$ ls
+$</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ο κατάλογος <code>DbConnector</code> είναι εκεί, αλλά κενός.
+Πρέπει να εκτελέσουμε δύο εντολές: την <code>git submodule init</code> για να  αρχικοποιήσουμε το τοπικό μας αρχείο διαμόρφωσης και την <code>git submodule update</code> για να ανακτήσουμε όλα τα δεδομένα από το έργο και να κάνουμε μεταβούμε στην κατάλληλη υποβολή που αναφέρεται στο υπερ-έργο μας:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule init
+Submodule 'DbConnector' (https://github.com/chaconinc/DbConnector) registered for path 'DbConnector'
+$ git submodule update
+Cloning into 'DbConnector'...
+remote: Counting objects: 11, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 11 (delta 0), reused 11 (delta 0)
+Unpacking objects: 100% (11/11), done.
+Checking connectivity... done.
+Submodule path 'DbConnector': checked out 'c3f01dc8862123d317dd46284b05b6892c7b29bc'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Τώρα ο υποκατάλογος <code>DbConnector</code> βρίσκεται στην ακριβή κατάσταση που ήταν όταν υποβάλλαμε νωρίτερα.</p>
+</div>
+<div class="paragraph">
+<p>Υπάρχει ένας άλλος τρόπος για να γίνει αυτό, ο οποίο όμως είναι μάλιστα λίγο πιο απλός.
+Αν περάσουμε την επιλογή <code>--recursive</code> στην εντολή <code>git clone</code>, θα αρχικοποιήσει και ενημερώσει κάθε υπομονάδα στο αποθετήριο αυτόματα.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git clone --recursive https://github.com/chaconinc/MainProject
+Cloning into 'MainProject'...
+remote: Counting objects: 14, done.
+remote: Compressing objects: 100% (13/13), done.
+remote: Total 14 (delta 1), reused 13 (delta 0)
+Unpacking objects: 100% (14/14), done.
+Checking connectivity... done.
+Submodule 'DbConnector' (https://github.com/chaconinc/DbConnector) registered for path 'DbConnector'
+Cloning into 'DbConnector'...
+remote: Counting objects: 11, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 11 (delta 0), reused 11 (delta 0)
+Unpacking objects: 100% (11/11), done.
+Checking connectivity... done.
+Submodule path 'DbConnector': checked out 'c3f01dc8862123d317dd46284b05b6892c7b29bc'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h3 id="_εργασία_σε_έργο_με_υπομονάδες">Εργασία σε έργο με υπομονάδες</h3>
+<div class="paragraph">
+<p>Τώρα έχουμε αντίγραφο ενός έργου με υπομονάδες και θα δουλέψουμε με τους συνεργάτες μας τόσο για το κύριο έργο όσο και για τα έργα των υπομονάδων.</p>
+</div>
+<div class="sect4">
+<h4 id="_έλξη_των_αλλαγών">Έλξη των αλλαγών</h4>
+<div class="paragraph">
+<p>Το απλούστερο μοντέλο χρήσης υπομονάδων σε ένα έργο είναι αν απλά καταναλώνουμε ένα υποέργο και θέλουμε να λαμβάνουμε ενημερώσεις από αυτό κάπου-κάπου αλλά στην πραγματικότητα δεν τροποποιούμε τίποτα κατά όταν ανακτούμε τις ενημερώσεις.
+Ας δούμε ένα απλό σχετικό παράδειγμα.</p>
+</div>
+<div class="paragraph">
+<p>Αν θέλουμε να ελέγξουμε για νέα εργασία σε μία υπομονάδα, μπορούμε να μεταβούμε στον κατάλογο και να εκτελέσουμε <code>git fetch</code> και <code>git merge</code> για να ενημερώσουμε τον τοπικό κώδικα.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git fetch
+From https://github.com/chaconinc/DbConnector
+   c3f01dc..d0354fc  master     -&gt; origin/master
+$ git merge origin/master
+Updating c3f01dc..d0354fc
+Fast-forward
+ scripts/connect.sh | 1 +
+ src/db.c           | 1 +
+ 2 files changed, 2 insertions(+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Τώρα, αν επιστρέψουμε στο κύριο έργο και εκτελέσουμε την <code>git diff --submodule</code>, μπορούμε να δούμε ότι η υπομονάδα ενημερώθηκε και να πάρουμε μια λίστα υποβολών που προστέθηκαν σε αυτήν.
+Εάν δεν θέλουμε να πληκτρολογούμε <code>--submodule</code> κάθε φορά που τρέχουμε την <code>git diff</code>, μπορούμε να την ορίσουμε ως προεπιλεγμένη μορφή ρυθμίζοντας την τιμή της <code>diff.submodule</code> στο <code>log</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config --global diff.submodule log
+$ git diff
+Submodule DbConnector c3f01dc..d0354fc:
+  &gt; more efficient db routine
+  &gt; better connection routine</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν υποβάλλούμε σε αυτό το σημείο, τότε θα κλειδώσουμε την υπομονάδα να έχει τον νέο κώδικα όταν ενημερώνονται άλλοι.</p>
+</div>
+<div class="paragraph">
+<p>Πάλι υπάρχει ένας ευκολότερος τρόπος για να γίνει αυτό, αν προτιμάμε να μην ανακτούμε και συγχωνεύουμε με μη αυτόματο τρόπο τον υποκατάλογο.
+Εάν εκτελέσουμε την <code>git submodule update --remote</code>, το Git θα μεταβεί στις υπομονάδες μας, θα ανακτήσει και θα ενημερώσει για μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule update --remote DbConnector
+remote: Counting objects: 4, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 4 (delta 2), reused 4 (delta 2)
+Unpacking objects: 100% (4/4), done.
+From https://github.com/chaconinc/DbConnector
+   3f19983..d0354fc  master     -&gt; origin/master
+Submodule path 'DbConnector': checked out 'd0354fc054692d3906c85c3af05ddce39a1c0644'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτή η εντολή θα υποθέσει εκ προεπιλογής ότι θέλουμε να ενημερώσουμε τον κλάδο <code>master</code> του αποθετηρίου υπομονάδων.
+Ωστόσο, μπορούμε να το ορίσουμε να είναι κάτι διαφορετικό, εφόσον το θέλουμε.
+Για παράδειγμα, εάν θέλουμε η υπομονάδα DbConnector να παρακολουθεί τον κλάδο <code>stable</code> του αποθετηρίου, μπορούμε να το ορίσουμε είτε στο αρχείο <code>.gitmodules</code>, είτε στο τοπικό αρχείο <code>.git/config</code>.
+Ας το ορίσουμε στο αρχείο <code>.gitmodules</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config -f .gitmodules submodule.DbConnector.branch stable
+
+$ git submodule update --remote
+remote: Counting objects: 4, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 4 (delta 2), reused 4 (delta 2)
+Unpacking objects: 100% (4/4), done.
+From https://github.com/chaconinc/DbConnector
+   27cf5d3..c87d55d  stable -&gt; origin/stable
+Submodule path 'DbConnector': checked out 'c87d55d4c6d4b05ee34fbc8cb6f7bf4585ae6687'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αν παραλείψουμε την επιλογή <code>-f .gmodmodules</code>, θα κάνει μόνο την αλλαγή για μας, αλλά πιθανότατα είναι πιο λογικό να παρακολουθούμε αυτές τις πληροφορίες με το αποθετήριο, ώστε και όλοι οι άλλοι να το κάνουν.</p>
+</div>
+<div class="paragraph">
+<p>Αν τρέξουμε <code>git status</code> σε αυτό το σημείο, το Git θα μας δείξει ότι έχουμε “νέες υποβολές” στην υπομονάδα.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+  modified:   .gitmodules
+  modified:   DbConnector (new commits)
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν ορίσουμε τη ρύθμιση διαμόρφωσης <code>status.submodulesummary</code>, το Git θα μας δείξει επίσης μια σύντομη περίληψη των αλλαγών στις υπομονάδες μας:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config status.submodulesummary 1
+
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+	modified:   .gitmodules
+	modified:   DbConnector (new commits)
+
+Submodules changed but not updated:
+
+* DbConnector c3f01dc...c87d55d (4):
+  &gt; catch non-null terminated lines</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Σε αυτό το σημείο, αν εκτελέσουμε την <code>git diff</code>, μπορούμε να δούμε τόσο ότι έχουμε τροποποιήσει το αρχείο <code>.gitmodules</code> όσο και ότι υπάρχουν αρκετές υποβολές που έχουμε έλξει και είμαστε έτοιμοι να υποβάλλουμε για στην υπομονάδα του έργου μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff
+diff --git a/.gitmodules b/.gitmodules
+index 6fc0b3d..fd1cc29 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -1,3 +1,4 @@
+ [submodule "DbConnector"]
+        path = DbConnector
+        url = https://github.com/chaconinc/DbConnector
++       branch = stable
+ Submodule DbConnector c3f01dc..c87d55d:
+  &gt; catch non-null terminated lines
+  &gt; more robust error handling
+  &gt; more efficient db routine
+  &gt; better connection routine</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτό είναι πολύ ωραίο, καθώς μπορούμε πραγματικά να δούμε το μητρώο υποβολών που πρόκειται να υποβάλλούμε στην υπομονάδα μας.
+Αφού υποβληθούν, μπορούμε να δούμε αυτές τις πληροφορίες και μετά την υποβολήόταν τρέχουμε την <code>git log -p</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git log -p --submodule
+commit 0a24cfc121a8a3c118e0105ae4ae4c00281cf7ae
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Wed Sep 17 16:37:02 2014 +0200
+
+    updating DbConnector for bug fixes
+
+diff --git a/.gitmodules b/.gitmodules
+index 6fc0b3d..fd1cc29 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -1,3 +1,4 @@
+ [submodule "DbConnector"]
+        path = DbConnector
+        url = https://github.com/chaconinc/DbConnector
++       branch = stable
+Submodule DbConnector c3f01dc..c87d55d:
+  &gt; catch non-null terminated lines
+  &gt; more robust error handling
+  &gt; more efficient db routine
+  &gt; better connection routine</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Το Git θα προσπαθήσει εκ προεπιλογής να ενημερώσει <strong>όλες</strong> τις υπομονάδες μας όταν τρέχουμε την <code>git submodule update --remote</code>, οπότε αν έχουμε πολλές από δαύτες, ίσως θέλουμε να περάσουμε το όνομα μόνο της υπομονάδας που θέλουμε να ενημερώσουμε.</p>
+</div>
+</div>
+<div class="sect4">
+<h4 id="_εργασία_σε_υπομονάδα">Εργασία σε υπομονάδα</h4>
+<div class="paragraph">
+<p>Είναι πολύ πιθανό ότι αν χρησιμοποιούμε υπομονάδες, το κάνουμε επειδή θέλουμε να εργαστούμε στον κώδικα στην υπομονάδα και ταυτόχρονα εργαζόμαστε στον κώδικα στο κύριο έργο (ή σε πολλές υπομονάδες).
+Διαφορετικά, πιθανότατα θα χρησιμοποιούσαμε ένα απλούστερο σύστημα διαχείρισης εξαρτήσεων (όπως τα Maven ή Rubygems).</p>
+</div>
+<div class="paragraph">
+<p>Τώρα, λοιπόν, να δούμε ένα παράδειγμα στο οποίο κάνουμε αλλαγές στην υπομονάδα ταυτόχρονα με το κύριο έργο και υποβάλλουμε και δημοσιεύουμε αυτές τις αλλαγές ταυτόχρονα.</p>
+</div>
+<div class="paragraph">
+<p>Μέχρι στιγμής, όταν εκτελούσαμε την εντολή <code>git submodule update</code> για να ανακτήσουμε τις αλλαγές από τα αποθετήρια υπομονάδων, το Git έπαιρνε τις αλλαγές και ενημέρωνε τα αρχεία στον υποκατάλογο, αλλά άφηνε το υπό-αποθετήριο σε μία κατάσταση που ονομάζεται κατάσταση με αποσπασμένο  HEAD (“detached HEAD”).
+Αυτό σημαίνει ότι δεν υπάρχει τοπικός κλάδος εργασίας (όπως ο <code>master</code> για παράδειγμα) που παρακολουθεί τις αλλαγές.
+Επομένως, οι όποιες αλλαγές κάνουμε δεν παρακολουθούνται καλά.</p>
+</div>
+<div class="paragraph">
+<p>Προκειμένου να ρυθμίσουμε την υπομονάδα μας ώστε να είναι ευκολότερο να μπούμε και να την τροποποίησουμε, πρέπει να κάνουμε δύο πράγματα.
+Πρέπει να πάμε σε κάθε υπομονάδα και να μεταβούμε σε έναν κλάδο στον οποίο θα εργαστούμε.
+Στη συνέχεια πρέπει να πούμε στο Git τι να κάνει, αν έχουμε κάνει αλλαγές και μετά η <code>git submodule update --remote</code> έλκει όποια καινούρια δουλειά που έγινε στο upstream.
+Οι επιλογές είναι ότι μπορούμε να τις συγχωνεύσουμε στην τοπική δουλειά μας ή να δοκιμάσουμε να αλλάξουμε τη βάση της τοπικής εργασίας μας στις νέες αλλαγές.</p>
+</div>
+<div class="paragraph">
+<p>Καταρχάς, ας πάμε στον κατάλογο υπομονάδων μας και ας μεταβούμε σε κάποιον κλάδο.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git checkout stable
+Switched to branch 'stable'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ας το δοκιμάσουμε με την επιλογή <code>--merge</code>.
+Για να το καθορίσουμε με το χέρι, μπορούμε απλά να προσθέσουμε την επιλογή <code>--merge</code> στην κλήση της ‘update’.
+Εδώ θα δούμε ότι υπήρξε μια αλλαγή στον διακομιστή για αυτην την υπομονάδα και συγχωνεύεται.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule update --remote --merge
+remote: Counting objects: 4, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 4 (delta 2), reused 4 (delta 2)
+Unpacking objects: 100% (4/4), done.
+From https://github.com/chaconinc/DbConnector
+   c87d55d..92c7337  stable     -&gt; origin/stable
+Updating c87d55d..92c7337
+Fast-forward
+ src/main.c | 1 +
+ 1 file changed, 1 insertion(+)
+Submodule path 'DbConnector': merged in '92c7337b30ef9e0893e758dac2459d07362ab5ea'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν εισέλθουμε στον κατάλογο DbConnector, έχουμε τις νέες αλλαγές που έχουν ήδη συγχωνευθεί στον τοπικό μας κλάδο <code>stable</code>.
+Τώρα ας δούμε τι συμβαίνει όταν κάνουμε τη δική μας τοπική αλλαγή στη βιβλιοθήκη και κάποιος άλλος ωθεί μια άλλη αλλαγή στο upstream την ίδια στιγμή.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ cd DbConnector/
+$ vim src/db.c
+$ git commit -am 'unicode support'
+[stable f906e16] unicode support
+ 1 file changed, 1 insertion(+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Τώρα αν ενημερώσουμε την υπομονάδα μας, μπορούμε να δούμε τι συμβαίνει όταν έχουμε κάνει μια τοπική αλλαγή και υπάρχει επίσης μια αλλαγή που πρέπει να έλξουμε και ενσωματώσουμε.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule update --remote --rebase
+First, rewinding head to replay your work on top of it...
+Applying: unicode support
+Submodule path 'DbConnector': rebased into '5d60ef9bbebf5a0c1c1050f242ceeb54ad58da94'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν ξεχάσουμε τις επιλογές <code>--rebase</code> ή <code>--merge</code>, το Git απλά θα ενημερώσει την υπομονάδα σε ό,τι βρίσκεται στον διακομιστή και θα επαναφέρει το έργο μας σε κατάσταση αποσπασμένου HEAD.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule update --remote
+Submodule path 'DbConnector': checked out '5d60ef9bbebf5a0c1c1050f242ceeb54ad58da94'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αν συμβεί κάτι τέτοιο, δεν χρειάζεται να ανησυχούμε, μπορούμε απλά να επιστρέψουμε στον κατάλογο και να μεταβούμε ξανά στον κλάδο μας (που θα εξακολουθεί να περιέχει τη δουλειά μας) και να συγχωνεύσουμε ή να επανατοποθετήσουμε τον <code>origin/stable</code> (ή όποιον απομακρυσμένο κλάδο θέλουμε) χειροκίνητα.</p>
+</div>
+<div class="paragraph">
+<p>Αν δεν έχουμε υποβάλει τις αλλαγές στην υπομονάδα μας και εκτελέσουμε μια ενημέρωση υπομονάδας, που θα προκαλούσε προβλήματα, το Git θα ανακτήσει τις αλλαγές αλλά δεν θα αντικαταστήσει μη-αποθηκευμένη εργασία στον κατάλογο υπομονάδων μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule update --remote
+remote: Counting objects: 4, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 4 (delta 0), reused 4 (delta 0)
+Unpacking objects: 100% (4/4), done.
+From https://github.com/chaconinc/DbConnector
+   5d60ef9..c75e92a  stable     -&gt; origin/stable
+error: Your local changes to the following files would be overwritten by checkout:
+	scripts/setup.sh
+Please, commit your changes or stash them before you can switch branches.
+Aborting
+Unable to checkout 'c75e92a2b3855c9e5b66f915308390d9db204aca' in submodule path 'DbConnector'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν κάναμε αλλαγές που συγκρούνται με κάτι που άλλαξε στο upstream, το Git θα μας ενημερώσει όταν εκτελούμε την ενημέρωση.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule update --remote --merge
+Auto-merging scripts/setup.sh
+CONFLICT (content): Merge conflict in scripts/setup.sh
+Recorded preimage for 'scripts/setup.sh'
+Automatic merge failed; fix conflicts and then commit the result.
+Unable to merge 'c75e92a2b3855c9e5b66f915308390d9db204aca' in submodule path 'DbConnector'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Μπορούμε να μεταβούμε στον κατάλογο υπομονάδων και να διορθώσουμε τη σύγκρουση όπως θα κάναμε κανονικά.</p>
+</div>
+</div>
+<div class="sect4">
+<h4 id="r_publishing_submodules">Δημοσίευση αλλαγών σε υπομονάδες</h4>
+<div class="paragraph">
+<p>Τώρα έχουμε κάποιες αλλαγές στον κατάλογο υπομονάδων μας.
+Ορισμένες από αυτές εισήχθησαν από τις προηγούμενες ενημερώσεις μας από το upstream και άλλες έγιναν σε τοπικό επίπεδο και δεν είναι διαθέσιμες σε κανέναν ακόμα επειδή δεν τις έχουμε ωθήσει ακόμα.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff
+Submodule DbConnector c87d55d..82d2ad3:
+  &gt; Merge from origin/stable
+  &gt; updated setup script
+  &gt; unicode support
+  &gt; remove unnecessary method
+  &gt; add new option for conn pooling</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν υποβάλλουμε στο κύριο έργο και το ωθήσουμε χωρίς να ωθήσουμε τις αλλαγές της υπομονάδας, άλλοι που προσπαθούν να κάνουν ενημερωθούν (checkout) με τις αλλαγές μας θα έχουν πρόβλημα, αφού δεν θα έχουν τρόπο να πάρουν τις αλλαγές της υπομονάδας από τις οποίες εξαρτώνται.
+Αυτές οι αλλαγές θα υπάρχουν μόνο στο τοπικό αντίγραφό μας.</p>
+</div>
+<div class="paragraph">
+<p>Για να βεβαιωθούμε ότι αυτό δεν συμβαίνει, μπορούμε να ζητήσουμε από το Git να ελέγξει ότι όλες οι υπομοναδες μας έχουν ωθηθεί σωστά πριν ωθήσουμε στο κύριο έργο.
+Η εντολή <code>git push</code> παίρνει το όρισμα <code>--recurse-submodules</code> το οποίο μπορεί να τεθεί είτε σε <code>check</code> είτε σε <code>on-demand</code>.
+Η επιλογή <code>check</code> θα κάνει την <code>push</code> να αποτύχει εάν κάποια από τις υποβαλλόμενες αλλαγές της υπομονάδας δεν έχει ωθηθεί.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git push --recurse-submodules=check
+The following submodule paths contain changes that can
+not be found on any remote:
+  DbConnector
+
+Please try
+
+	git push --recurse-submodules=on-demand
+
+or cd to the path and use
+
+	git push
+
+to push them to a remote.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Όπως βλέπουμε, μας δίνει επίσης κάποιες χρήσιμες συμβουλές για το τι θα θέλαμε να κάνουμε στη συνέχεια.
+Η απλή επιλογή είναι να μπούμε σε κάθε υπομονάδα και να ωθήσουμε χειροκίνητα στα απομακρυσμένα αποθετήρια για να βεβαιωθούμε ότι είναι εξωτερικά διαθέσιμα και στη συνέχεια να δοκιμάσουμε αυτήν την ώθηση ξανά.</p>
+</div>
+<div class="paragraph">
+<p>Η άλλη επιλογή είναι να χρησιμοποιήσουμε την τιμή <code>on-demand</code>, η οποία θα προσπαθήσει να το κάνει αντί για μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git push --recurse-submodules=on-demand
+Pushing submodule 'DbConnector'
+Counting objects: 9, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (9/9), 917 bytes | 0 bytes/s, done.
+Total 9 (delta 3), reused 0 (delta 0)
+To https://github.com/chaconinc/DbConnector
+   c75e92a..82d2ad3  stable -&gt; stable
+Counting objects: 2, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 266 bytes | 0 bytes/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+To https://github.com/chaconinc/MainProject
+   3d6d338..9a377d1  master -&gt; master</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Όπως βλέπουμε, το Git μπήκε στη μονάδα DbConnector και την ώθησε πριν ωθήσει στο κύριο έργο.
+Εάν αυτή η ώθηση υποσυστήματος αποτύχει για κάποιο λόγο, η ώθηση στο κύριο έργο θα αποτύχει επίσης.</p>
+</div>
+</div>
+<div class="sect4">
+<h4 id="_συγχώνευση_αλλαγών_υπομονάδων">Συγχώνευση αλλαγών υπομονάδων</h4>
+<div class="paragraph">
+<p>Εάν αλλάξουμε μια αναφορά υποσυστήματος ταυτόχρονα με κάποιον άλλο, ενδέχεται να αντιμετωπίσουμε κάποια προβλήματα.
+Δηλαδή, εάν τα ιστορικά των υποσυστημάτων έχουν αποκλίνει και έχουν υποβληθεί σε διαφορετικούς κλάδους σε ένα υπερ-έργο, μπορεί να χρειαστεί λίγη δουλειά για να το διορθώσουμε.</p>
+</div>
+<div class="paragraph">
+<p>Εάν μία από τις υποβολές είναι ένας άμεσος πρόγονος της άλλης (μια συγχώνευση ταχυπροώθησης), τότε το Git θα επιλέξει απλά την τελευταίο για τη συγχώνευση και αυτό θα λειτουργήσει μια χαρά.</p>
+</div>
+<div class="paragraph">
+<p>Ωστόσο, το Git δεν θα επιχειρήσει ούτε καν και μια τετριμμένη συγχώνευση για μας.
+Εάν οι υποβολές της υπομονάδας αποκλίνουν και πρέπει να συγχωνευτούν, θα πάρουμε κάτι που μοιάζει με αυτό:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git pull
+remote: Counting objects: 2, done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 2 (delta 1), reused 2 (delta 1)
+Unpacking objects: 100% (2/2), done.
+From https://github.com/chaconinc/MainProject
+   9a377d1..eb974f8  master     -&gt; origin/master
+Fetching submodule DbConnector
+warning: Failed to merge submodule DbConnector (merge following commits not found)
+Auto-merging DbConnector
+CONFLICT (submodule): Merge conflict in DbConnector
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Έτσι, βασικά, αυτό που συνέβη εδώ είναι ότι το Git έχει καταλάβει ότι οι δύο κλάδοι καταγράφουν σημεία στο ιστορικό της υπομονάδας που είναι αποκλίνοντα και πρέπει να συγχωνευθούν.
+Το εξηγεί ως “δεν βρέθηκε συγχώνευση μετά τις υποβολές” (“merge following commits not found”), που μπερδεύει λιγάκι, αλλά θα εξηγήσουμε για ποιον λόγο σε λίγο.</p>
+</div>
+<div class="paragraph">
+<p>Για να λύσουμε το πρόβλημα, θα πρέπει να βρούμε σε ποια κατάσταση θα πρέπει να βρίσκεται η υπομονάδα.
+Παραδόξως, το Git δεν μας δίνει πραγματικά πολλές πληροφορίες για να μας βοηθήσει εδώ, ούτε καν τους αριθμούς SHA-1 των υποβολών των δύο πλευρών του ιστορικού.
+Ευτυχώς, είναι απλό να τη βρούμε.
+Αν εκτελέσουμε την <code>git diff</code>, μπορούμε να λάβουμε τους SHA-1 των υποβολών που καταγράφηκαν και στους δύο κλάδους που προσπαθούσαμε να συγχωνεύσουμε.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff
+diff --cc DbConnector
+index eb41d76,c771610..0000000
+--- a/DbConnector
++++ b/DbConnector</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Έτσι, στην περίπτωση αυτή, <code>eb41d76</code> είναι η υποβολή στην υπομονάδα μας που <strong>εμείς</strong> είχαμε και <code>c771610</code> είναι η υποβολή που υπήρχε στο upstream.
+Αν πάμε στον κατάλογο υπομονάδων μας, θα πρέπει να είναι ήδη στην <code>eb41d76</code> καθώς η συγχώνευση δεν τον άγγιξε.
+Εάν για οποιονδήποτε λόγο δεν είναι, μπορούμε απλά να δημιουργήσουμε έναν κλάδο που δείχνει σε αυτήν και να μεταβούμε σε αυτόν.</p>
+</div>
+<div class="paragraph">
+<p>Αυτό που είναι σημαντικό είναι ο SHA-1 της υποβολής από την άλλη πλευρά.
+Αυτός είναι που θα πρέπει να συγχωνεύσουμε και να επιλύσουμε.
+Μπορούμε είτε να δοκιμάσουμε τη συγχώνευση με τον SHA-1 απευθείας είτε να δημιουργήσουμε έναν κλάδο για αυτόν και στη συνέχεια να προσπαθήσουμε να τον συγχωνεύσουμε.
+Προτείνουμε το τελευταίο, έστω και μόνο για να βγάλει ένα καλύτερο μήνυμα συγχώνευσης.</p>
+</div>
+<div class="paragraph">
+<p>Έτσι, θα πάμε στον κατάλογο υπομονάδων μας, θα δημιουργήσουμε έναν κλάδο βασισμένοι σε αυτόν τον δεύτερο αριθμό SHA-1 από την <code>git diff</code> και θα συγχωνεύσουμε με το χέρι.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ cd DbConnector
+
+$ git rev-parse HEAD
+eb41d764bccf88be77aced643c13a7fa86714135
+
+$ git branch try-merge c771610
+(DbConnector) $ git merge try-merge
+Auto-merging src/main.c
+CONFLICT (content): Merge conflict in src/main.c
+Recorded preimage for 'src/main.c'
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Έχουμε μια πραγματική σύγκρουση συγχώνευσης εδώ, οπότε αν την επιλύσουμε και την υποβάλλουμε, τότε μπορούμε απλά να ενημερώσουμε το κύριο έργο με το αποτέλεσμα.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ vim src/main.c                       <b class="conum">(1)</b>
+$ git add src/main.c
+$ git commit -am 'merged our changes'
+Recorded resolution for 'src/main.c'.
+[master 9fd905e] merged our changes
+
+$ cd ..                                <b class="conum">(2)</b>
+$ git diff                             <b class="conum">(3)</b>
+diff --cc DbConnector
+index eb41d76,c771610..0000000
+--- a/DbConnector
++++ b/DbConnector
+@@@ -1,1 -1,1 +1,1 @@@
+- Subproject commit eb41d764bccf88be77aced643c13a7fa86714135
+ -Subproject commit c77161012afbbe1f58b5053316ead08f4b7e6d1d
+++Subproject commit 9fd905e5d7f45a0d4cbc43d1ee550f16a30e825a
+$ git add DbConnector                  <b class="conum">(4)</b>
+
+$ git commit -m "Merge Tom's Changes"  <b class="conum">(5)</b>
+[master 10d2c60] Merge Tom's Changes</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Επιλύουμε τη σύγκρουση</p>
+</li>
+<li>
+<p>Επιστρέφουμε στον κατάλογο του κύριου έργου</p>
+</li>
+<li>
+<p>Ελέγχουμε τους SHA-1 ξανά</p>
+</li>
+<li>
+<p>Επιλύουμε τη συγκρουόμενη καταχώρηση της υπομονάδας</p>
+</li>
+<li>
+<p>Υποβάλλουμε τη συγχώνευσή μας</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Μπορεί να φαίνεται λίγο συγκεχυμένη, αλλά δεν είναι πραγματικά πολύ δύσκολο.</p>
+</div>
+<div class="paragraph">
+<p>Είναι ενδιαφέρον ότι υπάρχει μια άλλη περίπτωση που μπορεί να χειριστεί το Git.
+Εάν υπάρχει υποβολή συγχώνευσης στον κατάλογο υπομονάδων που περιέχει <strong>και τις δύο</strong> υποβολές στο ιστορικό της, το Git θα μας το προτείνει ως πιθανή λύση.
+Βλέπει ότι σε κάποιο σημείο του έργου της υπομονάδας κάποιος συνένωσε κλάδους που περιέχουν αυτές τις δύο υποβολές, οπότε θεωρεί ότι ίσως θέλουμε αυτήν τη συγχώνευση.</p>
+</div>
+<div class="paragraph">
+<p>Αυτός είναι ο λόγος για τον οποίο το μήνυμα λάθους από πριν ήταν “δεν βρέθηκε συγχώνευση μετά τις υποβολές”, επειδή δεν μπορούσε να κάνει <strong>αυτό</strong>.
+Δημιουργεί σύγχυση διότι ποιος θα περίμενε <strong>να προσπαθήσει</strong> να το κάνει κάτι τέτοιο;</p>
+</div>
+<div class="paragraph">
+<p>Εάν διαπιστώσει ότι υπάρχει μία αποδεκτή υποβολή συγχώνευσης, θα δούμε κάτι σαν αυτό:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git merge origin/master
+warning: Failed to merge submodule DbConnector (not fast-forward)
+Found a possible merge resolution for the submodule:
+ 9fd905e5d7f45a0d4cbc43d1ee550f16a30e825a: &gt; merged our changes
+If this is correct simply add it to the index for example
+by using:
+
+  git update-index --cacheinfo 160000 9fd905e5d7f45a0d4cbc43d1ee550f16a30e825a "DbConnector"
+
+which will accept this suggestion.
+Auto-merging DbConnector
+CONFLICT (submodule): Merge conflict in DbConnector
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτό που προτείνει να κάνουμε είναι να ενημερώσουμε το ευρετήριο σαν να είχαμε εκτελέσει <code>git add</code>, που καθαρίζει τη σύγκρουση, και κατόπιν να υποβάλουμε. Μάλλον δεν πρέπει να το κάνουμε αυτό όμως. Μπορούμε το ίδιο εύκολα να μεταβούμε στον κατάλογο των υπομονάδων, να δούμε ποια είναι η διαφορά, να ταχυπροωθήσουμε αυτήν την υποβολή, να τη δοκιμάσουμε σωστά και στη συνέχεια να την υποβάλλουμε.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ cd DbConnector/
+$ git merge 9fd905e
+Updating eb41d76..9fd905e
+Fast-forward
+
+$ cd ..
+$ git add DbConnector
+$ git commit -am 'Fast forwarded to a common submodule child'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτό επιτυγχάνει το ίδιο πράγμα, αλλά τουλάχιστον με αυτόν τον τρόπο μπορούμε να επαληθεύσουμε ότι λειτουργεί και έχουμε τον κώδικα στον κατάλογο υπομονάδων μας όταν τελειώσουμε.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h3 id="_συμβουλές_για_υπομονάδες">Συμβουλές για υπομονάδες</h3>
+<div class="paragraph">
+<p>Υπάρχουν μερικά πράγματα που μπορούμε να κάνουμε για να κάνουμε την εργασία με τις υπομονάδες λίγο πιο εύκολη.</p>
+</div>
+<div class="sect4">
+<h4 id="_submodule_foreach"><code>submodule foreach</code></h4>
+<div class="paragraph">
+<p>Υπάρχει μια εντολή <code>submodule foreach</code> για να εκτελέσουμε μία οποιαδήποτε εντολή σε κάθε υπομονάδα.
+Αυτό μπορεί να είναι πραγματικά χρήσιμο εάν έχουμε πολλές υπομονάδες στο ίδιο έργο.</p>
+</div>
+<div class="paragraph">
+<p>Για παράδειγμα, ας υποθέσουμε ότι θέλουμε να ξεκινήσουμε μια νέα λειτουργία ή να διορθώσουμε ένα σφάλμα και έχουμε τρέχουσα εργασία σε διάφορες υπομονάδες.
+Μπορούμε εύκολα να αποθηκεύσουμε όλη τη δουλειά σε όλες τις υπομονάδες μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule foreach 'git stash'
+Entering 'CryptoLibrary'
+No local changes to save
+Entering 'DbConnector'
+Saved working directory and index state WIP on stable: 82d2ad3 Merge from origin/stable
+HEAD is now at 82d2ad3 Merge from origin/stable</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Στη συνέχεια, μπορούμε να δημιουργήσουμε έναν νέο κλάδο και να μεταβούμε σε αυτόν σε όλες τις υπομονάδες μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git submodule foreach 'git checkout -b featureA'
+Entering 'CryptoLibrary'
+Switched to a new branch 'featureA'
+Entering 'DbConnector'
+Switched to a new branch 'featureA'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτή είναι η βασική ιδέα.
+Κάτι πραγματικά χρήσιμο που μπορούμε να κάνουμε είναι να παράγουμε μια ωραία ενοποιημένη diff από αυτό που αλλάζει στο κύριο έργο μας και όλα τα υποέργα μας.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git diff; git submodule foreach 'git diff'
+Submodule DbConnector contains modified content
+diff --git a/src/main.c b/src/main.c
+index 210f1ae..1f0acdc 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -245,6 +245,8 @@ static int handle_alias(int *argcp, const char ***argv)
+
+      commit_pager_choice();
+
++     url = url_decode(url_orig);
++
+      /* build alias_argv */
+      alias_argv = xmalloc(sizeof(*alias_argv) * (argc + 1));
+      alias_argv[0] = alias_string + 1;
+Entering 'DbConnector'
+diff --git a/src/db.c b/src/db.c
+index 1aaefb6..5297645 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -93,6 +93,11 @@ char *url_decode_mem(const char *url, int len)
+        return url_decode_internal(&amp;url, len, NULL, &amp;out, 0);
+ }
+
++char *url_decode(const char *url)
++{
++       return url_decode_mem(url, strlen(url));
++}
++
+ char *url_decode_parameter_name(const char **query)
+ {
+        struct strbuf out = STRBUF_INIT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εδώ μπορούμε να δούμε ότι ορίζουμε μια λειτουργία σε μία υπομονάδα και την καλούμε στο κύριο έργο.
+Αυτό είναι προφανώς ένα απλοποιημένο παράδειγμα, αλλά μας δίνει μια ιδέα για το πώς μπορεί να είναι χρήσιμο.</p>
+</div>
+</div>
+<div class="sect4">
+<h4 id="_χρήσιμα_ψευδώνυμα">Χρήσιμα ψευδώνυμα</h4>
+<div class="paragraph">
+<p>Μπορεί να θέλουμε να ορίσουμε ορισμένα ψευδώνυμα (aliases) για ορισμένες από αυτές τις εντολές, καθώς μπορεί να είναι αρκετά μακροσκελείς και για τις περισσότερες από αυτές δεν μπορούμε να ορίσουμε επιλογές διαμόρφωσης για να τις καταστήσουμε προεπιλεγμένες.
+Καλύψαμε τη δημιουργία των ψευδωνύμων του Git στην ενότητα <a href="ch00/r_git_aliases">Συντομεύεσεις στο Git</a>, αλλά εδώ είναι ένα παράδειγμα του τι μπορεί να θέλουμε να ρυθμίσουμε εάν σκοπεύουμε να δουλεύουμε συχνά με υπομονάδες στο Git.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config alias.sdiff '!'"git diff &amp;&amp; git submodule foreach 'git diff'"
+$ git config alias.spush 'push --recurse-submodules=on-demand'
+$ git config alias.supdate 'submodule update --remote --merge'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Με αυτό τον τρόπο μπορούμε απλά να εκτελέσουμε την <code>git supdate</code> όταν θέλουμε να ενημερώσουμε τις υπομονάδες μας ή την <code>git spush</code> για να ωθήσουμε τον έλεγχο εξαρτήσεων των υπομονάδων.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h3 id="_προβλήματα_με_τις_υπομονάδες">Προβλήματα με τις υπομονάδες</h3>
+<div class="paragraph">
+<p>Η χρήση υπομονάδων έχει, κι αυτή, τα προβλήματά της.</p>
+</div>
+<div class="paragraph">
+<p>Για παράδειγμα, η εναλλαγή κλάδων που περιέχουν υπομονάδες μπορεί επίσης να είναι δύσκολη.
+Εάν δημιουργήσουμε έναν νέο κλάδο, προσθέσουμε σ' αυτόν μία υπομονάδα και στη συνέχεια μεταβούμε σε έναν κλάδο χωρίς αυτήν την υπομονάδα, εξακολουθούμε να έχουμε τον κατάλογο υπομονάδων ως έναν μη-παρακολουθούμενο κατάλογο:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git checkout -b add-crypto
+Switched to a new branch 'add-crypto'
+
+$ git submodule add https://github.com/chaconinc/CryptoLibrary
+Cloning into 'CryptoLibrary'...
+...
+
+$ git commit -am 'adding crypto library'
+[add-crypto 4445836] adding crypto library
+ 2 files changed, 4 insertions(+)
+ create mode 160000 CryptoLibrary
+
+$ git checkout master
+warning: unable to rmdir CryptoLibrary: Directory not empty
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+	CryptoLibrary/
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η κατάργηση του καταλόγου δεν είναι δύσκολη, αλλά μπορεί να μας μπερδέψει λίγο η παρουσία του.
+Αν τον διαγράψουμε και μετά επιστρέψουμε στον κλάδο που έχει αυτήν την υπομονάδα, θα χρειαστεί να εκτελέσουμε την <code>submodule update --init</code> για να τον επαναοικίσουμε.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git clean -fdx
+Removing CryptoLibrary/
+
+$ git checkout add-crypto
+Switched to branch 'add-crypto'
+
+$ ls CryptoLibrary/
+
+$ git submodule update --init
+Submodule path 'CryptoLibrary': checked out 'b8dda6aa182ea4464f3f3264b11e0268545172af'
+
+$ ls CryptoLibrary/
+Makefile	includes	scripts		src</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Και πάλι, δεν είναι πραγματικά πολύ δύσκολο, αλλά μπορεί να μας μπερδέψει λίγο.</p>
+</div>
+<div class="paragraph">
+<p>Ένα άλλο πρόβλημα, που αντιμετωπίζουν πολλοί, εμπλέκει τη μετατροπή υποκαταλόγων σε υπομονάδες.
+Αν παρακολουθούμε αρχεία στο έργο μας και θέλουμε να τα μετακινήσουμε σε κάποια υπομονάδα, πρέπει να είμαστε προσεκτικοί αλλιώς το Git θα μας θυμώσει.
+Ας υποθέσουμε ότι έχουμε αρχεία σε έναν υποκατάλογο του έργου μας και θέλουμε να τον μετατρέψουμε σε υπομονάδα.
+Αν διαγράψουμε τον υποκατάλογο και στη συνέχεια εκτελέσουμε το <code>submodule add</code>, το Git μάς μαλώνει:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ rm -Rf CryptoLibrary/
+$ git submodule add https://github.com/chaconinc/CryptoLibrary
+'CryptoLibrary' already exists in the index</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Πρέπει πρώτα να αφαιρέσουμε τον κατάλογο <code>CryptoLibrary</code> από το στάδιο καταχώρισης.
+Κατόπιν μπορούμε να προσθέσουμε την υπομονάδα:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git rm -r CryptoLibrary
+$ git submodule add https://github.com/chaconinc/CryptoLibrary
+Cloning into 'CryptoLibrary'...
+remote: Counting objects: 11, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 11 (delta 0), reused 11 (delta 0)
+Unpacking objects: 100% (11/11), done.
+Checking connectivity... done.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Τώρα ας υποθέσουμε ότι το κάνουμε σε έναν κλάδο.
+Αν προσπαθήσουμε να μεταβούμε σε κλάδο στον οποίο αυτά τα αρχεία βρίσκονται ακόμα στο πραγματικό δέντρο και όχι σε μία υπομονάδα, λαμβάνουμε αυτό το σφάλμα:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git checkout master
+error: The following untracked working tree files would be overwritten by checkout:
+  CryptoLibrary/Makefile
+  CryptoLibrary/includes/crypto.h
+  ...
+Please move or remove them before you can switch branches.
+Aborting</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Μπορούμε να επιβάλουμε τη μετατροπή με την <code>checkout -f</code>, αλλά πρέπει να είμαστε προσεκτικοί να μην υπάρχουν μη αποθηκευμένες αλλαγές εκεί διότι θα μπορούσαν να αντικατασταθούν με αυτήν την εντολή.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git checkout -f master
+warning: unable to rmdir CryptoLibrary: Directory not empty
+Switched to branch 'master'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Στη συνέχεια, όταν επιστρέφουμε, παίρνουμε έναν κενό κατάλογο <code>CryptoLibrary</code> για κάποιο λόγο και η <code>git submodule update</code> δεν μπορεί να το διορθώσει.
+Ενδέχεται να χρειαστεί να μεταβούμε στον κατάλογο υπομονάδων μας και να εκτελέσουμε μία <code>git checkout</code> για να ξαναπάρουμε όλα τα αρχεία μας.
+Θα μπορούσαμε να το κάνουμε αυτό με σε ένα script με <code>submodule foreach</code>, ώστε να εκτελεστεί για πολλές υπομονάδες.</p>
+</div>
+<div class="paragraph">
+<p>Είναι σημαντικό να σημειώσουμε ότι οι υπομονάδες στις νεότερες εκδόσεις του Git διατηρούν όλα τα δεδομένα Git στον κατάλογο <code>.git</code> του κορυφαίου έργου, έτσι αντίθετα από πολύ παλιότερες εκδόσεις, η καταστροφή ενός καταλόγου υπομονάδων, δεν θα απωλέσει καμία υποβολή ή κλάδο που είχαμε.</p>
+</div>
+<div class="paragraph">
+<p>Με αυτά τα εργαλεία, οι υπομονάδες μπορούν να είναι μια αρκετά απλή και αποτελεσματική μέθοδος για την ταυτόχρονη ανάπτυξη σε πολλά σχετιζόμενα αλλά ξεχωριστά έργα.</p>
+</div>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>

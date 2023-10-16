@@ -1,0 +1,58 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: 'Appendix A: Το Git σε άλλα περιβάλλοντα'
+    number: 1
+  section:
+    title: Το Git στο Powershell
+    number: 6
+    cs_number: A1.6
+    previous: book/gr/v2/Appendix-A:-Το-Git-σε-άλλα-περιβάλλοντα-Το-Git-στο-Zsh
+    next: book/gr/v2/Appendix-A:-Το-Git-σε-άλλα-περιβάλλοντα-Ανακεφαλαίωση
+title: Git - Το Git στο Powershell
+url: book/gr/v2/Appendix-A:-Το-Git-σε-άλλα-περιβάλλοντα-Το-Git-στο-Powershell
+
+---
+<h2 id="r_git_powershell">Το Git στο Powershell</h2>
+<div class="paragraph">
+<p>
+
+Το σύνηθες τερματικό γραμμής εντολών στα Windows (<code>cmd.exe</code>) δεν είναι ικανό για μια εξατομικευμένη εμπειρία Git, αλλά όσοι χρησιμοποιούμε το Powershell, έχουμε αυτήν την τύχη.
+Ένα πακέτο που ονομάζεται Posh-Git (<a href="https://github.com/dahlbyk/posh-git" class="bare">https://github.com/dahlbyk/posh-git</a>) παρέχει ισχυρές δυνατότητες συμπλήρωσης με tab, καθώς και μια βελτιωμένη προτροπή για να μας βοηθήσει να έχουμε τον έλεγχο της κατάστασης αποθετηρίων μας.
+Μοιάζει με αυτό:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="{{< relurl "book/en/v2/images/posh-git.png" >}}" alt="Powershell με Posh-git.">
+</div>
+<div class="title">Figure 165. Powershell με Posh-git.</div>
+</div>
+<div class="paragraph">
+<p>Αν έχουμε εγκαταστήσει το GitHub για Windows, το Posh-Git περιλαμβάνεται εκ προεπιλογής και το μόνο που έχουμε να κάνουμε είναι να προσθέσουμε αυτές τις γραμμές στο <code>profile.ps1</code> μας (το οποίο συνήθως βρίσκεται στο φάκελο <code>C:\Users\&lt;όνομα_χρήστη&gt;Documents\WindowsPowerShell</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-powershell" data-lang="powershell">. (Resolve-Path "$env:LOCALAPPDATA\GitHub\shell.ps1")
+. $env:github_posh_git\profile.example.ps1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Εάν δεν είμαστε χρήστες του GitHub για Windows, θα χρειαστεί να κατεβάσουμε μια έκδοση του Posh-Git (από το <a href="https://github.com/dahlbyk/posh-git" class="bare">https://github.com/dahlbyk/posh-git</a>) και να την αποσυμπιέσουμε στον κατάλογο <code>WindowsPowershell</code>.
+Στη συνέχεια ανοίγουμε μια εντολή Powershell ως διαχειριστές και κάνουμε το εξής:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-powershell" data-lang="powershell">&gt; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Confirm
+&gt; cd ~\Documents\WindowsPowerShell\posh-git
+&gt; .\install.ps1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτό θα προσθέσει τη σωστή γραμμή στο αρχείο μας <code>profile.ps1</code> και το posh-git θα είναι ενεργό την επόμενη φορά που θα ανοίξουμε το τερματικό μας.</p>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>

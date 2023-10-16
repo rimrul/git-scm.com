@@ -1,0 +1,97 @@
+---
+category: book
+section: documentation
+subsection: book
+sidebar: book
+book:
+  language_code: gr
+  chapter:
+    title: Τα θεμελιώδη στοιχεία του Git
+    number: 2
+  section:
+    title: Συντομεύεσεις στο Git
+    number: 7
+    cs_number: '2.7'
+    previous: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Χρησιμοποιώντας-ετικέτες
+    next: book/gr/v2/Τα-θεμελιώδη-στοιχεία-του-Git-Ανακεφαλαίωση
+title: Git - Συντομεύεσεις στο Git
+
+---
+<h2 id="r_git_aliases">Συντομεύεσεις στο Git</h2>
+<div class="paragraph">
+<p>
+Πριν τελειώσουμε το κεφάλαιο αυτό, υπάρχει μια μικρή συμβουλή την οποία αν ακολουθήσουμε θα κάνουμε την εμπειρία μας με το Git πιο απλή: να χρησιμοποιούμε τις συντομεύσεις.
+Δεν θα αναφερθούμε για αυτές στη συνέχεια του βιβλίου, αλλά καλό θα ήταν να ξέρουμε πώς να τις χρησιμοποιούμε.</p>
+</div>
+<div class="paragraph">
+<p>Το Git μπορεί να καταλάβει μια εντολή μόνο αν τη γράψουμε ολόκληρη.
+Αν δεν θέλουμε να πληκτρολογήσουμε όλα τα γράμματα μιας εντολής, μπορούμε να ορίσουμε μια συντόμευση για κάθε εντολή χρησιμοποιώντας την <code>git config</code>.
+Μερικά παραδείγματα για το πώς μπορούμε να ορίσουμε μερικές συντομεύσεις:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Αυτό σημαίνει ότι μπορούμε, για παράδειγμα, να πληκτρολογήσουμε <code>git ci</code> αντί για <code>git commit</code>.
+Καθώς χρησιμοποιούμε το Git, θα δούμε ότι υπάρχουν και άλλες εντολές που χρησιμοποιούμε συχνά. Καλό είναι να μην παραλείψουμε να δημιουργήσουμε συντομεύσεις και για αυτές.</p>
+</div>
+<div class="paragraph">
+<p>Η τεχνική αυτή μπορεί να φανεί χρήσιμη για εντολές που πιστεύουμε ότι θα έπρεπε να υπήρχαν.
+Για παράδειγμα, αν θέλουμε να κάνουμε πιο εύχρηστη τη διαδικασία ακύρωσης καταχώρησης ενός αρχείου, μπορούμε να δημιουργήσουμε μια συντόμευση για αυτή:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config --global alias.unstage 'reset HEAD --'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Με αυτόν τον τρόπο, οι δύο παρακάτω εντολές γίνονται ισοδύναμες:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git unstage fileA
+$ git reset HEAD fileA</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Η εντολή που εκτελούμε φαίνεται πλέον πιο καθαρά.
+Η συντόμευση <code>last</code> είναι επίσης πολύ συνηθισμένη:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config --global alias.last 'log -1 HEAD'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Με τον τρόπο αυτό μπορούμε να δούμε εύκολα την τελευταία υποβολή:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git last
+commit 66938dae3329c7aebe598c2246a8e6af90d04646
+Author: Josh Goebel &lt;dreamer3@example.com&gt;
+Date:   Tue Aug 26 19:48:51 2008 +0800
+
+    test for current head
+
+    Signed-off-by: Scott Chacon &lt;schacon@example.com&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Όπως μπορούμε να δούμε, το Git μπορεί να αντικαταστήσει μια εντολή με οποιαδήποτε συντόμευση ορίσουμε.
+Παρόλα αυτά, μπορεί αντί για μια εντολή του Git, να θέλουμε να εκτελέσουμε μια εξωτερική εντολή.
+Στην περίπτωση αυτή, θα πρέπει να ξεκινήσουμε την εντολή με τον χαρακτήρα του θαυμαστικού, <code>!</code>.
+Αυτό θα μας φανεί χρήσιμο αν χρησιμοποιούμε εξωτερικά εργαλεία που δουλεύουν με αποθετήρια Git.
+Για παράδειγμα, μπορούμε να χρησιμοποιήσουμε τη συντόμευση <code>git visual</code> για να εκτελέσουμε την εντολή <code>gitk</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ git config --global alias.visual '!gitk'</code></pre>
+</div>
+</div>
+<div id="nav"><a href="{{< previous-section >}}">prev</a> | <a href="{{< next-section >}}">next</a></div>
