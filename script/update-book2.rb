@@ -154,6 +154,15 @@ def genbook(language_code, &get_content)
         end
       end
 
+      xlink = html.scan(/href="(https:\/\/git-scm\.com\/.*?[^\/])\#(.*?)"/)
+      xlink&.each do |link|
+        begin
+          html.gsub!("href=\"#{link.first}\##{link[1]}\"", "href=\"#{link.first}/\##{link[1]}\"")
+        rescue StandardError
+          nil
+        end
+      end
+
       images = []
       subsec = html.scan(/<img src="(.*?)"/)
       subsec&.each do |sub|

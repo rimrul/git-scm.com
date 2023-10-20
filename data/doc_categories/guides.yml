@@ -23,7 +23,7 @@ commands:
     title: "Tutorial"
   - doc: "gitworkflows"
     title: "Workflows"
-  - doc: "git#_guides"
+  - doc: "git/#_guides"
     title: "All guides..."
     no_append_lang: true
 ---
