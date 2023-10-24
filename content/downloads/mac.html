@@ -38,7 +38,7 @@ aliases:
         let ago = "" + daysAgo + " days ago"
 
         const handwave = (exact, unit) => {
-          const rest = (count) => "" + count + " " + unit + (count > 1 ? "s" : "") + " ago"
+          const rest = count => `${count} ${unit}${count > 1 ? "s" : ""} ago`
 
           const roundedDown = Math.floor(exact)
           const fract = exact - roundedDown
